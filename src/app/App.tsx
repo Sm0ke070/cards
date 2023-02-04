@@ -1,15 +1,17 @@
 import React from 'react';
 import './App.css';
 import {Navigate, Route, Routes} from "react-router-dom";
-import Login from "../features/auth/login/Login";
 import Profile from "../features/profile/Profile";
-import Registration from "../features/auth/registration/Registration";
+import Registration from "../features/auth/sign-up/Registration";
 import NewPassword from "../features/password/new-password/NewPassword";
 import ResetPassword from "../features/password/reset-password/ResetPassword";
-import Test from "../components/TEST/Test";
-import Layout from "../components/Layout/Layout";
+import Test from "../common/components/super-components/Test";
+import Layout from "../common/components/Layout/Layout";
+import Login from "../features/auth/sign-in/Login";
 
 const App = () => {
+
+
     return (
         <>
             <Routes>
