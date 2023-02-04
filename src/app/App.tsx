@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {Link, Navigate, Route, Routes} from "react-router-dom";
+import {Navigate, Route, Routes} from "react-router-dom";
 import Login from "../features/auth/login/Login";
 import Profile from "../features/profile/Profile";
 import Registration from "../features/auth/registration/Registration";
