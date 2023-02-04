@@ -1,6 +1,9 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {authAPI} from "./login.api";
 import {SubmitHandler, useForm} from "react-hook-form";
+import {useAppDispatch, useAppSelector} from "../../../app/store";
+import {Navigate} from "react-router-dom";
+import {loginTC} from "./auth-reducer";
 
 
 type LoginType = {
@@ -9,17 +12,16 @@ type LoginType = {
     rememberMe: boolean
 }
 const Login = () => {
-    useEffect(() => {
-        authAPI.login({
-            "email": "smokedeveloper070@gmail.com",
-            "password": "100%_Smoke",
-            "rememberMe": true
-        })
-            .then(res => res.data._id)
-    })
-    const {register, handleSubmit, formState: {errors}} = useForm<LoginType>()
-    const onSubmit: SubmitHandler<LoginType> = (data) => {
-        alert(data.email)
+    const dispatch = useAppDispatch()
+    const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
+    const {register, handleSubmit, formState: {errors}, reset} = useForm<LoginType>({mode: 'onChange'})
+    const onSubmit: SubmitHandler<LoginType> = (data: LoginType) => {
+        dispatch(loginTC(data))
+        reset()
+    }
+
+    if (isLoggedIn) {
+        return <Navigate to={'/profile'}/>
     }
 
     return (
@@ -27,13 +29,26 @@ const Login = () => {
             <h1>LOGIN</h1>
             <form onSubmit={handleSubmit(onSubmit)} action="">
                 <div>
-                <input {...(register("email",{required: 'email is required'}))} placeholder={'email'} type="text"/>
-                {errors.email&& <div>{errors.email.message}</div>}
+                    <input {...(register("email", {
+                        required: 'email is required',
+                        pattern: {
+                            value: /^((([0-9A-Za-z]{1}[-0-9A-z\.]{1,}[0-9A-Za-z]{1})|([0-9А-Яа-я]{1}[-0-9А-я\.]{1,}[0-9А-Яа-я]{1}))@([-A-Za-z]{1,}\.){1,2}[-A-Za-z]{2,})$/u,
+                            message: 'Please enter valid email!'
+                        }
+                    }))} placeholder={'email'} type="text"/>
+                    {errors.email && <div>{errors.email.message}</div>}
                 </div>
-                <input {...register("password")} placeholder={'pass'} type="text"/>
-                <input{...register("rememberMe")} placeholder={'pass'} type="checkbox"/>
 
-                <button>ok</button>
+                <input {...register("password", {required: 'password is required'})} placeholder={'pass'} type="text"/>
+                {errors.password && <div>{errors.password.message}</div>}
+
+                <div>
+                    <input{...register("rememberMe")} type="checkbox"/>
+                </div>
+
+                <div>
+                    <button>ok</button>
+                </div>
 
             </form>
 
