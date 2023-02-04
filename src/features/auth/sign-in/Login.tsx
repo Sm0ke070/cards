@@ -1,5 +1,4 @@
 import React from 'react';
-import {authAPI} from "./login.api";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {useAppDispatch, useAppSelector} from "../../../app/store";
 import {Navigate} from "react-router-dom";
