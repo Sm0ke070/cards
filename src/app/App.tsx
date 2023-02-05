@@ -18,10 +18,11 @@ const App = () => {
     const status = useAppSelector<RequestStatusType>((state) => state.app.status)
     const isInitialized = useAppSelector((state) => state.app.isInitialized)
     const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
+    //const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
 
     useEffect(() => {
         dispatch(meTC())
-    }, [])
+    }, [dispatch])
 
     const logout = () => {
         dispatch(logoutTC())

@@ -23,9 +23,9 @@ export const loginTC = (data: any) => async (dispatch: Dispatch<ActionsType>) =>
 
     try {
         const res = await authAPI.login(data)
-        if (res) {
+        if (res.statusText === 'OK') {
             dispatch(setIsLoggedInAC(true))
-
+            console.log(res)
         } else {
 
         }
@@ -33,6 +33,7 @@ export const loginTC = (data: any) => async (dispatch: Dispatch<ActionsType>) =>
         const err = e as Error | AxiosError<{ error: string }>
         if (axios.isAxiosError(err)) {
             const error = err.response?.data ? err.response.data.error : err.message
+            console.log(error)
             //dispatch(setAppErrorAC(error))
         } else {
             //dispatch(setAppErrorAC(`Native error ${err.message}`))

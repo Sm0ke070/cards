@@ -4,7 +4,6 @@ import {useAppDispatch, useAppSelector} from "../../../app/store";
 import {Link, Navigate} from "react-router-dom";
 import {loginTC} from "./auth-reducer";
 
-
 type LoginType = {
     email: string
     password: string
@@ -16,14 +15,11 @@ const Login = () => {
     const {register, handleSubmit, formState: {errors}, reset} = useForm<LoginType>({mode: 'onChange'})
     const onSubmit: SubmitHandler<LoginType> = (data: LoginType) => {
         dispatch(loginTC(data))
-        console.log(data)
         reset()
     }
-
     if (isLoggedIn) {
         return <Navigate to={'/profile'}/>
     }
-
     return (
         <>
             <h1>LOGIN</h1>
