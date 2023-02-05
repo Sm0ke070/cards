@@ -15,7 +15,6 @@ const Login = () => {
     const {register, handleSubmit, formState: {errors}, reset} = useForm<LoginType>({mode: 'onChange'})
     const onSubmit: SubmitHandler<LoginType> = (data: LoginType) => {
         dispatch(loginTC(data))
-        console.log(data)
         reset()
     }
     if (isLoggedIn) {
