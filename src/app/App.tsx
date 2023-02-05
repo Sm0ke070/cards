@@ -43,8 +43,8 @@ const App = () => {
                     <Route path={'/profile'} element={<Profile/>}/>
                     <Route path={'/sign-in'} element={<Login/>}/>
                     <Route path={'/sign-up'} element={<Registration/>}/>
-                    <Route path={'/res_password'} element={<ResetPassword/>}/>
-                    <Route path={'/new_password/:resetPasswordToken'} element={<NewPassword/>}/>
+                    <Route path={'/res-password'} element={<ResetPassword/>}/>
+                    <Route path={'/new-password/:resetPasswordToken'} element={<NewPassword/>}/>
                     <Route path={'/test'} element={<Test/>}/>
                     <Route path={'/404'} element={<h1 style={{textAlign: 'center'}}>Page not found</h1>}/>
                     <Route path={'*'} element={<Navigate to={'/404'}/>}/>
