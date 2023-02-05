@@ -4,7 +4,7 @@ import {Navigate, Route, Routes} from "react-router-dom";
 import Profile from "../features/profile/Profile";
 import Registration from "../features/auth/sign-up/Registration";
 import NewPassword from "../features/password/new-password/NewPassword";
-import ResetPassword from "../features/password/reset-password/ResetPassword";
+import ResetPassword from "../features/password/forgot-password/ResetPassword";
 import Test from "../common/components/super-components/Test";
 import Layout from "../common/components/Layout/Layout";
 import Login from "../features/auth/sign-in/Login";
@@ -18,7 +18,6 @@ const App = () => {
     const status = useAppSelector<RequestStatusType>((state) => state.app.status)
     const isInitialized = useAppSelector((state) => state.app.isInitialized)
     const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
-    //const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
 
     useEffect(() => {
         dispatch(meTC())
