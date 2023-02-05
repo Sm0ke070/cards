@@ -4,7 +4,6 @@ import {useAppDispatch, useAppSelector} from "../../../app/store";
 import {Navigate} from "react-router-dom";
 import {loginTC} from "./auth-reducer";
 
-
 type LoginType = {
     email: string
     password: string
@@ -18,11 +17,9 @@ const Login = () => {
         dispatch(loginTC(data))
         reset()
     }
-
     if (isLoggedIn) {
         return <Navigate to={'/profile'}/>
     }
-
     return (
         <>
             <h1>LOGIN</h1>
