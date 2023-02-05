@@ -1,7 +1,7 @@
 import React from 'react';
 import {SubmitHandler, useForm} from "react-hook-form";
 import {useAppDispatch, useAppSelector} from "../../../app/store";
-import {Navigate} from "react-router-dom";
+import {Link, Navigate} from "react-router-dom";
 import {loginTC} from "./auth-reducer";
 
 type LoginType = {
@@ -15,6 +15,7 @@ const Login = () => {
     const {register, handleSubmit, formState: {errors}, reset} = useForm<LoginType>({mode: 'onChange'})
     const onSubmit: SubmitHandler<LoginType> = (data: LoginType) => {
         dispatch(loginTC(data))
+        console.log(data)
         reset()
     }
     if (isLoggedIn) {
@@ -39,11 +40,14 @@ const Login = () => {
                 {errors.password && <div>{errors.password.message}</div>}
 
                 <div>
-                    <input{...register("rememberMe")} type="checkbox"/>
+                    <input{...register("rememberMe")} type="checkbox"/> rememberMe
                 </div>
 
                 <div>
                     <button>ok</button>
+                </div>
+                <div>
+                    <Link to="/sign-up">sign-up</Link>
                 </div>
 
             </form>
