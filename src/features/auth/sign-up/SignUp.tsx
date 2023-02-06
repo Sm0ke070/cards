@@ -33,7 +33,7 @@ const SignUp = () => {
     }
 
     if (isRegistered) {
-        return <Navigate to={'/login'}/>
+        return <Navigate to={'/sign-in'}/>
     }
     return (
         <div>

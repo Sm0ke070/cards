@@ -7,7 +7,7 @@ import NewPassword from "../features/password/new-password/NewPassword";
 import ResetPassword from "../features/password/forgot-password/ResetPassword";
 import Test from "../common/components/super-components/Test";
 import Layout from "../common/components/Layout/Layout";
-import Login from "../features/auth/sign-in/Login";
+import SingIn from "../features/auth/sign-in/SingIn";
 import {useAppDispatch, useAppSelector} from "./store";
 import {meTC, RequestStatusType} from "./app-reducer";
 import {logoutTC} from "../features/auth/sign-in/auth-reducer";
@@ -41,8 +41,8 @@ const App = () => {
             <Routes>
                 <Route path={'/'} element={<Layout/>}>
                     <Route path={'/profile'} element={<Profile/>}/>
-                    <Route path={'/login'} element={<Login/>}/>
-                    <Route path={'/registration'} element={<SignUp/>}/>
+                    <Route path={'/sign-in'} element={<SingIn/>}/>
+                    <Route path={'/sign-up'} element={<SignUp/>}/>
                     <Route path={'/res_password'} element={<ResetPassword/>}/>
                     <Route path={'/new_password/:resetPasswordToken'} element={<NewPassword/>}/>
                     <Route path={'/test'} element={<Test/>}/>
