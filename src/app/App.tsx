@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import './App.css';
 import {Navigate, Route, Routes} from "react-router-dom";
 import Profile from "../features/profile/Profile";
-import Registration from "../features/auth/sign-up/Registration";
+import SignUp from "../features/auth/sign-up/SignUp";
 import NewPassword from "../features/password/new-password/NewPassword";
 import ResetPassword from "../features/password/forgot-password/ResetPassword";
 import Test from "../common/components/super-components/Test";
@@ -41,10 +41,10 @@ const App = () => {
             <Routes>
                 <Route path={'/'} element={<Layout/>}>
                     <Route path={'/profile'} element={<Profile/>}/>
-                    <Route path={'/sign-in'} element={<Login/>}/>
-                    <Route path={'/sign-up'} element={<Registration/>}/>
-                    <Route path={'/res-password'} element={<ResetPassword/>}/>
-                    <Route path={'/new-password/:resetPasswordToken'} element={<NewPassword/>}/>
+                    <Route path={'/login'} element={<Login/>}/>
+                    <Route path={'/registration'} element={<SignUp/>}/>
+                    <Route path={'/res_password'} element={<ResetPassword/>}/>
+                    <Route path={'/new_password/:resetPasswordToken'} element={<NewPassword/>}/>
                     <Route path={'/test'} element={<Test/>}/>
                     <Route path={'/404'} element={<h1 style={{textAlign: 'center'}}>Page not found</h1>}/>
                     <Route path={'*'} element={<Navigate to={'/404'}/>}/>
