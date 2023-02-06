@@ -6,7 +6,7 @@ export const instance = axios.create({
     withCredentials: true,
 })
 
-export const authAPI = {
+export const SingInAPI = {
     login(data: LoginParamsType) {
         return instance.post<LoginParamsType, AxiosResponse<ResponseType>>('/auth/login', data)
     },

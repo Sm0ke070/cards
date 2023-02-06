@@ -1,0 +1,10 @@
+.headerContainer{
+    display: flex;
+    padding: 10px;
+}
+
+.headerContainer>div{
+    margin: 5px;
+    padding: 10px;
+    border: 1px solid;
+}

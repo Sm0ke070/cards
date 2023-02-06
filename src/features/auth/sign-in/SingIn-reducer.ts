@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {authAPI} from "./login.api";
+import {SingInAPI} from "./SingIn.api";
 import axios, {AxiosError} from "axios";
 import {ActionsType} from '../../../app/store';
 
@@ -9,7 +9,7 @@ const initialState = {
 }
 type InitialStateType = typeof initialState
 
-export const authReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+export const singInReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case 'login/SET-IS-LOGGED-IN':
             return {...state, isLoggedIn: action.value}
@@ -23,7 +23,7 @@ export const setIsLoggedInAC = (value: boolean) =>
 export const loginTC = (data: any) => async (dispatch: Dispatch<ActionsType>) => {
 
     try {
-        const res = await authAPI.login(data)
+        const res = await SingInAPI.login(data)
         if (res.statusText === 'OK') {
             dispatch(setIsLoggedInAC(true))
             console.log(res)
@@ -44,7 +44,7 @@ export const loginTC = (data: any) => async (dispatch: Dispatch<ActionsType>) =>
 
 export const logoutTC = () => (dispatch: Dispatch<ActionsType>) => {
     //dispatch(setAppStatusAC('loading'))
-    authAPI.logout()
+    SingInAPI.logout()
         .then(res => {
             if (res) {
                 dispatch(setIsLoggedInAC(false))

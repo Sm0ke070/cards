@@ -1,5 +1,5 @@
-import {instance} from '../sign-in/login.api';
 import {AxiosResponse} from 'axios';
+import {instance} from "../sign-in/SingIn.api";
 
 
 export const signUpAPI = {

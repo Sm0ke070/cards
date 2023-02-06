@@ -1,6 +1,6 @@
-import {authAPI} from "../features/auth/sign-in/login.api";
-import {setIsLoggedInAC} from "../features/auth/sign-in/auth-reducer";
+import {setIsLoggedInAC} from "../features/auth/sign-in/SingIn-reducer";
 import {Dispatch} from "redux";
+import {SingInAPI} from "../features/auth/sign-in/SingIn.api";
 
 const initialState: InitialStateType = {
     status: 'idle',
@@ -37,7 +37,7 @@ export const setIsInitializedStatusAC = (value: boolean) => ({type: 'APP/SET-INI
 export const meTC = () => async (dispatch: Dispatch<ActionsType>) => {
     dispatch(setAppStatusAC('loading'))
     try {
-        const res = await authAPI.me()
+        const res = await SingInAPI.me()
         if (res) {
             dispatch(setIsLoggedInAC(true))
             dispatch(setAppStatusAC('succeeded'))

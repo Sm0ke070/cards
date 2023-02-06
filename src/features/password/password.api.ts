@@ -7,8 +7,13 @@ export const instance = axios.create({
 })
 
 export const passwordAPI = {
-    login() {
-        return instance.post('/auth/forgot')
+    resetPassword(data: resetPasswordParamsType) {
+        return instance.post<resetPasswordParamsType>('/auth/forgot', data)
 
     }
+}
+
+export type resetPasswordParamsType = {
+    email: string
+    message: string
 }

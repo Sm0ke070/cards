@@ -10,7 +10,7 @@ import Layout from "../common/components/Layout/Layout";
 import SingIn from "../features/auth/sign-in/SingIn";
 import {useAppDispatch, useAppSelector} from "./store";
 import {meTC, RequestStatusType} from "./app-reducer";
-import {logoutTC} from "../features/auth/sign-in/auth-reducer";
+import {logoutTC} from "../features/auth/sign-in/SingIn-reducer";
 
 const App = () => {
 
@@ -22,11 +22,9 @@ const App = () => {
     useEffect(() => {
         dispatch(meTC())
     }, [dispatch])
-
     const logout = () => {
         dispatch(logoutTC())
     }
-
     if (!isInitialized) {
         return <div
             style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
@@ -40,13 +38,13 @@ const App = () => {
             {isLoggedIn && <button onClick={logout}>logOut</button>}
             <Routes>
                 <Route path={'/'} element={<Layout/>}>
-                    <Route path={'/profile'} element={<Profile/>}/>
-                    <Route path={'/sign-in'} element={<SingIn/>}/>
-                    <Route path={'/sign-up'} element={<SignUp/>}/>
-                    <Route path={'/res_password'} element={<ResetPassword/>}/>
-                    <Route path={'/new_password/:resetPasswordToken'} element={<NewPassword/>}/>
-                    <Route path={'/test'} element={<Test/>}/>
-                    <Route path={'/404'} element={<h1 style={{textAlign: 'center'}}>Page not found</h1>}/>
+                    <Route index element={<Profile/>}/>
+                    <Route path={'sign-in'} element={<SingIn/>}/>
+                    <Route path={'sign-up'} element={<SignUp/>}/>
+                    <Route path={'res-password'} element={<ResetPassword/>}/>
+                    <Route path={'new-password/:resetPasswordToken'} element={<NewPassword/>}/>
+                    <Route path={'test'} element={<Test/>}/>
+                    <Route path={'404'} element={<h1 style={{textAlign: 'center'}}>Page not found</h1>}/>
                     <Route path={'*'} element={<Navigate to={'/404'}/>}/>
                 </Route>
             </Routes>

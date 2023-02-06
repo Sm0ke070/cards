@@ -2,7 +2,7 @@ import React from 'react';
 import {SubmitHandler, useForm} from "react-hook-form";
 import {useAppDispatch, useAppSelector} from "../../../app/store";
 import {Link, Navigate} from "react-router-dom";
-import {loginTC} from "./auth-reducer";
+import {loginTC} from "./SingIn-reducer";
 
 type LoginType = {
     email: string
@@ -25,7 +25,7 @@ const SingIn = () => {
         clearErrors()
     }
     if (isLoggedIn) {
-        return <Navigate to={'/profile'}/>
+        return <Navigate to={'/'}/>
     }
     return (
         <>
