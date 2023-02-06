@@ -45,8 +45,10 @@ export const meTC = () => async (dispatch: Dispatch<ActionsType>) => {
             //handleServerAppError(res.data, dispatch)
         }
     } catch (err) {
+        console.log('not auth')
         // @ts-ignore
         //handleServerNetworkError(err, dispatch)
+
     } finally {
         dispatch(setIsInitializedStatusAC(true))
     }

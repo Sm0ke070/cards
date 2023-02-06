@@ -9,13 +9,20 @@ type LoginType = {
     password: string
     rememberMe: boolean
 }
-const Login = () => {
+const SingIn = () => {
     const dispatch = useAppDispatch()
     const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
-    const {register, handleSubmit, formState: {errors}, reset} = useForm<LoginType>({mode: 'onChange'})
+    const {
+        register,
+        handleSubmit,
+        formState: {errors},
+        reset,
+        clearErrors
+    } = useForm<LoginType>({mode: 'onChange'})
     const onSubmit: SubmitHandler<LoginType> = (data: LoginType) => {
         dispatch(loginTC(data))
         reset()
+        clearErrors()
     }
     if (isLoggedIn) {
         return <Navigate to={'/profile'}/>
@@ -32,7 +39,8 @@ const Login = () => {
                             message: 'Please enter valid email!'
                         }
                     }))} placeholder={'email'} type="text"/>
-                    {errors.email && <div>{errors.email.message}</div>}
+                    {errors.email && <div>{errors.email.message}
+                    </div>}
                 </div>
 
                 <input {...register("password", {required: 'password is required'})} placeholder={'pass'} type="text"/>
@@ -48,12 +56,9 @@ const Login = () => {
                 <div>
                     <Link to="/sign-up">sign-up</Link>
                 </div>
-
             </form>
-
         </>
-
     );
 };
 
-export default Login;
+export default SingIn;
