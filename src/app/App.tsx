@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import {Navigate, Route, Routes} from "react-router-dom";
 import Profile from "../features/profile/Profile";
-import Registration from "../features/auth/sign-up/Registration";
+import SignUp from "../features/auth/sign-up/SignUp";
 import NewPassword from "../features/password/new-password/NewPassword";
 import ResetPassword from "../features/password/reset-password/ResetPassword";
 import Test from "../common/components/super-components/Test";
@@ -18,7 +18,7 @@ const App = () => {
                 <Route path={'/'} element={<Layout/>}>
                     <Route path={'/profile'} element={<Profile/>}/>
                     <Route path={'/login'} element={<Login/>}/>
-                    <Route path={'/registration'} element={<Registration/>}/>
+                    <Route path={'/registration'} element={<SignUp/>}/>
                     <Route path={'/res_password'} element={<ResetPassword/>}/>
                     <Route path={'/new_password'} element={<NewPassword/>}/>
                     <Route path={'/test'} element={<Test/>}/>

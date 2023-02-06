@@ -1,6 +1,7 @@
 import {Dispatch} from "redux";
 import {authAPI} from "./login.api";
 import axios, {AxiosError} from "axios";
+import {ActionsType} from '../../../app/store';
 
 const initialState = {
     isLoggedIn: false,
@@ -40,4 +41,4 @@ export const loginTC = (data: any) => async (dispatch: Dispatch<ActionsType>) =>
     }
 }
 
-type ActionsType = ReturnType<typeof setIsLoggedInAC>
+export type AuthActionsType = ReturnType<typeof setIsLoggedInAC>
