@@ -26,8 +26,8 @@ const SignUp = () => {
     const confirmPasswordValue = watch("password")
 
     const onSubmit: SubmitHandler<Inputs> = (data) => {
-        const {email,password} = data
-        dispatch(SignUpTC({email,password}))
+        const {email, password} = data
+        dispatch(SignUpTC({email, password}))
         reset()
         clearErrors()
     }
@@ -78,7 +78,7 @@ const SignUp = () => {
                 <div style={{color: 'red'}}>{errors?.confirmPassword &&
                     <p>{errors.confirmPassword.message}</p>}</div>
 
-
+                123
                 <div>
                     <input type="submit" disabled={!isValid} value={'Sign Up'}/>
                 </div>
