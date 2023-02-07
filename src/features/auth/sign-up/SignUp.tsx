@@ -1,8 +1,11 @@
 import React from 'react';
-import {SubmitHandler, useForm} from 'react-hook-form';
+import {Controller, SubmitHandler, useForm} from 'react-hook-form';
 import {useAppDispatch, useAppSelector} from '../../../app/store';
 import {Link, Navigate} from 'react-router-dom';
 import {SignUpTC} from './signUp-reducer';
+import {Button, Input} from 'antd';
+import {EyeInvisibleOutlined, EyeTwoTone} from '@ant-design/icons';
+import style from './SignUp.module.css'
 
 
 type Inputs = {
@@ -15,7 +18,7 @@ const SignUp = () => {
     const isRegistered = useAppSelector(state => state.registration.isRegistered)
     const dispatch = useAppDispatch()
     const {
-        register,
+        control,
         watch,
         handleSubmit,
         reset,
@@ -27,6 +30,7 @@ const SignUp = () => {
 
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         const {email, password} = data
+        debugger
         dispatch(SignUpTC({email, password}))
         reset()
         clearErrors()
@@ -37,54 +41,88 @@ const SignUp = () => {
     }
     return (
         <div>
-            <h1>Sign Up</h1>
-            <form onSubmit={handleSubmit(onSubmit)}>
 
-                <div><input type="text"
-                            placeholder={'Email'}
-                            {...register("email", {
-                                required: "email is required",
-                                pattern: {
-                                    value: /^((([0-9A-Za-z]{1}[-0-9A-z\.]{1,}[0-9A-Za-z]{1})|([0-9А-Яа-я]{1}[-0-9А-я\.]{1,}[0-9А-Яа-я]{1}))@([-A-Za-z]{1,}\.){1,2}[-A-Za-z]{2,})$/u,
-                                    message: 'Please enter valid email!'
-                                }
+            <form onSubmit={handleSubmit(onSubmit)} className={style.form}>
+                <h1>Sign Up</h1>
 
-                            })}/></div>
+                <Controller
+                    control={control}
+                    name="email"
+                    rules={{
+                        required: "email is required",
+                        pattern: {
+                            value: /^((([0-9A-Za-z]{1}[-0-9A-z\.]{1,}[0-9A-Za-z]{1})|([0-9А-Яа-я]{1}[-0-9А-я\.]{1,}[0-9А-Яа-я]{1}))@([-A-Za-z]{1,}\.){1,2}[-A-Za-z]{2,})$/u,
+                            message: 'Please enter valid email!'
+                        }
+                    }}
+                    render={({field: {onChange, value}, fieldState: {error}}) => <>
+                        <Input.Group
+                            className={style.inputGroup}>
+                            <Input value={value}
+                                   style={{width: '70%'}}
+                                   onChange={(e) => onChange(e.currentTarget.value)}
+                                   placeholder={'Email'}
+                            />
 
-                <div style={{color: 'red'}}>{errors?.email && <p>{errors.email.message}</p>}</div>
+                        </Input.Group>
+                        {error && <div style={{color: 'red'}}>{errors.email?.message}</div>}
+                    </>}
+                />
+                <Controller
+                    control={control}
+                    name="password"
+                    rules={{
+                        required: "Field is required",
+                        minLength: {
+                            value: 8,
+                            message: 'Minimum length 8 characters'
+                        }
+                    }}
+                    render={({field: {onChange, value}, fieldState: {error}}) => <>
+                        <Input.Group
+                            className={style.inputGroup}>
+                            <Input.Password value={value}
+                                            style={{width: '70%'}}
+                                            onChange={(e) => onChange(e.currentTarget.value)}
+                                            placeholder={'Password'}
+                                            iconRender={(visible) => (visible ?
+                                                <EyeTwoTone/> :
+                                                <EyeInvisibleOutlined/>)}/>
 
-                <div><input type="text"
-                            placeholder={'Password'}
-                            {...register("password",
-                                {
-                                    required: "Field is required",
-                                    minLength: {
-                                        value: 8,
-                                        message: 'Minimum length 8 characters'
-                                    }
-                                })}/></div>
-                <div style={{color: 'red'}}>{errors?.password && <p>{errors.password.message}</p>}</div>
+                        </Input.Group>
+                        {error && <div style={{color: 'red'}}>{errors.password?.message}</div>}
+                    </>}
+                />
 
+                <Controller
+                    control={control}
+                    name="confirmPassword"
+                    rules={{
+                        required: "Field is required",
+                        validate: (value) => value === confirmPasswordValue || "Password mismatch"
 
-                <div><input type="text"
-                            placeholder={'Сonfirm Password'}
-                            {...register("confirmPassword",
-                                {
-                                    required: "Field is required",
-                                    validate: (value) => value === confirmPasswordValue || "Password mismatch"
+                    }}
+                    render={({field: {onChange, value}, fieldState: {error}}) => <><Input.Group
+                        className={style.inputGroup}>
+                        <Input.Password value={value}
+                                        style={{width: '70%'}}
+                                        onChange={(e) => onChange(e.currentTarget.value)}
+                                        placeholder={'Сonfirm Password'}
+                                        iconRender={(visible) => (visible ?
+                                            <EyeTwoTone/> :
+                                            <EyeInvisibleOutlined/>)}/>
+                    </Input.Group>
+                        {error && <div style={{color: 'red'}}>{errors.confirmPassword?.message}</div>}
+                    </>}
+                />
 
-                                })}/></div>
-
-                <div style={{color: 'red'}}>{errors?.confirmPassword &&
-                    <p>{errors.confirmPassword.message}</p>}</div>
-
-                123
-                <div>
-                    <input type="submit" disabled={!isValid} value={'Sign Up'}/>
-                </div>
+                <div style={{width:'70%'}}><Button type="primary" htmlType="submit" disabled={!isValid} block>Sign Up</Button></div>
+                <h5>Already have an account?</h5>
+                <Button type="link" block>
+                    <Link to={'/sign-in'}>Sign in</Link>
+                </Button>
             </form>
-            <h5>Already have an account?</h5>
-            <Link to={'/sign-in'}>Sign in</Link>
+
         </div>
     );
 
