@@ -1,7 +1,7 @@
 import React from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import {useAppDispatch, useAppSelector} from '../../../app/store';
-import {Navigate} from 'react-router-dom';
+import {Link, Navigate} from 'react-router-dom';
 import {SignUpTC} from './signUp-reducer';
 
 
@@ -83,6 +83,8 @@ const SignUp = () => {
                     <input type="submit" disabled={!isValid} value={'Sign Up'}/>
                 </div>
             </form>
+            <h5>Already have an account?</h5>
+            <Link to={'/sign-in'}>Sign in</Link>
         </div>
     );
 
