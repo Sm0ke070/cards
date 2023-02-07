@@ -22,7 +22,6 @@ export const resetPasswordAC = (isSand: boolean) => {
 
 export const resetPasswordTC = (data: resetPasswordParamsType) => async (dispatch: Dispatch<resetPasswordActionsType>) => {
     console.log('data', data)
-
     try {
         const res = await passwordAPI.resetPassword(data)
         dispatch(resetPasswordAC(true))

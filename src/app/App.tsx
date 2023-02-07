@@ -26,8 +26,7 @@ const App = () => {
         dispatch(logoutTC())
     }
     if (!isInitialized) {
-        return <div
-            style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
+        return <div>
             <h1>Loading</h1>
         </div>
     }

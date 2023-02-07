@@ -3,12 +3,9 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import {useAppDispatch, useAppSelector} from "../../../app/store";
 import {Link, Navigate} from "react-router-dom";
 import {loginTC} from "./SingIn-reducer";
+import {LoginParamsType} from "./SingIn.api";
 
-type LoginType = {
-    email: string
-    password: string
-    rememberMe: boolean
-}
+
 const SingIn = () => {
     const dispatch = useAppDispatch()
     const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
@@ -18,8 +15,8 @@ const SingIn = () => {
         formState: {errors},
         reset,
         clearErrors
-    } = useForm<LoginType>({mode: 'onChange'})
-    const onSubmit: SubmitHandler<LoginType> = (data: LoginType) => {
+    } = useForm<LoginParamsType>({mode: 'onChange'})
+    const onSubmit: SubmitHandler<LoginParamsType> = (data: LoginParamsType) => {
         dispatch(loginTC(data))
         reset()
         clearErrors()

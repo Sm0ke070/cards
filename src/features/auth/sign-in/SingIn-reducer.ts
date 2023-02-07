@@ -1,26 +1,32 @@
 import {Dispatch} from "redux";
-import {SingInAPI} from "./SingIn.api";
+import {LoginParamsType, ResponseUserDataType, SingInAPI} from "./SingIn.api";
 import axios, {AxiosError} from "axios";
 import {ActionsType} from '../../../app/store';
 
 const initialState = {
     isLoggedIn: false,
-
+    userData: {} as ResponseUserDataType
 }
 type InitialStateType = typeof initialState
 
 export const singInReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
-        case 'login/SET-IS-LOGGED-IN':
+        case 'login/SET-IS-LOGGED-IN': {
             return {...state, isLoggedIn: action.value}
+        }
+        case "login/SET-USER": {
+            return {...state, userData: {...action.payload}}
+        }
         default:
             return state
     }
 }
 export const setIsLoggedInAC = (value: boolean) =>
     ({type: 'login/SET-IS-LOGGED-IN', value} as const)
+export const setUserAC = (data: ResponseUserDataType) =>
+    ({type: 'login/SET-USER', payload: {...data}} as const)
 
-export const loginTC = (data: any) => async (dispatch: Dispatch<ActionsType>) => {
+export const loginTC = (data: LoginParamsType) => async (dispatch: Dispatch<ActionsType>) => {
 
     try {
         const res = await SingInAPI.login(data)
@@ -41,7 +47,6 @@ export const loginTC = (data: any) => async (dispatch: Dispatch<ActionsType>) =>
         }
     }
 }
-
 export const logoutTC = () => (dispatch: Dispatch<ActionsType>) => {
     //dispatch(setAppStatusAC('loading'))
     SingInAPI.logout()
@@ -58,4 +63,4 @@ export const logoutTC = () => (dispatch: Dispatch<ActionsType>) => {
         })
 }
 
-export type AuthActionsType = ReturnType<typeof setIsLoggedInAC>
+export type AuthActionsType = ReturnType<typeof setIsLoggedInAC> | ReturnType<typeof setUserAC>
