@@ -16,6 +16,7 @@ type Inputs = {
 
 const SignUp = () => {
     const isRegistered = useAppSelector(state => state.registration.isRegistered)
+    const errorSignUp = useAppSelector(state => state.registration.errorSignUp)
     const dispatch = useAppDispatch()
     const {
         control,
@@ -30,7 +31,6 @@ const SignUp = () => {
 
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         const {email, password} = data
-        debugger
         dispatch(SignUpTC({email, password}))
         reset()
         clearErrors()
@@ -113,6 +113,7 @@ const SignUp = () => {
                                             <EyeInvisibleOutlined/>)}/>
                     </Input.Group>
                         {error && <div style={{color: 'red'}}>{errors.confirmPassword?.message}</div>}
+                        {errorSignUp && <div style={{color: 'red'}}>{errorSignUp}</div>}
                     </>}
                 />
 
