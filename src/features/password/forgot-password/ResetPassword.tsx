@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from "../../../app/store";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {Link} from "react-router-dom";
@@ -14,6 +14,7 @@ const ResetPassword = () => {
     const isSendRequest = useAppSelector(state => state.resPassword.sandRequest)
     const dispatch = useAppDispatch()
     const {register, handleSubmit, formState: {errors}, reset} = useForm<EmailType>({mode: 'onChange'})
+
     const onSubmit: SubmitHandler<EmailType> = (data: EmailType) => {
         const {email} = data
         const message = "<div style='background-color: #ccffff; padding: 15px'><a href='http://localhost:3000/#/new-password/$token$'>нажмите на ссылку для сброса пароля</a></div>"
