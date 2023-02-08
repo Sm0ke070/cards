@@ -1,6 +1,7 @@
 import {setIsLoggedInAC} from "../features/auth/sign-in/SingIn-reducer";
 import {Dispatch} from "redux";
 import {SingInAPI} from "../features/auth/sign-in/SingIn.api";
+import {setErrorSignUpAC} from '../features/auth/sign-up/signUp-reducer';
 
 const initialState: InitialStateType = {
     status: 'idle',
@@ -43,11 +44,13 @@ export const meTC = () => async (dispatch: Dispatch<ActionsType>) => {
             dispatch(setAppStatusAC('succeeded'))
         } else {
             //handleServerAppError(res.data, dispatch)
+            dispatch(setAppStatusAC('failed'))
         }
     } catch (err) {
         console.log('not auth')
         // @ts-ignore
         //handleServerNetworkError(err, dispatch)
+        dispatch(setAppStatusAC('failed'))
 
     } finally {
         dispatch(setIsInitializedStatusAC(true))
