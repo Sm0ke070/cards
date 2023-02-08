@@ -11,6 +11,7 @@ import SingIn from "../features/auth/sign-in/SingIn";
 import {useAppDispatch, useAppSelector} from "./store";
 import {meTC, RequestStatusType} from "./app-reducer";
 import {logoutTC} from "../features/auth/sign-in/SingIn-reducer";
+import CheckEmail from "../features/password/check-email/CheckEmail";
 
 const App = () => {
 
@@ -42,7 +43,8 @@ const App = () => {
                     <Route path={'sign-in'} element={<SingIn/>}/>
                     <Route path={'sign-up'} element={<SignUp/>}/>
                     <Route path={'res-password'} element={<ResetPassword/>}/>
-                    <Route path={'new-password/:resetPasswordToken'} element={<NewPassword/>}/>
+                    <Route path={'new-password/:token'} element={<NewPassword/>}/>
+                    <Route path={'/check-email'} element={<CheckEmail/>}/>
                     <Route path={'test'} element={<Test/>}/>
                     <Route path={'404'} element={<h1 style={{textAlign: 'center'}}>Page not found</h1>}/>
                     <Route path={'*'} element={<Navigate to={'/404'}/>}/>

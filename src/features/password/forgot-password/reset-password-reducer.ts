@@ -2,7 +2,8 @@ import {Dispatch} from "redux";
 import {passwordAPI, resetPasswordParamsType} from "../password.api";
 
 const initialState = {
-    sandRequest: false
+    sandRequest: false,
+
 }
 type InitialStateType = typeof initialState
 
@@ -11,13 +12,18 @@ export const resetPasswordReducer = (state: InitialStateType = initialState, act
         case 'RESET-PASSWORD': {
             return {...state, sandRequest: action.isSand}
         }
+        case 'SET-NEW-PASSWORD': {
+            return {...state}
+        }
         default:
             return state
     }
 }
-
 export const resetPasswordAC = (isSand: boolean) => {
     return {type: 'RESET-PASSWORD', isSand} as const
+}
+export const setNewPasswordAC = () => {
+    return {type: 'SET-NEW-PASSWORD'} as const
 }
 
 export const resetPasswordTC = (data: resetPasswordParamsType) => async (dispatch: Dispatch<resetPasswordActionsType>) => {
@@ -32,5 +38,15 @@ export const resetPasswordTC = (data: resetPasswordParamsType) => async (dispatc
 
     }
 }
+export const setNewPasswordTC = (pass: string, token: string) => async (dispatch: Dispatch) => {
+    try {
+        await passwordAPI.serNewPassword(pass, token)
+        dispatch(setNewPasswordAC())
+    } catch (e) {
 
-export type resetPasswordActionsType = ReturnType<typeof resetPasswordAC>
+    }
+
+}
+
+
+export type resetPasswordActionsType = ReturnType<typeof resetPasswordAC> | ReturnType<typeof setNewPasswordAC>
