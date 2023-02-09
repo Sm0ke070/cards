@@ -21,7 +21,7 @@ type ChangeNameType = {
 type ActionsType =
     ReturnType<typeof ChangeName>
 
-const ChangeName = (titleName: string): ChangeNameType => ({type: 'CHANGE_NAME', titleName})
+export const ChangeName = (titleName: string): ChangeNameType => ({type: 'CHANGE_NAME', titleName})
 
 
 
