@@ -139,7 +139,7 @@ const SignUp = () => {
 
                     {status === 'loading' && <Spin size="large"/>}
 
-                    {status !== 'loading' && <><br/><br/> </>}
+                    {status !== 'loading' && <><br/><br/></>}
 
                     <h5>Already have an account?</h5>
                     <Button type="link" block>

@@ -1,11 +1,9 @@
 .headerContainer {
     display: flex;
-}
-
-.headerContainer > div {
-    margin: 5px;
-    padding: 10px;
-    border: 1px solid;
+    height: 60px;
+    background-color: #cbc8c8;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 .mainContainer{

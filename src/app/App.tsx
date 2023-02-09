@@ -10,7 +10,6 @@ import Layout from "../common/components/Layout/Layout";
 import SingIn from "../features/auth/sign-in/SingIn";
 import {useAppDispatch, useAppSelector} from "./store";
 import {meTC, RequestStatusType} from "./app-reducer";
-import {logoutTC} from "../features/auth/sign-in/SingIn-reducer";
 import CheckEmail from "../features/password/check-email/CheckEmail";
 
 const App = () => {
@@ -23,19 +22,15 @@ const App = () => {
     useEffect(() => {
         dispatch(meTC())
     }, [dispatch])
-    const logout = () => {
-        dispatch(logoutTC())
-    }
+
     if (!isInitialized) {
-        return <div>
+        return <div style={{textAlign: 'center'}}>
             <h1>Loading</h1>
         </div>
     }
 
     return (
         <>
-            {/*кнопка тут временно*/}
-            {isLoggedIn && <button onClick={logout}>logOut</button>}
             <Routes>
                 <Route path={'/'} element={<Layout/>}>
                     <Route index element={<Profile/>}/>

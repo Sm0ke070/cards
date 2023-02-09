@@ -1,5 +1,5 @@
 import React from 'react';
-import {SubmitHandler, useForm} from "react-hook-form";
+import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import {useAppDispatch, useAppSelector} from "../../../app/store";
 import {Link, Navigate} from "react-router-dom";
 import {loginTC} from "./SingIn-reducer";
@@ -10,6 +10,7 @@ const SingIn = () => {
     const dispatch = useAppDispatch()
     const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
     const {
+        control,
         register,
         handleSubmit,
         formState: {errors},
@@ -28,6 +29,20 @@ const SingIn = () => {
         <div>
             <h1>LOGIN</h1>
             <form onSubmit={handleSubmit(onSubmit)} action="">
+                <Controller
+                    control={control}
+                    name={'email'}
+                    rules={{
+                        required: "email is required",
+                        pattern: {
+                            value: /^((([0-9A-Za-z]{1}[-0-9A-z\.]{1,}[0-9A-Za-z]{1})|([0-9А-Яа-я]{1}[-0-9А-я\.]{1,}[0-9А-Яа-я]{1}))@([-A-Za-z]{1,}\.){1,2}[-A-Za-z]{2,})$/u,
+                            message: 'Please enter valid email!'
+                        }
+
+                    }}
+                    render={({field: {onChange, value}, fieldState: {error}}) => <>
+                    </>}
+                />
                 <div>
                     <input {...(register("email", {
                         required: 'email is required',
