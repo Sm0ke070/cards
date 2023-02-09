@@ -14,7 +14,9 @@ export const singInReducer = (state: InitialStateType = initialState, action: Ac
         case 'login/SET-IS-LOGGED-IN': {
             return {...state, isLoggedIn: action.value}
         }
+
         case "login/SET-USER": {
+            debugger
             return {...state, userData: {...action.payload}}
         }
         default:
@@ -31,6 +33,7 @@ export const loginTC = (data: LoginParamsType) => async (dispatch: Dispatch<Acti
     try {
         const res = await SingInAPI.login(data)
         if (res.statusText === 'OK') {
+            dispatch(setUserAC(res.data))
             dispatch(setIsLoggedInAC(true))
             console.log(res)
         } else {

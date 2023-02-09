@@ -39,9 +39,10 @@ export const meTC = () => async (dispatch: Dispatch<ActionsType>) => {
     try {
         const res = await SingInAPI.me()
         if (res) {
+            dispatch(setUserAC(res.data))
             dispatch(setIsLoggedInAC(true))
             dispatch(setAppStatusAC('succeeded'))
-            dispatch(setUserAC(res.data))
+
             console.log(res)
         } else {
             //handleServerAppError(res.data, dispatch)
