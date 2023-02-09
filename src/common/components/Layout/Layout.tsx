@@ -17,11 +17,13 @@ const Layout = () => {
                 <div><Link to="/test">test</Link></div>
             </header>
 
-            <main>
+            <main className={style.mainContainer}>
 
                 <Outlet/>
 
+
             </main>
+            <footer style={{height:'100px',textAlign: 'center'}}><h2>footer</h2></footer>
         </>
     );
 };

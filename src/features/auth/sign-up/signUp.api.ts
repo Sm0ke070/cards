@@ -13,6 +13,20 @@ export type SignUpParamsType = {
     password: string
 }
 export type RegisterResponseType = {
-    addedUser: {}
+    addedUser: AddedUser
     error?: string;
 }
+
+export type AddedUser = {
+  email: string;
+  rememberMe: boolean;
+  isAdmin: boolean;
+  name: string;
+  verified: boolean;
+  publicCardPacksCount: number;
+  _id: string;
+  created: string;
+  updated: string;
+  __v: number;
+}
+
