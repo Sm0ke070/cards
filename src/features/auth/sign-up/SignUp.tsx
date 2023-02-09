@@ -17,6 +17,7 @@ type Inputs = {
 
 const SignUp = () => {
     const isRegistered = useAppSelector(state => state.registration.isRegistered)
+    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
     const errorSignUp = useAppSelector(state => state.registration.errorSignUp)
     const status = useAppSelector(state => state.app.status)
     console.log(status)
@@ -43,6 +44,9 @@ const SignUp = () => {
     if (isRegistered) {
         dispatch(setIsRegisteredAC(false))
         return <Navigate to={'/sign-in'}/>
+    }
+    if (isLoggedIn) {
+        return <Navigate to={'/'}/>
     }
     if (status === 'succeeded') {
         return <Result
