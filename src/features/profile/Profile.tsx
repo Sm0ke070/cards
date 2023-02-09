@@ -1,45 +1,53 @@
-import React from 'react';
+import React, {useState} from 'react';
 import profilePhoto from '../../common/assets/pngReact.png'
 import s from './Profile.module.css'
 import {useAppDispatch, useAppSelector} from "../../app/store";
-import {logoutTC} from "../auth/sign-in/auth-reducer";
 import {Navigate} from "react-router";
 import {ChangeName} from "./profile-reducer";
+import {logoutTC} from "../auth/sign-in/SingIn-reducer";
+import {Button, Typography} from 'antd';
 
 
 const Profile = () => {
     const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
     const dispatch = useAppDispatch()
+    const name = useAppSelector((state) => state.auth.userData.name)
+    const email = useAppSelector((state) => state.auth.userData.email)
+
+    const [editableStr, setEditableStr] = useState(name);
+    const {Title} = Typography;
+
 
     const logOutProfile = () => {
         dispatch(logoutTC())
     }
 
-    const changeNme = (title: string) => {
-        dispatch(ChangeName(''))
-    }
+   /* const changeNme = (title: string) => {
+       ChangeName(title)
+    }*/
+
     if (!isLoggedIn) return <Navigate to={'/sign-in'}/>
     return (
         <div className={s.container}>
-            <div className={s.header}>
-                    <span>
-                        loginName
-                    </span>
-                <img src={profilePhoto}/>
-            </div>
             <div className={s.profileGlobal}>
-                <a href="#">
-                    back to Packs
-                </a>
                 <div className={s.profile}>
-                        <span>
-                            Personal Information
-                        </span>
+                    <Title>Personal Information</Title>
                     <div className={s.profilePhoto}>
                         <img src={profilePhoto}/>
-                        <div><span>name</span></div>
-                        <div><span>email</span></div>
-                        <button onClick={logOutProfile}>Log out</button>
+                        <div>
+                            <Typography.Title editable={{onChange: setEditableStr}} level={3} style={{margin: 0}}>
+                                {editableStr}
+                            </Typography.Title>
+                        </div>
+
+                        <div><span>{email}</span></div>
+                        <div>
+
+                            <Button type="dashed" size={'small'} onClick={logOutProfile} shape={"round"}>
+                                Log out
+                            </Button>
+
+                        </div>
                     </div>
                 </div>
             </div>

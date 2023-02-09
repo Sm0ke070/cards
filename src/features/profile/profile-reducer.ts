@@ -1,5 +1,5 @@
 const initialState = {
-    titleName: 'Ruslan'
+    titleName: ''
 }
 
 type InitialStateType = typeof initialState
