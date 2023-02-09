@@ -1,5 +1,5 @@
-import {instance} from '../sign-in/login.api';
 import {AxiosResponse} from 'axios';
+import {instance} from "../sign-in/SingIn.api";
 
 
 export const signUpAPI = {
@@ -13,6 +13,20 @@ export type SignUpParamsType = {
     password: string
 }
 export type RegisterResponseType = {
-    addedUser: {}
+    addedUser: AddedUser
     error?: string;
 }
+
+export type AddedUser = {
+  email: string;
+  rememberMe: boolean;
+  isAdmin: boolean;
+  name: string;
+  verified: boolean;
+  publicCardPacksCount: number;
+  _id: string;
+  created: string;
+  updated: string;
+  __v: number;
+}
+

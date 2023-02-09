@@ -6,15 +6,15 @@ export const instance = axios.create({
     withCredentials: true,
 })
 
-export const authAPI = {
+export const SingInAPI = {
     login(data: LoginParamsType) {
-        return instance.post<LoginParamsType, AxiosResponse<ResponseType>>('/auth/login', data)
+        return instance.post<LoginParamsType, AxiosResponse<ResponseUserDataType>>('/auth/login', data)
     },
     logout() {
-        return instance.delete<ResponseType>('auth/me')
+        return instance.delete<ResponseUserDataType>('auth/me')
     },
     me() {
-        return instance.post<ResponseType>('auth/me');
+        return instance.post<ResponseUserDataType>('auth/me');
     },
 }
 export type LoginParamsType = {
@@ -22,7 +22,7 @@ export type LoginParamsType = {
     password: string
     rememberMe: boolean
 }
-export type ResponseType = {
+export type ResponseUserDataType = {
     _id: string;
     email: string;
     name: string;
