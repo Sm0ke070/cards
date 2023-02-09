@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {useAppDispatch, useAppSelector} from "../../../app/store";
 import {SubmitHandler, useForm} from "react-hook-form";
-import {Link, Navigate} from "react-router-dom";
-import {resetPasswordAC, resetPasswordTC} from "./reset-password-reducer";
+import {Link} from "react-router-dom";
+import {resetPasswordTC} from "./reset-password-reducer";
 import CheckEmail from "../check-email/CheckEmail";
 
 

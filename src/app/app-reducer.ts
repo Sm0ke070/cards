@@ -1,7 +1,6 @@
 import {setIsLoggedInAC} from "../features/auth/sign-in/SingIn-reducer";
 import {Dispatch} from "redux";
 import {SingInAPI} from "../features/auth/sign-in/SingIn.api";
-import {setErrorSignUpAC} from '../features/auth/sign-up/signUp-reducer';
 
 const initialState: InitialStateType = {
     status: 'idle',

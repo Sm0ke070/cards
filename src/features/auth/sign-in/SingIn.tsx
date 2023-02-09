@@ -28,7 +28,7 @@ const SingIn = () => {
         return <Navigate to={'/'}/>
     }
     return (
-        <>
+        <div>
             <h1>LOGIN</h1>
             <form onSubmit={handleSubmit(onSubmit)} action="">
                 <div>
@@ -57,7 +57,7 @@ const SingIn = () => {
                     <Link to="/sign-up">sign-up</Link>
                 </div>
             </form>
-        </>
+        </div>
     );
 };
 
