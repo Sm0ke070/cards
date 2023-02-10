@@ -3,7 +3,6 @@ import profilePhoto from '../../common/assets/pngReact.png'
 import s from './Profile.module.css'
 import {useAppDispatch, useAppSelector} from "../../app/store";
 import {Navigate} from "react-router";
-import {ChangeName} from "./profile-reducer";
 import {logoutTC} from "../auth/sign-in/SingIn-reducer";
 import {Button, Typography} from 'antd';
 

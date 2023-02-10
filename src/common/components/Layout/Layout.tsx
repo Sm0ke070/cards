@@ -23,9 +23,7 @@ const Layout = () => {
                 <div><Link to="/sign-in">login</Link></div>
                 <div><Link to="/">profile</Link></div>
                 <div><Link to="/sign-up">registration</Link></div>
-                <div><Link to="/res-password">res_password</Link></div>
-                <div><Link to="/new-password">new_password</Link></div>
-                <div><Link to="/404">404</Link></div>
+                <div><Link to="/res-password">res-password</Link></div>
                 <div><Link to="/test">test</Link></div>
             </div>
 

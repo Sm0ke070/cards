@@ -5,8 +5,7 @@
 }
 .container{
     padding-top: 30px;
-    border: 10px solid red;
-
+    border: 2px solid red;
 }
 .header img{
     width: 50px;
