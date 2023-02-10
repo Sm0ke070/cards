@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import './App.css';
 import {useAppDispatch, useAppSelector} from "./store";
-import {meTC, RequestStatusType} from "./app-reducer";
+import {meTC} from "./app-reducer";
 import Routing from '../common/components/routes/Routes'
 
 const App = () => {
