@@ -2,15 +2,9 @@ import React from 'react';
 import {Link, Outlet} from "react-router-dom";
 import style from "./Layout.module.css"
 import AccountBlock from "../account block/AccountBlock";
-import {logoutTC} from "../../../features/auth/sign-in/SingIn-reducer";
-import {useAppDispatch, useAppSelector} from "../../../app/store";
+import {routes} from "../routes/Routes";
 
 const Layout = () => {
-    const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
-    const dispatch = useAppDispatch()
-    const logout = () => {
-        dispatch(logoutTC())
-    }
 
     return (
         <>
@@ -19,11 +13,7 @@ const Layout = () => {
             </header>
 
             <div>
-                {isLoggedIn && <button onClick={logout}>logOut</button>}
-                <div><Link to="/sign-in">login</Link></div>
-                <div><Link to="/">profile</Link></div>
-                <div><Link to="/sign-up">registration</Link></div>
-                <div><Link to="/res-password">res-password</Link></div>
+                <div><Link to={routes.PROFILE_PATH}>profile</Link></div>
                 <div><Link to="/test">test</Link></div>
             </div>
 
@@ -32,7 +22,9 @@ const Layout = () => {
                 <Outlet/>
 
             </main>
-            <footer style={{height: '100px', textAlign: 'center'}}><h2>footer</h2></footer>
+            <footer style={{height: '100px', textAlign: 'center'}}>
+                <h2>footer</h2>
+            </footer>
         </>
     );
 };

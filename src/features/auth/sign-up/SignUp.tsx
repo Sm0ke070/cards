@@ -3,10 +3,10 @@ import {Controller, SubmitHandler, useForm} from 'react-hook-form';
 import {useAppDispatch, useAppSelector} from '../../../app/store';
 import {Link, Navigate} from 'react-router-dom';
 import {setErrorSignUpAC, setIsRegisteredAC, SignUpTC} from './signUp-reducer';
-import {Button, Input, Progress, Result, Spin} from 'antd';
+import {Button, Input, Result, Spin} from 'antd';
 import {EyeInvisibleOutlined, EyeTwoTone} from '@ant-design/icons';
 import style from './SignUp.module.css'
-import {RequestStatusType} from '../../../app/app-reducer';
+import {routes} from "../../../common/components/routes/Routes";
 
 
 type Inputs = {
@@ -19,6 +19,7 @@ const SignUp = () => {
     const isRegistered = useAppSelector(state => state.registration.isRegistered)
     const errorSignUp = useAppSelector(state => state.registration.errorSignUp)
     const status = useAppSelector(state => state.app.status)
+    const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
     console.log(status)
 
     const dispatch = useAppDispatch()
@@ -42,13 +43,18 @@ const SignUp = () => {
 
     if (isRegistered) {
         dispatch(setIsRegisteredAC(false))
-        return <Navigate to={'/sign-in'}/>
+        return <Navigate to={routes.SIGN_IN_PATH}/>
     }
+    if (isLoggedIn) {
+        return <Navigate to={routes.PROFILE_PATH}/>
+    }
+
     if (status === 'succeeded') {
         return <Result
             status="success"
             title="Congratulations! You have successfully created a new account! Go Sign In!"
         />
+
     } else {
 
 
@@ -146,12 +152,9 @@ const SignUp = () => {
                         <Link to={'/sign-in'}>Sign in</Link>
                     </Button>
                 </form>
-
             </div>
         );
     }
-
-
 };
 
 export default SignUp;

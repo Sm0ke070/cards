@@ -42,14 +42,12 @@ export const meTC = () => async (dispatch: Dispatch<ActionsType>) => {
             dispatch(setUserAC(res.data))
             dispatch(setIsLoggedInAC(true))
             dispatch(setAppStatusAC('succeeded'))
-
             console.log(res)
         } else {
             //handleServerAppError(res.data, dispatch)
             dispatch(setAppStatusAC('failed'))
         }
     } catch (err) {
-        console.log('not auth')
         // @ts-ignore
         //handleServerNetworkError(err, dispatch)
         dispatch(setAppStatusAC('failed'))

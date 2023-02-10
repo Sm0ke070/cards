@@ -4,7 +4,7 @@ import {useAppDispatch, useAppSelector} from "../../../app/store";
 import {Link, Navigate} from "react-router-dom";
 import {loginTC} from "./SingIn-reducer";
 import {LoginParamsType} from "./SingIn.api";
-
+import {routes} from "../../../common/components/routes/Routes";
 
 const SingIn = () => {
     const dispatch = useAppDispatch()
@@ -27,7 +27,7 @@ const SingIn = () => {
     }
     return (
         <div>
-            <h1>LOGIN</h1>
+            <h1>Sign In</h1>
             <form onSubmit={handleSubmit(onSubmit)} action="">
                 <Controller
                     control={control}
@@ -62,8 +62,10 @@ const SingIn = () => {
                     <input{...register("rememberMe")} type="checkbox"/> rememberMe
                 </div>
 
+                <p><Link to={routes.RESET_PASS_PATH}>Forgot Password?</Link></p>
+
                 <div>
-                    <button>ok</button>
+                    <button>Sign In</button>
                 </div>
                 <div>
                     <Link to="/sign-up">sign-up</Link>
