@@ -141,8 +141,9 @@ const SignUp = () => {
                     />
 
                     <div style={{width: '70%'}}><Button type="primary" htmlType="submit" disabled={!isValid} block>Sign
-                        Up</Button></div>
-
+                        Up</Button>
+                        </div>
+                    <button className={style.button}>Sign Up</button>
                     {status === 'loading' && <Spin size="large"/>}
 
                     {status !== 'loading' && <><br/><br/></>}
