@@ -2,17 +2,18 @@
     display:flex;
     flex-direction:column;
     align-items:center;
-    justify-content: space-around;
+    justify-content: space-evenly;
     border-radius: 1%;
     border: gray 1px solid;
     width: 413px;
-    margin: auto;
+
     height: 460px;
 
 }
 .inputGroup{
     display: flex;
     justify-content: center;
+    padding-bottom: 5px;
 }
 
 
@@ -22,7 +23,7 @@
     justify-content: center;
     outline: none;
     cursor: pointer;
-    width: 150px;
+    width: 151px;
     height: 50px;
     background-image: linear-gradient(to top, #D8D9DB 0%, #fff 80%, #FDFDFD 100%);
     border-radius: 30px;

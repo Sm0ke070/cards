@@ -16,7 +16,6 @@ export const singInReducer = (state: InitialStateType = initialState, action: Ac
         }
 
         case "login/SET-USER": {
-            debugger
             return {...state, userData: {...action.payload}}
         }
         default:

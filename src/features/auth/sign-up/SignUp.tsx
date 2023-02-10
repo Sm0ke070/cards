@@ -45,6 +45,7 @@ const SignUp = () => {
         dispatch(setIsRegisteredAC(false))
         return <Navigate to={routes.SIGN_IN_PATH}/>
     }
+
     if (isLoggedIn) {
         return <Navigate to={routes.PROFILE_PATH}/>
     }
@@ -59,8 +60,7 @@ const SignUp = () => {
 
 
         return (
-            <div>
-
+            <>
                 <form onSubmit={handleSubmit(onSubmit)} className={style.form}>
                     <h1>Sign Up</h1>
 
@@ -140,9 +140,11 @@ const SignUp = () => {
                         </>}
                     />
 
-                    <div style={{width: '70%'}}><Button type="primary" htmlType="submit" disabled={!isValid} block>Sign
-                        Up</Button>
-                        </div>
+                    <div style={{width: '70%'}}>
+                        <Button type="primary" htmlType="submit" disabled={!isValid} block>
+                            Sign Up
+                        </Button>
+                    </div>
                     <button className={style.button}>Sign Up</button>
                     {status === 'loading' && <Spin size="large"/>}
 
@@ -153,7 +155,7 @@ const SignUp = () => {
                         <Link to={'/sign-in'}>Sign in</Link>
                     </Button>
                 </form>
-            </div>
+            </>
         );
     }
 };
