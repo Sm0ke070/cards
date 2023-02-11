@@ -34,7 +34,7 @@ export const loginTC = (data: LoginParamsType) => async (dispatch: Dispatch<Acti
         if (res.statusText === 'OK') {
             dispatch(setUserAC(res.data))
             dispatch(setIsLoggedInAC(true))
-            console.log(res)
+            console.log(res.data)
         } else {
 
         }

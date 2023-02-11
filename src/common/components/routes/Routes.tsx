@@ -26,7 +26,7 @@ const Routing = () => {
     return (
         <>
             <Routes>
-                <Route path={routes.PROFILE_PATH} element={<Layout/>}>
+                <Route path={'/'} element={<Layout/>}>
                     <Route index element={<Profile/>}/>
                     <Route path={routes.SIGN_IN_PATH} element={<SingIn/>}/>
                     <Route path={routes.SIGN_UP_PATH} element={<SignUp/>}/>

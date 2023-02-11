@@ -1,16 +1,17 @@
-.form{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content: space-evenly;
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
     border-radius: 1%;
     border: gray 1px solid;
     width: 413px;
-
+    font-family: 'Montserrat', sans-serif;
     height: 460px;
 
 }
-.inputGroup{
+
+.inputGroup {
     display: flex;
     justify-content: center;
     padding-bottom: 5px;
