@@ -5,27 +5,33 @@ import {ActionsType} from '../../../app/store';
 
 const initialState = {
     isLoggedIn: false,
+    errorSignIn: '',
     userData: {} as ResponseUserDataType
 }
 type InitialStateType = typeof initialState
 
 export const singInReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
-        case 'login/SET-IS-LOGGED-IN': {
+        case 'signIn/SET-IS-LOGGED-IN': {
             return {...state, isLoggedIn: action.value}
         }
 
-        case "login/SET-USER": {
+        case 'signIn/SET-USER': {
             return {...state, userData: {...action.payload}}
+        }
+        case 'signIn/SET-IS-ERROR-SIGN-IN': {
+            return {...state, errorSignIn: action.errorSignIn}
         }
         default:
             return state
     }
 }
 export const setIsLoggedInAC = (value: boolean) =>
-    ({type: 'login/SET-IS-LOGGED-IN', value} as const)
+    ({type: 'signIn/SET-IS-LOGGED-IN', value} as const)
 export const setUserAC = (data: ResponseUserDataType) =>
-    ({type: 'login/SET-USER', payload: {...data}} as const)
+    ({type: 'signIn/SET-USER', payload: {...data}} as const)
+export const setErrorSignInAC = (errorSignIn: string) =>
+    ({type: 'signIn/SET-IS-ERROR-SIGN-IN', errorSignIn} as const)
 
 export const loginTC = (data: LoginParamsType) => async (dispatch: Dispatch<ActionsType>) => {
 
@@ -43,6 +49,7 @@ export const loginTC = (data: LoginParamsType) => async (dispatch: Dispatch<Acti
         if (axios.isAxiosError(err)) {
             const error = err.response?.data ? err.response.data.error : err.message
             console.log(error)
+            dispatch(setErrorSignInAC(error))
             //dispatch(setAppErrorAC(error))
         } else {
             //dispatch(setAppErrorAC(`Native error ${err.message}`))
@@ -65,4 +72,7 @@ export const logoutTC = () => (dispatch: Dispatch<ActionsType>) => {
         })
 }
 
-export type AuthActionsType = ReturnType<typeof setIsLoggedInAC> | ReturnType<typeof setUserAC>
+export type AuthActionsType =
+    ReturnType<typeof setUserAC> |
+    ReturnType<typeof setIsLoggedInAC> |
+    ReturnType<typeof setErrorSignInAC>

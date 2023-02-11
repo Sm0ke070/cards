@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import {useAppDispatch, useAppSelector} from "../../../app/store";
-import {Link, Navigate, useNavigate} from "react-router-dom";
+import {Link, Navigate} from "react-router-dom";
 import {loginTC} from "./SingIn-reducer";
 import {LoginParamsType} from "./SingIn.api";
 import {Button, Checkbox, Input} from "antd";
@@ -11,6 +11,9 @@ import {routes} from "../../../common/components/routes/Routes";
 const SingIn = () => {
     const dispatch = useAppDispatch()
     const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
+    const errorSignIn = useAppSelector(state => state.auth.errorSignIn)
+    const [loading, setLoading] = useState(false)
+
     const {
         control,
         handleSubmit,
@@ -19,13 +22,13 @@ const SingIn = () => {
         clearErrors
     } = useForm<LoginParamsType>({mode: 'onChange'})
     const onSubmit: SubmitHandler<LoginParamsType> = (data: LoginParamsType) => {
+        setLoading(!loading)
         dispatch(loginTC(data))
-        reset()
         clearErrors()
     }
 
     if (isLoggedIn) {
-        return  <Navigate to={routes.PROFILE_PATH}/>
+        return <Navigate to={routes.PROFILE_PATH}/>
     }
     return (
         <>
@@ -84,6 +87,7 @@ const SingIn = () => {
 
                             </Input.Group>
                             {error && <div style={{color: 'red'}}>{errors.password?.message}</div>}
+                            {errorSignIn && <div style={{color: 'red'}}>{errorSignIn}</div>}
                         </>}/>
 
                 <Controller
@@ -98,7 +102,7 @@ const SingIn = () => {
                 <Link to={routes.RESET_PASS_PATH}>Forgot Password?</Link>
 
                 <div style={{width: '70%'}}>
-                    <Button type="primary" htmlType="submit" disabled={!isValid} block>
+                    <Button type="primary" htmlType="submit" disabled={!isValid} block loading={loading}>
                         Sign In
                     </Button>
                 </div>
