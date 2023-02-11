@@ -50,10 +50,10 @@ const SignUp = () => {
         return <Navigate to={routes.PROFILE_PATH}/>
     }
 
-        return (
-            <>
-                <form onSubmit={handleSubmit(onSubmit)} className={style.form}>
-                    <h1>Sign Up</h1>
+    return (
+        <>
+            <form onSubmit={handleSubmit(onSubmit)} className={style.form}>
+                <h1>Sign Up</h1>
 
                 <Controller
                     control={control}
@@ -67,18 +67,14 @@ const SignUp = () => {
 
                     }}
                     render={({field: {onChange, value}, fieldState: {error}}) => <>
-                        <Input.Group
-                            className={style.inputGroup}>
-                            <Input value={value}
-                                   style={{width: '70%'}}
-                                   onChange={(e) => {
-                                       dispatch(setErrorSignUpAC(null))
-                                       onChange(e.currentTarget.value)
-                                   }}
-                                   placeholder={'Email'}
-                            />
-
-                        </Input.Group>
+                        <Input value={value}
+                               style={{width: '70%'}}
+                               onChange={(e) => {
+                                   dispatch(setErrorSignUpAC(null))
+                                   onChange(e.currentTarget.value)
+                               }}
+                               placeholder={'Email'}
+                        />
                         {error && <div style={{color: 'red'}}>{errors.email?.message}</div>}
                     </>}
                 />
@@ -93,17 +89,13 @@ const SignUp = () => {
                         }
                     }}
                     render={({field: {onChange, value}, fieldState: {error}}) => <>
-                        <Input.Group
-                            className={style.inputGroup}>
-                            <Input.Password value={value}
-                                            style={{width: '70%'}}
-                                            onChange={(e) => onChange(e.currentTarget.value)}
-                                            placeholder={'Password'}
-                                            iconRender={(visible) => (visible ?
-                                                <EyeTwoTone/> :
-                                                <EyeInvisibleOutlined/>)}/>
-
-                        </Input.Group>
+                        <Input.Password value={value}
+                                        style={{width: '70%'}}
+                                        onChange={(e) => onChange(e.currentTarget.value)}
+                                        placeholder={'Password'}
+                                        iconRender={(visible) => (visible ?
+                                            <EyeTwoTone/> :
+                                            <EyeInvisibleOutlined/>)}/>
                         {error && <div style={{color: 'red'}}>{errors.password?.message}</div>}
                     </>}
                 />
@@ -116,16 +108,15 @@ const SignUp = () => {
                         validate: (value) => value === confirmPasswordValue || "Password mismatch"
 
                     }}
-                    render={({field: {onChange, value}, fieldState: {error}}) => <><Input.Group
-                        className={style.inputGroup}>
+                    render={({field: {onChange, value}, fieldState: {error}}) => <>
                         <Input.Password value={value}
                                         style={{width: '70%'}}
                                         onChange={(e) => onChange(e.currentTarget.value)}
                                         placeholder={'Сonfirm Password'}
                                         iconRender={(visible) => (visible ?
                                             <EyeTwoTone/> :
-                                            <EyeInvisibleOutlined/>)}/>
-                    </Input.Group>
+                                            <EyeInvisibleOutlined/>)}
+                        />
                         {error && <div style={{color: 'red'}}>{errors.confirmPassword?.message}</div>}
                         {errorSignUp && <div style={{color: 'red'}}>{errorSignUp}</div>}
                     </>}
