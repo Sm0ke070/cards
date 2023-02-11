@@ -34,7 +34,7 @@ const Profile = () => {
                     <div className={s.profilePhoto}>
                         <img src={profilePhoto}/>
                         <div>
-                            <Typography.Title editable={{onChange: setEditableStr}} level={3} style={{margin: 0}}>
+                            <Typography.Title editable={{onChange: setEditableStr}} level={1} style={{margin: 0}}>
                                 {editableStr}
                             </Typography.Title>
                         </div>

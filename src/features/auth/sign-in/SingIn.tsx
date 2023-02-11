@@ -1,7 +1,7 @@
 import React from 'react';
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import {useAppDispatch, useAppSelector} from "../../../app/store";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, Navigate, useNavigate} from "react-router-dom";
 import {loginTC} from "./SingIn-reducer";
 import {LoginParamsType} from "./SingIn.api";
 import {Button, Checkbox, Input} from "antd";
@@ -10,7 +10,6 @@ import {routes} from "../../../common/components/routes/Routes";
 
 const SingIn = () => {
     const dispatch = useAppDispatch()
-    const navigate = useNavigate()
     const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
     const {
         control,
@@ -26,7 +25,7 @@ const SingIn = () => {
     }
 
     if (isLoggedIn) {
-        navigate(routes.PROFILE_PATH)
+        return  <Navigate to={routes.PROFILE_PATH}/>
     }
     return (
         <>

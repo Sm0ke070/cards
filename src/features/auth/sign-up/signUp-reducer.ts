@@ -4,17 +4,15 @@ import {signUpAPI, SignUpParamsType} from './signUp.api';
 import {ActionsType} from '../../../app/store';
 import {setAppStatusAC, SetAppStatusActionType} from '../../../app/app-reducer';
 
-type initialStateType = {
-    errorSignUp: null | string
-    isRegistered: boolean
-}
+
+
 const initialState = {
-    errorSignUp: null,
+    errorSignUp: null as null|string,
     isRegistered: false
 }
+type InitialStateType = typeof initialState
 
-
-export const signUpReducer = (state: initialStateType = initialState, action: SignUpActionsType): initialStateType => {
+export const signUpReducer = (state: InitialStateType = initialState, action: SignUpActionsType): InitialStateType => {
     switch (action.type) {
         case 'signUp/SET-IS-ERROR-SIGN-UP':
             return {...state, errorSignUp: action.errorSignUp}

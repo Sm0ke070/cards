@@ -1,6 +1,6 @@
 import React from 'react';
 import {useAppSelector} from "../../../app/store";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, Navigate, useNavigate} from "react-router-dom";
 import style from './accountBlock.module.css'
 import {Button} from "antd";
 import {routes} from "../routes/Routes";
@@ -11,9 +11,8 @@ const AccountBlock = () => {
     const userName = useAppSelector((state) => state.auth.userData.name)
     const ava = useAppSelector((state) => state.auth.userData.avatar)
 
-    const navigate = useNavigate()
     const signInHandler = () => {
-        navigate(routes.SIGN_IN_PATH)
+        return <Navigate to={routes.SIGN_IN_PATH}/>
     }
 
 
