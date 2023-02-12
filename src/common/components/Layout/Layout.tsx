@@ -2,7 +2,7 @@ import React from 'react';
 import {Link, Outlet} from "react-router-dom";
 import style from "./Layout.module.css"
 import AccountBlock from "../account block/AccountBlock";
-import {routes} from "../routes/Routes";
+import {routes} from "../../../constants/constants";
 
 const Layout = () => {
 

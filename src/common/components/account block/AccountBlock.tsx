@@ -3,7 +3,7 @@ import {useAppSelector} from "../../../app/store";
 import {Link, useNavigate} from "react-router-dom";
 import style from './accountBlock.module.css'
 import {Button} from "antd";
-import {routes} from "../routes/Routes";
+import {routes} from "../../../constants/constants";
 
 
 const AccountBlock = () => {
