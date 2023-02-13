@@ -1,6 +1,6 @@
 import React from 'react';
 import {useAppSelector} from "../../../app/store";
-import {Link, Navigate, useNavigate} from "react-router-dom";
+import {Link, Navigate} from "react-router-dom";
 import style from './accountBlock.module.css'
 import {Button} from "antd";
 import {routes} from "../routes/Routes";
