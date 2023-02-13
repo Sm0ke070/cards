@@ -6,7 +6,7 @@ import {loginTC} from "./SingIn-reducer";
 import {LoginParamsType} from "./SingIn.api";
 import {Button, Checkbox, Input} from "antd";
 import style from "../sign-up/SignUp.module.css";
-import {routes} from "../../../common/components/routes/Routes";
+import {routes} from "../../../constants/constants";
 
 const SingIn = () => {
 

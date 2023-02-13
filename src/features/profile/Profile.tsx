@@ -5,6 +5,8 @@ import {useAppDispatch, useAppSelector} from "../../app/store";
 import {Navigate} from "react-router";
 import {logoutTC} from "../auth/sign-in/SingIn-reducer";
 import {Button, Typography} from 'antd';
+import {Link} from "react-router-dom";
+import {routes} from "../../constants/constants";
 
 
 const Profile = () => {
@@ -25,10 +27,11 @@ const Profile = () => {
        ChangeName(title)
     }*/
 
-    if (!isLoggedIn) return <Navigate to={'/sign-in'}/>
+    if (!isLoggedIn) return <Navigate to={routes.SIGN_IN_PATH}/>
     return (
         <div className={s.container}>
             <div className={s.profileGlobal}>
+                <Link to={routes.PACKS_LIST}>back to packsList</Link>
                 <div className={s.profile}>
                     <Title>Personal Information</Title>
                     <div className={s.profilePhoto}>

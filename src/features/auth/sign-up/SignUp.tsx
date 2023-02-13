@@ -6,7 +6,7 @@ import {setErrorSignUpAC, setIsRegisteredAC, SignUpTC} from './signUp-reducer';
 import {Button, Input, Spin} from 'antd';
 import {EyeInvisibleOutlined, EyeTwoTone} from '@ant-design/icons';
 import style from './SignUp.module.css'
-import {routes} from "../../../common/components/routes/Routes";
+import {routes} from "../../../constants/constants";
 
 
 type Inputs = {
