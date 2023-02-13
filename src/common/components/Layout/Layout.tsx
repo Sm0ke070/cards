@@ -13,7 +13,7 @@ const Layout = () => {
             </header>
 
             <div>
-                <div><Link to={routes.PROFILE_PATH}>profile</Link></div>
+                <div><Link to={routes.PROFILE}>profile</Link></div>
                 <div><Link to="/test">test</Link></div>
             </div>
 

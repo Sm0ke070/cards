@@ -30,11 +30,11 @@ const Routing = () => {
             <Routes>
                 <Route path={'/'} element={<Layout/>}>
                     <Route index element={<Profile/>}/>
-                    <Route path={routes.SIGN_IN_PATH} element={<SingIn/>}/>
-                    <Route path={routes.SIGN_UP_PATH} element={<SignUp/>}/>
-                    <Route path={routes.NEW_PASS_PATH} element={<NewPassword/>}/>
-                    <Route path={routes.CHECK_EMAIL_PATH} element={<CheckEmail/>}/>
-                    <Route path={routes.RESET_PASS_PATH} element={<ResetPassword/>}/>
+                    <Route path={routes.SIGN_IN} element={<SingIn/>}/>
+                    <Route path={routes.SIGN_UP} element={<SignUp/>}/>
+                    <Route path={routes.NEW_PASS} element={<NewPassword/>}/>
+                    <Route path={routes.CHECK_EMAIL} element={<CheckEmail/>}/>
+                    <Route path={routes.RESET_PASS} element={<ResetPassword/>}/>
                     <Route path={routes.NOT_FOUND} element={<h1 style={{textAlign: 'center'}}>Page not found</h1>}/>
                     <Route path={routes.PACKS_LIST} element={<AllPacksList/>}/>
                     <Route path={routes.MY_PACKS_LIST} element={<MyPacksList/>}/>

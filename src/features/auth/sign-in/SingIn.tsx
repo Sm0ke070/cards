@@ -27,7 +27,7 @@ const SingIn = () => {
     }
 
     if (isLoggedIn) {
-        return <Navigate to={routes.PROFILE_PATH}/>
+        return <Navigate to={routes.PROFILE}/>
     }
     return (
         <>
@@ -88,7 +88,7 @@ const SingIn = () => {
                                 rememberMe
                             </Checkbox>
                         </>}/>
-                <Link to={routes.RESET_PASS_PATH}>Forgot Password?</Link>
+                <Link to={routes.RESET_PASS}>Forgot Password?</Link>
 
                 <div style={{width: '70%'}}>
                     <Button type="primary" htmlType="submit" disabled={!isValid} block>

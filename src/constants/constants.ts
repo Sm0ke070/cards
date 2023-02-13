@@ -3,12 +3,12 @@ import {useSearchParams} from "react-router-dom";
 
 // all project paths
 export const enum routes {
-    PROFILE_PATH = '/',
-    SIGN_IN_PATH = '/sign-in',
-    SIGN_UP_PATH = '/sign-up',
-    RESET_PASS_PATH = '/res-password',
-    CHECK_EMAIL_PATH = '/check-email',
-    NEW_PASS_PATH = '/new-password/:token',
+    PROFILE = '/',
+    SIGN_IN = '/sign-in',
+    SIGN_UP = '/sign-up',
+    RESET_PASS = '/res-password',
+    CHECK_EMAIL = '/check-email',
+    NEW_PASS = '/new-password/:token',
     NOT_FOUND = '/404',
     PACKS_LIST = '/packsList',
     MY_PACKS_LIST = '/myPacksList',

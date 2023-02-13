@@ -13,7 +13,7 @@ const AccountBlock = () => {
     const navigate = useNavigate()
 
     const signInHandler = () => {
-        navigate(routes.SIGN_IN_PATH)
+        navigate(routes.SIGN_IN)
     }
 
     return (

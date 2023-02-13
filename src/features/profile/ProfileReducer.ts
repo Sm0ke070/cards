@@ -1,4 +1,6 @@
 import {AppThunkDispatch} from "../../app/store";
+import {profileAPI} from "./Profile.api";
+import axios, {AxiosError} from "axios";
 import {Dispatch} from "redux";
 
 const initialState = {
@@ -9,28 +11,28 @@ type InitialStateType = typeof initialState
 
 export const profileReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
-        case 'PROFILE/CHANGE_NAME': {
+        case "PROFILE/CHANGE_NAME": {
             return {...state, userName: action.userName}
         }
         default:
             return state
     }
 }
+export const changeNameAC = (userName: string) => ({type: 'PROFILE/CHANGE_NAME', userName} as const)
 
-export const changeUserNameTC = () => (dispatch: AppThunkDispatch) => {
 
-    try {
+export const changeUserNameTC = (name: string) => async (dispatch: AppThunkDispatch) => {
 
-    } catch (e) {
+        await profileAPI.changeName(name)
+        dispatch(changeNameAC(name))
 
-    }
+
+
 }
-
-export const ChangeName = (userName: string) => ({type: 'PROFILE/CHANGE_NAME', userName} as const)
 
 
 type ActionsType =
-    ReturnType<typeof ChangeName>
+    ReturnType<typeof changeNameAC>
 
 
 

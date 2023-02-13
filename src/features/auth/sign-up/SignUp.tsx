@@ -43,11 +43,11 @@ const SignUp = () => {
 
     if (isRegistered) {
         dispatch(setIsRegisteredAC(false))
-        return <Navigate to={routes.SIGN_IN_PATH}/>
+        return <Navigate to={routes.SIGN_IN}/>
     }
 
     if (isLoggedIn) {
-        return <Navigate to={routes.PROFILE_PATH}/>
+        return <Navigate to={routes.PROFILE}/>
     }
 
     return (
