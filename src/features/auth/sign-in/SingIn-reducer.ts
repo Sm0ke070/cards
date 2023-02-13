@@ -1,32 +1,46 @@
 import {Dispatch} from "redux";
-import {SingInAPI} from "./SingIn.api";
+import {LoginParamsType, ResponseUserDataType, SingInAPI} from "./SingIn.api";
 import axios, {AxiosError} from "axios";
 import {ActionsType} from '../../../app/store';
 
 const initialState = {
     isLoggedIn: false,
-
+    errorSignIn: '',
+    userData: {} as ResponseUserDataType
 }
 type InitialStateType = typeof initialState
 
 export const singInReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
-        case 'login/SET-IS-LOGGED-IN':
+        case 'signIn/SET-IS-LOGGED-IN': {
             return {...state, isLoggedIn: action.value}
+        }
+
+        case 'signIn/SET-USER': {
+            return {...state, userData: {...action.payload}}
+        }
+        case 'signIn/SET-IS-ERROR-SIGN-IN': {
+            return {...state, errorSignIn: action.errorSignIn}
+        }
         default:
             return state
     }
 }
 export const setIsLoggedInAC = (value: boolean) =>
-    ({type: 'login/SET-IS-LOGGED-IN', value} as const)
+    ({type: 'signIn/SET-IS-LOGGED-IN', value} as const)
+export const setUserAC = (data: ResponseUserDataType) =>
+    ({type: 'signIn/SET-USER', payload: {...data}} as const)
+export const setErrorSignInAC = (errorSignIn: string) =>
+    ({type: 'signIn/SET-IS-ERROR-SIGN-IN', errorSignIn} as const)
 
-export const loginTC = (data: any) => async (dispatch: Dispatch<ActionsType>) => {
+export const loginTC = (data: LoginParamsType) => async (dispatch: Dispatch<ActionsType>) => {
 
     try {
         const res = await SingInAPI.login(data)
         if (res.statusText === 'OK') {
+            dispatch(setUserAC(res.data))
             dispatch(setIsLoggedInAC(true))
-            console.log(res)
+            console.log(res.data)
         } else {
 
         }
@@ -35,13 +49,13 @@ export const loginTC = (data: any) => async (dispatch: Dispatch<ActionsType>) =>
         if (axios.isAxiosError(err)) {
             const error = err.response?.data ? err.response.data.error : err.message
             console.log(error)
+            dispatch(setErrorSignInAC(error))
             //dispatch(setAppErrorAC(error))
         } else {
             //dispatch(setAppErrorAC(`Native error ${err.message}`))
         }
     }
 }
-
 export const logoutTC = () => (dispatch: Dispatch<ActionsType>) => {
     //dispatch(setAppStatusAC('loading'))
     SingInAPI.logout()
@@ -58,4 +72,7 @@ export const logoutTC = () => (dispatch: Dispatch<ActionsType>) => {
         })
 }
 
-export type AuthActionsType = ReturnType<typeof setIsLoggedInAC>
+export type AuthActionsType =
+    ReturnType<typeof setUserAC> |
+    ReturnType<typeof setIsLoggedInAC> |
+    ReturnType<typeof setErrorSignInAC>

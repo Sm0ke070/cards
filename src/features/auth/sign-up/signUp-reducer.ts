@@ -4,17 +4,14 @@ import {signUpAPI, SignUpParamsType} from './signUp.api';
 import {ActionsType} from '../../../app/store';
 import {setAppStatusAC, SetAppStatusActionType} from '../../../app/app-reducer';
 
-type initialStateType = {
-    errorSignUp: null | string
-    isRegistered: boolean
-}
+
 const initialState = {
-    errorSignUp: null,
+    errorSignUp: null as null | string,
     isRegistered: false
 }
+type InitialStateType = typeof initialState
 
-
-export const signUpReducer = (state: initialStateType = initialState, action: SignUpActionsType): initialStateType => {
+export const signUpReducer = (state: InitialStateType = initialState, action: SignUpActionsType): InitialStateType => {
     switch (action.type) {
         case 'signUp/SET-IS-ERROR-SIGN-UP':
             return {...state, errorSignUp: action.errorSignUp}
@@ -26,7 +23,7 @@ export const signUpReducer = (state: initialStateType = initialState, action: Si
 }
 
 
-export const setErrorSignUpAC = (errorSignUp: string|null) =>
+export const setErrorSignUpAC = (errorSignUp: string | null) =>
     ({type: 'signUp/SET-IS-ERROR-SIGN-UP', errorSignUp} as const)
 export const setIsRegisteredAC = (isRegistered: boolean) =>
     ({type: 'signUp/SET-IS-REGISTERED', isRegistered} as const)
@@ -37,10 +34,10 @@ export const SignUpTC = (data: SignUpParamsType) => async (dispatch: Dispatch<Ac
     try {
         const res = await signUpAPI.register(data)
         console.log(res)
-        if (res.statusText==='Created') {
-            setTimeout(()=>{
+        if (res.statusText === 'Created') {
+            setTimeout(() => {
                 dispatch(setIsRegisteredAC(true))
-            },4000)
+            }, 4000)
             dispatch(setAppStatusAC('succeeded'))
 
         } else {
@@ -58,4 +55,7 @@ export const SignUpTC = (data: SignUpParamsType) => async (dispatch: Dispatch<Ac
     }
 }
 
-export type SignUpActionsType = ReturnType<typeof setErrorSignUpAC> | ReturnType<typeof setIsRegisteredAC>|SetAppStatusActionType
+export type SignUpActionsType =
+    ReturnType<typeof setErrorSignUpAC>
+    | ReturnType<typeof setIsRegisteredAC>
+    | SetAppStatusActionType

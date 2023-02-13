@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {useAppDispatch, useAppSelector} from "../../../app/store";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {Link} from "react-router-dom";
-import {resetPasswordAC, resetPasswordTC} from "./reset-password-reducer";
-import CheckEmail from "../CheckEmail/CheckEmail";
+import {resetPasswordTC} from "./reset-password-reducer";
+import CheckEmail from "../check-email/CheckEmail";
 
 
 type EmailType = {
@@ -20,17 +20,16 @@ const ResetPassword = () => {
         const message = "<div style='background-color: #ccffff; padding: 15px'><a href='http://localhost:3000/#/new-password/$token$'>нажмите на ссылку для сброса пароля</a></div>"
         dispatch(resetPasswordTC({email, message}))
         reset()
-    }
-    //после обновления этого компонента useEffect изменит стейт,что бы можно было опять зайти на ResetPassword
-    useEffect(() => {
-        dispatch(resetPasswordAC(false))
-    }, [dispatch])
 
+    }
+
+    // useEffect(() => {
+    //     dispatch(resetPasswordAC(false))
+    // }, [dispatch])
 
     return (
         <>
             {isSendRequest ? <CheckEmail/> : <div>
-
                 <form onSubmit={handleSubmit(onSubmit)} action="">
                     <h1>Forgot your password?</h1>
                     <input {...register("email", {

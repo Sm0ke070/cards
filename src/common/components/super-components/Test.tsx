@@ -2,24 +2,25 @@ import React from 'react';
 import SuperButton from "./SuperButton/SuperButton";
 import SuperInputText from "./SuperInputText/SuperInputText";
 import SuperCheckbox from "./SuperCheckbox/SuperCheckbox";
+import {useAppSelector} from "../../../app/store";
 
 const Test = () => {
+    const name = useAppSelector(state => state.auth.userData.name)
+    const _id = useAppSelector(state => state.auth.userData._id)
+    const CardPacks = useAppSelector(state => state.auth.userData.publicCardPacksCount)
+
     return (
         <div>
-            <div>3</div>
-            <div>4</div>
-            <div>5</div>
-            <div>6</div>
-            <p>1</p>
-            <p>2</p>
-            <p>3</p>
+
+            <p>{name}</p>
+            <p>{_id}</p>
+            <p>{CardPacks}</p>
+
+
             <h1>Test</h1>
             <SuperButton/>
             <SuperInputText/>
             <SuperCheckbox/>
-            <p>4</p>
-            <p>5</p>
-            <p>6</p>
         </div>
     );
 };
