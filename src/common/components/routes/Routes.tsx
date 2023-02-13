@@ -10,9 +10,9 @@ import CheckEmail from "../../../features/password/check-email/CheckEmail";
 import Test from "../super-components/Test";
 
 // all project paths
-export enum routes {
+export const enum routes {
     PROFILE_PATH = '/',
-    SIGN_IN_PATH = '/sign-in',
+    SIGN_IN_PATH = 'sign-in',
     SIGN_UP_PATH = '/sign-up',
     RESET_PASS_PATH = '/res-password',
     CHECK_EMAIL_PATH = '/check-email',

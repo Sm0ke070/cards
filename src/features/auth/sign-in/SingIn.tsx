@@ -9,10 +9,10 @@ import style from "../sign-up/SignUp.module.css";
 import {routes} from "../../../common/components/routes/Routes";
 
 const SingIn = () => {
+
     const dispatch = useAppDispatch()
     const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
     const errorSignIn = useAppSelector(state => state.auth.errorSignIn)
-    const [loading, setLoading] = useState(false)
 
     const {
         control,
@@ -22,7 +22,6 @@ const SingIn = () => {
         clearErrors
     } = useForm<LoginParamsType>({mode: 'onChange'})
     const onSubmit: SubmitHandler<LoginParamsType> = (data: LoginParamsType) => {
-        setLoading(!loading)
         dispatch(loginTC(data))
         clearErrors()
     }
@@ -102,8 +101,8 @@ const SingIn = () => {
                 <Link to={routes.RESET_PASS_PATH}>Forgot Password?</Link>
 
                 <div style={{width: '70%'}}>
-                    <Button type="primary" htmlType="submit" disabled={!isValid} block loading={loading}>
-                        Sign In
+                    <Button type="primary" htmlType="submit" disabled={!isValid} block>
+                        Login
                     </Button>
                 </div>
 
