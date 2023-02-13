@@ -1,8 +1,8 @@
-
-// all project paths
 import {useSearchParams} from "react-router-dom";
 
-export enum routes {
+
+// all project paths
+export const enum routes {
     PROFILE_PATH = '/',
     SIGN_IN_PATH = '/sign-in',
     SIGN_UP_PATH = '/sign-up',
