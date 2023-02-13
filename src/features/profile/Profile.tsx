@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import profilePhoto from '../../common/assets/pngReact.png'
 import s from './Profile.module.css'
 import {useAppDispatch, useAppSelector} from "../../app/store";
 import {Navigate} from "react-router";
@@ -10,22 +9,22 @@ import {routes} from "../../constants/constants";
 
 
 const Profile = () => {
-    const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
     const dispatch = useAppDispatch()
+    const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
     const name = useAppSelector((state) => state.auth.userData.name)
     const email = useAppSelector((state) => state.auth.userData.email)
-
-    const [editableStr, setEditableStr] = useState(name);
-    const {Title} = Typography;
+    const avatar = useAppSelector((state) => state.auth.userData.avatar)
+    const [editableStr, setEditableStr] = useState(name)
+    const {Title} = Typography
 
 
     const logOutProfile = () => {
         dispatch(logoutTC())
     }
 
-   /* const changeNme = (title: string) => {
-       ChangeName(title)
-    }*/
+    /* const changeNme = (title: string) => {
+        ChangeName(title)
+     }*/
 
     if (!isLoggedIn) return <Navigate to={routes.SIGN_IN_PATH}/>
     return (
@@ -35,7 +34,7 @@ const Profile = () => {
                 <div className={s.profile}>
                     <Title>Personal Information</Title>
                     <div className={s.profilePhoto}>
-                        <img src={profilePhoto}/>
+                        <img src={avatar}/>
                         <div>
                             <Typography.Title editable={{onChange: setEditableStr}} level={1} style={{margin: 0}}>
                                 {editableStr}

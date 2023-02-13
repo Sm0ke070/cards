@@ -3,10 +3,10 @@ import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import {useAppDispatch, useAppSelector} from "../../../app/store";
 import {Link, Navigate} from "react-router-dom";
 import {loginTC} from "./SingInReducer";
-import {LoginParamsType} from "./SingIn.api";
 import {Button, Checkbox, Input} from "antd";
 import style from "../sign-up/SignUp.module.css";
 import {routes} from "../../../constants/constants";
+import {LoginParamsType} from "../auth.api";
 
 const SingIn = () => {
 

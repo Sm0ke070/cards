@@ -1,8 +1,8 @@
 import {Dispatch} from 'redux';
 import axios, {AxiosError} from 'axios';
-import {signUpAPI, SignUpParamsType} from './signUp.api';
 import {ActionsType} from '../../../app/store';
 import {setAppStatusAC, SetAppStatusActionType} from '../../../app/AppReducer';
+import {authAPI, SignUpParamsType} from "../auth.api";
 
 
 const initialState = {
@@ -32,7 +32,7 @@ export const setIsRegisteredAC = (isRegistered: boolean) =>
 export const SignUpTC = (data: SignUpParamsType) => async (dispatch: Dispatch<ActionsType>) => {
     dispatch(setAppStatusAC('loading'))
     try {
-        const res = await signUpAPI.register(data)
+        const res = await authAPI.register(data)
         console.log(res)
         if (res.statusText === 'Created') {
             setTimeout(() => {

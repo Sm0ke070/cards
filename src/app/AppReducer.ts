@@ -1,6 +1,6 @@
 import {setIsLoggedInAC, setUserAC} from "../features/auth/sign-in/SingInReducer";
 import {Dispatch} from "redux";
-import {SingInAPI} from "../features/auth/sign-in/SingIn.api";
+import {authAPI} from "../features/auth/auth.api";
 
 const initialState: InitialStateType = {
     status: 'idle',
@@ -8,7 +8,7 @@ const initialState: InitialStateType = {
     isInitialized: false,
 }
 
-export const appReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+export const appReducer = (state: InitialStateType = initialState, action: AppActionsType): InitialStateType => {
     switch (action.type) {
         case 'APP/SET-STATUS':
             return {...state, status: action.status}
@@ -34,10 +34,10 @@ export const setAppErrorAC = (error: string | null) => ({type: 'APP/SET-ERROR', 
 export const setAppStatusAC = (status: RequestStatusType) => ({type: 'APP/SET-STATUS', status} as const)
 export const setIsInitializedStatusAC = (value: boolean) => ({type: 'APP/SET-INITIALIZED', value} as const)
 
-export const meTC = () => async (dispatch: Dispatch<ActionsType>) => {
+export const meTC = () => async (dispatch: Dispatch<AppActionsType>) => {
     dispatch(setAppStatusAC('loading'))
     try {
-        const res = await SingInAPI.me()
+        const res = await authAPI.me()
         if (res) {
             dispatch(setUserAC(res.data))
             dispatch(setIsLoggedInAC(true))
@@ -60,9 +60,11 @@ export const meTC = () => async (dispatch: Dispatch<ActionsType>) => {
 export type SetAppErrorActionType = ReturnType<typeof setAppErrorAC>
 export type SetAppStatusActionType = ReturnType<typeof setAppStatusAC>
 
-type ActionsType =
+type AppActionsType =
     | SetAppErrorActionType
     | SetAppStatusActionType
     | ReturnType<typeof setIsLoggedInAC>
     | ReturnType<typeof setIsInitializedStatusAC>
     | ReturnType<typeof setUserAC>
+    | ReturnType<typeof setAppErrorAC>
+    | ReturnType<typeof setAppStatusAC>
