@@ -8,8 +8,8 @@ import ResetPassword from "../../../features/password/forgot-password/ResetPassw
 import NewPassword from "../../../features/password/new-password/NewPassword";
 import CheckEmail from "../../../features/password/check-email/CheckEmail";
 import Test from "../super-components/Test";
-import {AllPacksList} from "../../../features/PacksLists/AllPacksList/AllPacksList";
-import {MyPacksList} from "../../../features/PacksLists/MyPacksList/MyPacksList";
+import {AllPacksList} from "../../../features/packs-lists/all-packs-list/AllPacksList";
+import {MyPacksList} from "../../../features/packs-lists/my-packs-list/MyPacksList";
 import {routes} from "../../../constants/constants";
 
 // all project paths

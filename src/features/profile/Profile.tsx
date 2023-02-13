@@ -3,7 +3,7 @@ import profilePhoto from '../../common/assets/pngReact.png'
 import s from './Profile.module.css'
 import {useAppDispatch, useAppSelector} from "../../app/store";
 import {Navigate} from "react-router";
-import {logoutTC} from "../auth/sign-in/SingIn-reducer";
+import {logoutTC} from "../auth/sign-in/SingInReducer";
 import {Button, Typography} from 'antd';
 import {Link} from "react-router-dom";
 import {routes} from "../../constants/constants";

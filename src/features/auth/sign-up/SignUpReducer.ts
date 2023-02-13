@@ -2,7 +2,7 @@ import {Dispatch} from 'redux';
 import axios, {AxiosError} from 'axios';
 import {signUpAPI, SignUpParamsType} from './signUp.api';
 import {ActionsType} from '../../../app/store';
-import {setAppStatusAC, SetAppStatusActionType} from '../../../app/app-reducer';
+import {setAppStatusAC, SetAppStatusActionType} from '../../../app/AppReducer';
 
 
 const initialState = {

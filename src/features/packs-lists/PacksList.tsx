@@ -1,6 +1,6 @@
 import {useState} from "react";
-import {AllPacksList} from "./AllPacksList/AllPacksList";
-import {MyPacksList} from "./MyPacksList/MyPacksList";
+import {AllPacksList} from "./all-packs-list/AllPacksList";
+import {MyPacksList} from "./my-packs-list/MyPacksList";
 
 export const PacksList = () => {
     let [my, setMy] = useState()

@@ -2,7 +2,7 @@ import React from 'react';
 import {Controller, SubmitHandler, useForm} from 'react-hook-form';
 import {useAppDispatch, useAppSelector} from '../../../app/store';
 import {Link, Navigate} from 'react-router-dom';
-import {setErrorSignUpAC, setIsRegisteredAC, SignUpTC} from './signUp-reducer';
+import {setErrorSignUpAC, setIsRegisteredAC, SignUpTC} from './SignUpReducer';
 import {Button, Input, Spin} from 'antd';
 import {EyeInvisibleOutlined, EyeTwoTone} from '@ant-design/icons';
 import style from './SignUp.module.css'

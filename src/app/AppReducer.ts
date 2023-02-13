@@ -1,4 +1,4 @@
-import {setIsLoggedInAC, setUserAC} from "../features/auth/sign-in/SingIn-reducer";
+import {setIsLoggedInAC, setUserAC} from "../features/auth/sign-in/SingInReducer";
 import {Dispatch} from "redux";
 import {SingInAPI} from "../features/auth/sign-in/SingIn.api";
 

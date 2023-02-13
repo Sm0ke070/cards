@@ -20,7 +20,7 @@ const AccountBlock = () => {
         <div className={style.accountContainer}>
             {isLoggedIn
                 ?
-                <div><Link to={'/'}>{userName}</Link><img src={avatar} alt="-avatar"/></div>
+                <div><Link to={'/'}>{userName}</Link><img style={{maxWidth:'45px'}} src={avatar} alt="-avatar"/></div>
                 :
                 <Button type="primary" onClick={signInHandler}>
                     sign-in

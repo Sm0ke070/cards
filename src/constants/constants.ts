@@ -27,7 +27,7 @@ const onchange = (e: any) => {
 import React from 'react';
 import {Table} from 'antd';
 import {ColumnsType} from 'antd/es/table';
-import {MyPacksList} from "../MyPacksList/MyPacksList";
+import {my-packs-list} from "../my-packs-list/my-packs-list";
 import {Link, useSearchParams} from "react-router-dom";
 import {routes} from "../../../constants/constants";
 
@@ -87,7 +87,7 @@ for (let i = 0; i < 100; i++) {
     });
 }
 
-export const AllPacksList: React.FC = () => {
+export const all-packs-list: React.FC = () => {
     const [search, setParams] = useSearchParams()
     console.log(search.get('search'))
     const onchange = (e: any) => {
@@ -103,7 +103,7 @@ export const AllPacksList: React.FC = () => {
 };
  */
 /*
-export const AllPacksList: React.FC = () => {
+export const all-packs-list: React.FC = () => {
     const [search, setParams] = useSearchParams()
 
     const isOwner = search.get('isOwner') ? JSON.parse(search.get('isOwner')!) : undefined
@@ -128,7 +128,7 @@ export const AllPacksList: React.FC = () => {
  */
 
 /*
-export const AllPacksList: React.FC = () => {
+export const all-packs-list: React.FC = () => {
     const [search, setParams] = useSearchParams()
 
     const isOwner = JSON.parse(search.get('isOwner') || 'false')

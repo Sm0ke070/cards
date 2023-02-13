@@ -2,7 +2,7 @@ import React from 'react';
 import {useAppDispatch, useAppSelector} from "../../../app/store";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {Link} from "react-router-dom";
-import {resetPasswordTC} from "./reset-password-reducer";
+import {resetPasswordTC} from "./ResetPasswordReducer";
 import CheckEmail from "../check-email/CheckEmail";
 
 
