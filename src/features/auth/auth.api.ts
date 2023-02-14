@@ -1,12 +1,11 @@
-import axios, {AxiosResponse} from "axios";
+import {AxiosResponse} from 'axios';
+import {instance} from "../../app/base-url";
 
-export const instance = axios.create({
-    baseURL: process.env.REACT_APP_BACK_URL || 'https://neko-back.herokuapp.com/2.0/',
-    // baseURL: process.env.NODE_ENV === 'development' ? 'http://localhost:7542/2.0/' : 'https://neko-back.herokuapp.com/2.0/',
-    withCredentials: true,
-})
 
-export const SingInAPI = {
+export const authAPI = {
+    register: (data: SignUpParamsType) => {
+        return instance.post<SignUpParamsType, AxiosResponse<RegisterResponseType>>('auth/register', data)
+    },
     login(data: LoginParamsType) {
         return instance.post<LoginParamsType, AxiosResponse<ResponseUserDataType>>('/auth/login', data)
     },
@@ -17,6 +16,8 @@ export const SingInAPI = {
         return instance.post<ResponseUserDataType>('auth/me');
     },
 }
+
+
 export type LoginParamsType = {
     email: string
     password: string
@@ -35,3 +36,25 @@ export type ResponseUserDataType = {
     rememberMe: boolean;
     error?: string;
 }
+
+export type SignUpParamsType = {
+    email: string
+    password: string
+}
+export type RegisterResponseType = {
+    addedUser: AddedUser
+    error?: string;
+}
+export type AddedUser = {
+    email: string;
+    rememberMe: boolean;
+    isAdmin: boolean;
+    name: string;
+    verified: boolean;
+    publicCardPacksCount: number;
+    _id: string;
+    created: string;
+    updated: string;
+    __v: number;
+}
+

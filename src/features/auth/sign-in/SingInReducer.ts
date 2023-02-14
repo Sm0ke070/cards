@@ -1,7 +1,7 @@
 import {Dispatch} from "redux";
-import {LoginParamsType, ResponseUserDataType, SingInAPI} from "./SingIn.api";
 import axios, {AxiosError} from "axios";
 import {ActionsType} from '../../../app/store';
+import {authAPI, LoginParamsType, ResponseUserDataType} from "../auth.api";
 
 const initialState = {
     isLoggedIn: false,
@@ -36,7 +36,7 @@ export const setErrorSignInAC = (errorSignIn: string) =>
 export const loginTC = (data: LoginParamsType) => async (dispatch: Dispatch<ActionsType>) => {
 
     try {
-        const res = await SingInAPI.login(data)
+        const res = await authAPI.login(data)
         if (res.statusText === 'OK') {
             dispatch(setUserAC(res.data))
             dispatch(setIsLoggedInAC(true))
@@ -58,7 +58,7 @@ export const loginTC = (data: LoginParamsType) => async (dispatch: Dispatch<Acti
 }
 export const logoutTC = () => (dispatch: Dispatch<ActionsType>) => {
     //dispatch(setAppStatusAC('loading'))
-    SingInAPI.logout()
+    authAPI.logout()
         .then(res => {
             if (res) {
                 dispatch(setIsLoggedInAC(false))

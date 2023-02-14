@@ -2,11 +2,11 @@ import React from 'react';
 import {Controller, SubmitHandler, useForm} from 'react-hook-form';
 import {useAppDispatch, useAppSelector} from '../../../app/store';
 import {Link, Navigate} from 'react-router-dom';
-import {setErrorSignUpAC, setIsRegisteredAC, SignUpTC} from './signUp-reducer';
+import {setErrorSignUpAC, setIsRegisteredAC, SignUpTC} from './SignUpReducer';
 import {Button, Input, Spin} from 'antd';
 import {EyeInvisibleOutlined, EyeTwoTone} from '@ant-design/icons';
 import style from './SignUp.module.css'
-import {routes} from "../../../common/components/routes/Routes";
+import {routes} from "../../../constants/constants";
 
 
 type Inputs = {
@@ -43,11 +43,11 @@ const SignUp = () => {
 
     if (isRegistered) {
         dispatch(setIsRegisteredAC(false))
-        return <Navigate to={routes.SIGN_IN_PATH}/>
+        return <Navigate to={routes.SIGN_IN}/>
     }
 
     if (isLoggedIn) {
-        return <Navigate to={routes.PROFILE_PATH}/>
+        return <Navigate to={routes.PROFILE}/>
     }
 
     return (

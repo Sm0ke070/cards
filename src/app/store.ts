@@ -1,15 +1,15 @@
 import {AnyAction, applyMiddleware, combineReducers, legacy_createStore} from "redux";
 import thunkMiddleware, {ThunkDispatch} from 'redux-thunk'
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
-import {appReducer} from "./app-reducer";
-import {AuthActionsType, singInReducer} from "../features/auth/sign-in/SingIn-reducer";
-import {SignUpActionsType, signUpReducer} from "../features/auth/sign-up/signUp-reducer";
+import {appReducer} from "./AppReducer";
+import {AuthActionsType, singInReducer} from "../features/auth/sign-in/SingInReducer";
+import {SignUpActionsType, signUpReducer} from "../features/auth/sign-up/SignUpReducer";
 import {
     resetPasswordActionsType,
     resetPasswordReducer
-} from "../features/password/forgot-password/reset-password-reducer";
-import {newPasswordReducer} from "../features/password/new-password/new-password-reducer";
-import {profileReducer} from "../features/profile/profile-reducer";
+} from "../features/password/forgot-password/ResetPasswordReducer";
+import {newPasswordReducer} from "../features/password/new-password/NewPasswordReducer";
+import {profileReducer} from "../features/profile/ProfileReducer";
 
 const rootReducer = combineReducers({
     app: appReducer,

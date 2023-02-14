@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Navigate, useParams} from "react-router-dom";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {useAppDispatch} from "../../../app/store";
-import {setNewPasswordTC} from "../forgot-password/reset-password-reducer";
+import {setNewPasswordTC} from "../forgot-password/ResetPasswordReducer";
 
 type PasswordType = {
     password: string

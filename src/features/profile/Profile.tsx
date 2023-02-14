@@ -1,48 +1,59 @@
-import React, {useState} from 'react';
-import profilePhoto from '../../common/assets/pngReact.png'
+import React, {useEffect, useState} from 'react';
 import s from './Profile.module.css'
 import {useAppDispatch, useAppSelector} from "../../app/store";
 import {Navigate} from "react-router";
-import {logoutTC} from "../auth/sign-in/SingIn-reducer";
+import {logoutTC} from "../auth/sign-in/SingInReducer";
 import {Button, Typography} from 'antd';
+import {Link} from "react-router-dom";
+import {routes} from "../../constants/constants";
+import {changeUserNameTC} from "./ProfileReducer";
+import {log} from "util";
 
 
 const Profile = () => {
-    const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
     const dispatch = useAppDispatch()
+    const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
     const name = useAppSelector((state) => state.auth.userData.name)
+    //const userName = useAppSelector((state) => state.profile.userName)
     const email = useAppSelector((state) => state.auth.userData.email)
+    const avatar = useAppSelector((state) => state.auth.userData.avatar)
+    const [editableStr, setEditableStr] = useState(name)
+    const {Title} = Typography
 
-    const [editableStr, setEditableStr] = useState(name);
-    const {Title} = Typography;
 
-
-    const logOutProfile = () => {
+    const logOutProfileHandler = () => {
         dispatch(logoutTC())
     }
 
-   /* const changeNme = (title: string) => {
-       ChangeName(title)
-    }*/
+    const changeNameHandler = (value: string) => {
+        dispatch(changeUserNameTC(value))
+    }
 
-    if (!isLoggedIn) return <Navigate to={'/sign-in'}/>
+    console.log('render')
+
+    if (!isLoggedIn) return <Navigate to={routes.SIGN_IN}/>
     return (
         <div className={s.container}>
             <div className={s.profileGlobal}>
+                <Link to={routes.PACKS_LIST}>back to packsList</Link>
                 <div className={s.profile}>
                     <Title>Personal Information</Title>
                     <div className={s.profilePhoto}>
-                        <img src={profilePhoto}/>
+                        <img src={avatar}/>
                         <div>
-                            <Typography.Title editable={{onChange: setEditableStr}} level={1} style={{margin: 0}}>
+                            <Typography.Title
+                                editable={{onChange: changeNameHandler}}
+                                level={1}
+                                style={{margin: 0}}>
                                 {editableStr}
+
                             </Typography.Title>
                         </div>
 
                         <div><span>{email}</span></div>
                         <div>
 
-                            <Button type="dashed" size={'small'} onClick={logOutProfile} shape={"round"}>
+                            <Button type="dashed" size={'small'} onClick={logOutProfileHandler} shape={"round"}>
                                 Log out
                             </Button>
 

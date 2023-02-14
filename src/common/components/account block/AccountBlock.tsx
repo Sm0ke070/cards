@@ -1,28 +1,28 @@
 import React from 'react';
 import {useAppSelector} from "../../../app/store";
-import {Link, Navigate, useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import style from './accountBlock.module.css'
 import {Button} from "antd";
-import {routes} from "../routes/Routes";
+import {routes} from "../../../constants/constants";
 
 
 const AccountBlock = () => {
     const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
     const userName = useAppSelector((state) => state.auth.userData.name)
-    const ava = useAppSelector((state) => state.auth.userData.avatar)
+    const avatar = useAppSelector((state) => state.auth.userData.avatar)
+    const navigate = useNavigate()
 
     const signInHandler = () => {
-        return <Navigate to={routes.SIGN_IN_PATH}/>
+        navigate(routes.SIGN_IN)
     }
-
 
     return (
         <div className={style.accountContainer}>
             {isLoggedIn
                 ?
-                <div><Link to={'/'}>{userName}</Link><img src={ava} alt="-avatar"/></div>
+                <div><Link to={'/'}>{userName}</Link><img style={{maxWidth:'45px'}} src={avatar} alt="-avatar"/></div>
                 :
-                <Button title={'sign-in'} type="primary" onClick={signInHandler}>
+                <Button type="primary" onClick={signInHandler}>
                     sign-in
                 </Button>}
         </div>

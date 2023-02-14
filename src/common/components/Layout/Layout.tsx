@@ -2,7 +2,7 @@ import React from 'react';
 import {Link, Outlet} from "react-router-dom";
 import style from "./Layout.module.css"
 import AccountBlock from "../account block/AccountBlock";
-import {routes} from "../routes/Routes";
+import {routes} from "../../../constants/constants";
 
 const Layout = () => {
 
@@ -13,7 +13,7 @@ const Layout = () => {
             </header>
 
             <div>
-                <div><Link to={routes.PROFILE_PATH}>profile</Link></div>
+                <div><Link to={routes.PROFILE}>profile</Link></div>
                 <div><Link to="/test">test</Link></div>
             </div>
 
