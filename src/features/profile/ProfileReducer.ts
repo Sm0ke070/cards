@@ -25,9 +25,6 @@ export const changeUserNameTC = (name: string) => async (dispatch: AppThunkDispa
 
         await profileAPI.changeName(name)
         dispatch(changeNameAC(name))
-
-
-
 }
 
 

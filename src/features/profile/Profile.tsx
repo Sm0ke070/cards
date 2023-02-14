@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import s from './Profile.module.css'
 import {useAppDispatch, useAppSelector} from "../../app/store";
 import {Navigate} from "react-router";
@@ -7,7 +7,6 @@ import {Button, Typography} from 'antd';
 import {Link} from "react-router-dom";
 import {routes} from "../../constants/constants";
 import {changeUserNameTC} from "./ProfileReducer";
-import {log} from "util";
 
 
 const Profile = () => {
@@ -27,6 +26,7 @@ const Profile = () => {
 
     const changeNameHandler = (value: string) => {
         dispatch(changeUserNameTC(value))
+        setEditableStr(value)
     }
 
     console.log('render')
@@ -43,10 +43,9 @@ const Profile = () => {
                         <div>
                             <Typography.Title
                                 editable={{onChange: changeNameHandler}}
-                                level={1}
+                                level={3}
                                 style={{margin: 0}}>
                                 {editableStr}
-
                             </Typography.Title>
                         </div>
 
