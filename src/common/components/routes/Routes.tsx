@@ -1,6 +1,6 @@
 import React from 'react';
 import {Navigate, Route, Routes} from "react-router-dom";
-import Layout from "../Layout/Layout";
+import Layout from "../layout/Layout";
 import Profile from "../../../features/profile/Profile";
 import SingIn from "../../../features/auth/sign-in/SingIn";
 import SignUp from "../../../features/auth/sign-up/SignUp";

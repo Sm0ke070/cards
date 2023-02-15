@@ -11,11 +11,9 @@ import {changeNameAC, changeUserNameTC, getUserNameTC} from "./ProfileReducer";
 const Profile = () => {
     const dispatch = useAppDispatch()
     const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
-    const name = useAppSelector((state) => state.auth.userData.name)
-    //const userName = useAppSelector((state) => state.profile.userName)
+    const userName = useAppSelector((state) => state.profile.userName)
     const email = useAppSelector((state) => state.auth.userData.email)
     const avatar = useAppSelector((state) => state.auth.userData.avatar)
-    const [editableStr, setEditableStr] = useState(name)
     const {Title} = Typography
 
 
@@ -23,11 +21,10 @@ const Profile = () => {
         dispatch(logoutTC())
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(getUserNameTC())
 
     })
-
     const changeNameHandler = (value: string) => {
         dispatch(changeUserNameTC(value))
     }
@@ -48,7 +45,7 @@ const Profile = () => {
                                 editable={{onChange: changeNameHandler}}
                                 level={1}
                                 style={{margin: 0}}>
-                                {editableStr}
+                                {userName}
 
                             </Typography.Title>
                         </div>

@@ -1,5 +1,6 @@
 import {AppThunkDispatch} from "../../app/store";
 import {profileAPI} from "./Profile.api";
+import {authAPI} from "../auth/auth.api";
 
 const initialState = {
     userName: ''
@@ -21,15 +22,18 @@ export const changeNameAC = (userName: string) => ({type: 'PROFILE/CHANGE_NAME',
 
 export const changeUserNameTC = (name: string) => async (dispatch: AppThunkDispatch) => {
 
-        await profileAPI.changeName(name)
-        dispatch(changeNameAC(name))
+    await profileAPI.changeName(name)
+    dispatch(changeNameAC(name))
 
 }
 export const getUserNameTC = () => async (dispatch: AppThunkDispatch) => {
-
-      const res= await profileAPI.getUserName()
+    try {
+        const res = await authAPI.me()
         dispatch(changeNameAC(res.data.name))
 
+    } catch (e) {
+
+    }
 }
 
 

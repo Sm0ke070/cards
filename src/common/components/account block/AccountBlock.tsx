@@ -8,7 +8,7 @@ import {routes} from "../../../constants/constants";
 
 const AccountBlock = () => {
     const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
-    const userName = useAppSelector((state) => state.auth.userData.name)
+    const userName = useAppSelector((state) => state.profile.userName)
     const avatar = useAppSelector((state) => state.auth.userData.avatar)
     const navigate = useNavigate()
 
