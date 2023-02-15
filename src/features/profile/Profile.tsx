@@ -6,7 +6,7 @@ import {logoutTC} from "../auth/sign-in/SingInReducer";
 import {Button, Typography} from 'antd';
 import {Link} from "react-router-dom";
 import {routes} from "../../constants/constants";
-import {changeUserNameTC} from "./ProfileReducer";
+import {changeNameAC, changeUserNameTC, getUserNameTC} from "./ProfileReducer";
 
 const Profile = () => {
     const dispatch = useAppDispatch()
@@ -23,8 +23,12 @@ const Profile = () => {
         dispatch(logoutTC())
     }
 
+    useEffect(()=>{
+        dispatch(getUserNameTC())
+
+    })
+
     const changeNameHandler = (value: string) => {
-        setEditableStr(value)
         dispatch(changeUserNameTC(value))
     }
 

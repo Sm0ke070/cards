@@ -1,7 +1,5 @@
 import {AppThunkDispatch} from "../../app/store";
 import {profileAPI} from "./Profile.api";
-import axios, {AxiosError} from "axios";
-import {Dispatch} from "redux";
 
 const initialState = {
     userName: ''
@@ -26,7 +24,11 @@ export const changeUserNameTC = (name: string) => async (dispatch: AppThunkDispa
         await profileAPI.changeName(name)
         dispatch(changeNameAC(name))
 
+}
+export const getUserNameTC = () => async (dispatch: AppThunkDispatch) => {
 
+      const res= await profileAPI.getUserName()
+        dispatch(changeNameAC(res.data.name))
 
 }
 
