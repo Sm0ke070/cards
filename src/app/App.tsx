@@ -12,7 +12,7 @@ const App = () => {
     useEffect(() => {
         dispatch(meTC())
     }, [dispatch])
-
+    //1
     if (!isInitialized) {
         return <div style={{textAlign: 'center'}}>
             <h1>Loading</h1>

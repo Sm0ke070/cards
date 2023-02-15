@@ -7,8 +7,6 @@ import {Button, Typography} from 'antd';
 import {Link} from "react-router-dom";
 import {routes} from "../../constants/constants";
 import {changeUserNameTC} from "./ProfileReducer";
-import {log} from "util";
-
 
 const Profile = () => {
     const dispatch = useAppDispatch()
@@ -26,6 +24,7 @@ const Profile = () => {
     }
 
     const changeNameHandler = (value: string) => {
+        setEditableStr(value)
         dispatch(changeUserNameTC(value))
     }
 
