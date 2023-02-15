@@ -10,6 +10,7 @@ import {
 } from "../features/password/forgot-password/ResetPasswordReducer";
 import {newPasswordReducer} from "../features/password/new-password/NewPasswordReducer";
 import {profileReducer} from "../features/profile/ProfileReducer";
+import {packsReducer, setPacksType} from '../features/Packs/packsReducer';
 
 const rootReducer = combineReducers({
     app: appReducer,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
     registration: signUpReducer,
     resPassword: resetPasswordReducer,
     newPassword: newPasswordReducer,
+    packs:packsReducer
 })
 
 export const store = legacy_createStore(rootReducer, applyMiddleware(thunkMiddleware))
@@ -28,6 +30,7 @@ export const useAppDispatch = () => useDispatch<AppThunkDispatch>()
 export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector
 
 export type ActionsType = AuthActionsType | SignUpActionsType | resetPasswordActionsType
+    | setPacksType
 
 // @ts-ignore
 window.store = store

@@ -11,6 +11,7 @@ import Test from "../super-components/Test";
 import {AllPacksList} from "../../../features/packs-lists/all-packs-list/AllPacksList";
 import {MyPacksList} from "../../../features/packs-lists/my-packs-list/MyPacksList";
 import {routes} from "../../../constants/constants";
+import {Packs} from '../../../features/Packs/Packs';
 
 // all project paths
 // export enum routes {
@@ -38,6 +39,7 @@ const Routing = () => {
                     <Route path={routes.NOT_FOUND} element={<h1 style={{textAlign: 'center'}}>Page not found</h1>}/>
                     <Route path={routes.PACKS_LIST} element={<AllPacksList/>}/>
                     <Route path={routes.MY_PACKS_LIST} element={<MyPacksList/>}/>
+                    <Route path={routes.PACKS} element={<Packs/>}/>
                     <Route path={'*'} element={<Navigate to={routes.NOT_FOUND}/>}/>
                     <Route path={'test'} element={<Test/>}/>
                 </Route>
