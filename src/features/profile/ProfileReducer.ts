@@ -1,7 +1,5 @@
 import {AppThunkDispatch} from "../../app/store";
 import {profileAPI} from "./Profile.api";
-import axios, {AxiosError} from "axios";
-import {Dispatch} from "redux";
 
 const initialState = {
     userName: ''
