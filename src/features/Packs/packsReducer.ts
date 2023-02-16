@@ -33,6 +33,16 @@ export const packsReducer = (state: InitialStateType = initialState, action: pac
                 maxCardsCount: action.payload.maxCardsCount
             }
         }
+        case 'PACKS/SET_PACKS_PAGE':{
+            return {...state,queryParams: {...state.queryParams,
+                page: action.payload.value
+                }}
+        }
+        case 'PACKS/SET_PAGE_COUNT':{
+            return {...state,queryParams: {...state.queryParams,
+                    pageCount: action.payload.value
+                }}
+        }
 
         default:
             return state
@@ -40,7 +50,8 @@ export const packsReducer = (state: InitialStateType = initialState, action: pac
 }
 
 const setPacks = (packs: setPacksPropsType) => ({type: 'PACKS/SET_PACKS', payload: packs} as const)
-
+export const setPacksPageAC = (value: number) => ({ type: 'PACKS/SET_PACKS_PAGE', payload: {value} } as const)
+export const setPageCountAC = (value: number) => ({ type: 'PACKS/SET_PAGE_COUNT', payload: {value} } as const)
 
 
 export const getPacks = (filter?: string) => async (dispatch: Dispatch, getState: any) => {
@@ -64,5 +75,8 @@ type setPacksPropsType = {
     maxCardsCount: number
 }
 export type setPacksType = ReturnType<typeof setPacks>
+export type setPacksPageACType = ReturnType<typeof setPacksPageAC>
+export type setPageCountACType = ReturnType<typeof setPageCountAC>
 
-export type packsReducerActionsType = setPacksType
+
+export type packsReducerActionsType = setPacksType|setPacksPageACType|setPageCountACType
