@@ -3,8 +3,9 @@ import {ColumnsType} from 'antd/es/table';
 import {Table} from 'antd';
 import {useAppDispatch, useAppSelector} from '../../app/store';
 import {getPacks} from './packsReducer';
-import {toFormData} from 'axios';
 import {formatDate} from '../../common/utils/formatDate';
+import s from './Packs.module.css'
+import {ShowPacks} from './ShowPacks';
 
 export const Packs = () => {
     const dispatch = useAppDispatch()
@@ -20,6 +21,11 @@ export const Packs = () => {
         dispatch(getPacks())
     }, [page, packName, pageCount, userId, min, max, sortPacks])
 
+
+
+
+
+
     interface DataType {
         name: string;
         cardsCount: number;
@@ -30,29 +36,23 @@ export const Packs = () => {
     const columns: ColumnsType<DataType> = [
         {
             title: 'Name',
-            width: 110,
             dataIndex: 'name',
-            fixed: 'left',
         },
         {
             title: 'Cards',
-            width: 100,
             dataIndex: 'cardsCount',
         },
 
         {
             title: 'Last Updated',
             dataIndex: 'lastUpdated',
-            width: 150,
         },
         {
             title: 'Created by',
             dataIndex: 'userName',
-            width: 150,
         },
         {
             title: 'Action',
-            fixed: 'right',
             width: 100,
             render: () => <a>action</a>,
         },
@@ -66,8 +66,11 @@ export const Packs = () => {
         }
     })
 
-    return <>
+    return <div className={s.tableWrapper}>
+        <ShowPacks/>
+        <div >
 
-        <Table columns={columns} dataSource={data} scroll={{x: 1500, y: 300}}/>
-    </>
+            <Table columns={columns} dataSource={data} scroll={{x: 1000, y: 500}}/>
+        </div>
+    </div>
 }

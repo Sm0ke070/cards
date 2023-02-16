@@ -13,50 +13,56 @@ const initialState = {
     resetRange: false,
     queryParams: {
         pageCount: 5,
-        page:1,
+        page: 1,
         min: 0,
         max: 110,
-        user_id: '',
         packName: '',
         sortPacks: sortingPacksMethods.desUpdate,
     },
 }
 type InitialStateType = typeof initialState
 
-export const packsReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+export const packsReducer = (state: InitialStateType = initialState, action: packsReducerActionsType): InitialStateType => {
     switch (action.type) {
-        case 'SET_PACKS': {
-            return {...state,
-                cardPacks:action.payload.cardPacks,
-                cardPacksTotalCount:action.payload.cardPacksTotalCount,
+        case 'PACKS/SET_PACKS': {
+            return {
+                ...state,
+                cardPacks: action.payload.cardPacks,
+                cardPacksTotalCount: action.payload.cardPacksTotalCount,
                 minCardsCount: action.payload.minCardsCount,
                 maxCardsCount: action.payload.maxCardsCount
             }
         }
-
 
         default:
             return state
     }
 }
 
-const setPacks = (packs:{
+const setPacks = (packs: setPacksPropsType) => ({type: 'PACKS/SET_PACKS', payload: packs} as const)
+
+
+
+export const getPacks = (filter?: string) => async (dispatch: Dispatch, getState: any) => {
+    const {packName, sortPacks, max, min, page, pageCount} = getState().packs.queryParams
+
+    const user_id = filter === 'MY' ? getState().auth.userData._id : ''
+    try {
+        const res = await PacksAPI.getPacks({packName, sortPacks, max, min, page, pageCount, user_id})
+        const {cardPacks, cardPacksTotalCount, minCardsCount, maxCardsCount} = res.data
+        dispatch(setPacks({cardPacks, cardPacksTotalCount, minCardsCount, maxCardsCount}))
+    } catch (e) {
+
+    }
+}
+
+
+type setPacksPropsType = {
     cardPacks: PackType[]
     cardPacksTotalCount: number
     minCardsCount: number
     maxCardsCount: number
-})=>({type:'SET_PACKS',payload:packs})
+}
 export type setPacksType = ReturnType<typeof setPacks>
 
-export const getPacks = ()=> async (dispatch:Dispatch,getState:any)=>{
-    const { packName, sortPacks, max, min, page, pageCount, user_id } = getState().packs.queryParams
-
-    try {
-        const res = await PacksAPI.getPacks({packName, sortPacks, max, min, page, pageCount, user_id})
-        const { cardPacks, cardPacksTotalCount, minCardsCount, maxCardsCount } = res.data
-        dispatch(setPacks({cardPacks, cardPacksTotalCount, minCardsCount, maxCardsCount}))
-    }
-    catch (e){
-
-    }
-}
+export type packsReducerActionsType = setPacksType
