@@ -5,7 +5,7 @@ import {Link, Navigate} from 'react-router-dom';
 import {setErrorSignUpAC, setIsRegisteredAC, SignUpTC} from './SignUpReducer';
 import {Button, Input, Spin} from 'antd';
 import {EyeInvisibleOutlined, EyeTwoTone} from '@ant-design/icons';
-import style from './SignUp.module.css'
+import style from "../auth-form.module.css";
 import {routes} from "../../../constants/constants";
 
 
@@ -53,7 +53,7 @@ const SignUp = () => {
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)} className={style.form}>
-                <h1>Sign Up</h1>
+                <h2>Sign Up</h2>
 
                 <Controller
                     control={control}

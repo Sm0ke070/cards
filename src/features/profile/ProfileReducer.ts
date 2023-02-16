@@ -3,7 +3,7 @@ import {profileAPI} from "./Profile.api";
 import {authAPI} from "../auth/auth.api";
 
 const initialState = {
-    userName: ''
+    userName: '',
 }
 
 type InitialStateType = typeof initialState
@@ -26,11 +26,17 @@ export const setNameAC = (userName: string) => ({type: 'PROFILE/SET_NAME', userN
 
 export const changeUserNameTC = (name: string) => async (dispatch: AppThunkDispatch) => {
 
-    await profileAPI.changeName(name)
-    dispatch(changeNameAC(name))
+    try {
+        await profileAPI.changeName(name)
+        dispatch(changeNameAC(name))
+    } catch (e) {
+
+    }finally {
+    }
 
 }
 export const getUserNameTC = () => async (dispatch: AppThunkDispatch) => {
+
     try {
         const res = await authAPI.me()
         dispatch(setNameAC(res.data.name))

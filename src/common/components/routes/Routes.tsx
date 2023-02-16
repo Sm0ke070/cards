@@ -12,18 +12,7 @@ import {AllPacksList} from "../../../features/packs-lists/all-packs-list/AllPack
 import {MyPacksList} from "../../../features/packs-lists/my-packs-list/MyPacksList";
 import {routes} from "../../../constants/constants";
 
-// all project paths
-// export enum routes {
-//     PROFILE_PATH = '/',
-//     SIGN_IN_PATH = '/sign-in',
-//     SIGN_UP_PATH = '/sign-up',
-//     RESET_PASS_PATH = '/res-password',
-//     CHECK_EMAIL_PATH = '/check-email',
-//     NEW_PASS_PATH = '/new-password/:token',
-//     NOT_FOUND = '/404',
-//     PACKS_LIST = '/packsList',
-//     MY_PACKS_LIST = '/myPacksList',
-// }*/
+
 const Routing = () => {
     return (
         <>
