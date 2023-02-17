@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Table} from 'antd';
-import {CardsPackType} from "../PacksList.api";
-import {getAllPacksListTC} from "../PacksListReduser";
+import {CardsPackType, PacksListAPI} from "../PacksList.api";
+import {createNewMyCardPack, getAllPacksListTC, getMyPacksListTC} from "../PacksListReduser";
 import {useSelector} from "react-redux";
 import {AppRootStateType, useAppDispatch} from "../../../app/store"
+import {log} from "util";
 
 interface DataType {
     key: React.Key;
@@ -69,17 +70,32 @@ export const AllPacksList: React.FC = () => {
      }*/
     let [all, setAll] = useState(true)
 
-    const packs = useSelector<AppRootStateType, CardsPackType[]>(state => state.packs.cardPacks)
+        const packs = useSelector<AppRootStateType, CardsPackType[]>(state => state.packs.cardPacks)
+    const myPacks=useSelector<AppRootStateType,CardsPackType[]>(state=>state.packs.cardPacks)
 
-    const dipatch=useAppDispatch()
+    const dispatch=useAppDispatch()
     const getAllPacksListHandler=()=>{
-        dipatch(getAllPacksListTC())
+        dispatch(getAllPacksListTC())
+        //dispatch(getMyPacksListTC('63ee5c39fb91183294207dc8'))
+    }
+    const getMyPacksListHandler=()=>{
+        dispatch(getMyPacksListTC('63ee5c39fb91183294207dc8'))
     }
 
+    useEffect(()=>{
+      const test = PacksListAPI.newMyPack('dfa').then((res)=>{
+              console.log(res.data.newCardsPack)
+      })
+    },[])
+
+    const addNewMyPack=()=>{
+        dispatch(createNewMyCardPack('newMyPackListName'))
+    }
     return <div>
         <div>
 
-            <button onClick={() => setAll(true)}>Myyyyyyyyyyyyyyyyyyyyyyy</button>
+            <button onClick={getMyPacksListHandler}>Myyyyyyyyyyyyyyyyyyyyyyy</button>
+            <button onClick={addNewMyPack}>MyCREATE</button>
 
             <button onClick={getAllPacksListHandler}>Allllllllllllllllllll</button>
 
@@ -87,6 +103,7 @@ export const AllPacksList: React.FC = () => {
         {/* <input onChange={onchange} type="text"/>*/}
         <div>
             <Table columns={columns} dataSource={packs} scroll={{x: 1500, y: 300}}/>
+            <Table columns={columns} dataSource={myPacks} scroll={{x: 1500, y: 300}}/>
         </div>
 
     </div>

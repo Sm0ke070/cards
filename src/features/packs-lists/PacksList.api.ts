@@ -1,4 +1,5 @@
 import {instance} from "../../app/base-url";
+import {AxiosResponse} from "axios";
 
 
 export const PacksListAPI={
@@ -6,8 +7,26 @@ export const PacksListAPI={
         return instance.get<CarsPacksResponce>('cards/pack')
     },
     getMyPacksList(user_id:string){
-        return instance.post<CarsPacksResponce>('cards/pack',{user_id})
+        return instance.get<CarsPacksResponce>('cards/pack',{
+            params : {
+                user_id
+            }
+        })
+    },
+    newMyPack(name:string){
+        return instance.post< {newCardsPack : createNewCardPackType}>('cards/pack',{cardsPack:{
+            name:name
+            }})
     }
+}
+export type AddPackModelType = {
+    cardsPack: CardsPackType1
+}
+
+type CardsPackType1 = {
+    name: string
+    deckCover?: string
+    private?: boolean
 }
 
 // export type PacksListType={
@@ -18,10 +37,27 @@ export const PacksListAPI={
 //     created: string
 //     updated: string
 // }
+export type createNewCardPackType={
+    cardsCount: number
+    created: string
+    grade: number
+    more_id: string
+    name: string
+    path: string
+    private: boolean
+    rating: number
+    shots: number
+    type: string
+    updated: string
+    user_id: string
+    user_name: string
+    __v: number
+    _id: string
+}
 export type CardsPackType = {
-    "_id": string
-    "user_id": string
-    "user_name": string
+    _id: string
+    user_id: string
+    user_name: string
     private: boolean
     name: string
     path: string
