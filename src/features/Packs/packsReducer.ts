@@ -3,6 +3,7 @@ import {ActionsType, AppRootStateType, AppThunk, AppThunkDispatch} from '../../a
 import {Dispatch} from 'redux';
 import {PacksAPI, PackType} from './Packs.api';
 import {sortingPacksMethods} from '../../constants/sortingMethods';
+import {setAppStatusAC} from '../../app/AppReducer';
 
 
 const initialState = {
@@ -10,6 +11,7 @@ const initialState = {
     cardPacksTotalCount: 0,
     minCardsCount: 0,
     maxCardsCount: 110,
+    resetFilter: false,
     queryParams: {
         pageCount: 5,
         page: 1,
@@ -63,6 +65,11 @@ export const packsReducer = (state: InitialStateType = initialState, action: pac
                 }
             }
 
+        case 'PACKS/SET_RESET_FILTER': {
+            return {
+                ...state,resetFilter: action.payload.ResetFilter
+            }
+        }
         default:
             return state
     }
@@ -72,6 +79,10 @@ const setPacks = (packs: setPacksPropsType) => ({type: 'PACKS/SET_PACKS', payloa
 export const setPacksPageAC = (Page: number) => ({type: 'PACKS/SET_PACKS_PAGE', payload: {Page}} as const)
 export const setPageCountAC = (PageCount: number) => ({type: 'PACKS/SET_PAGE_COUNT', payload: {PageCount}} as const)
 export const setPackName = (packName: string) => ({type: 'PACKS/SET_PACK_NAME', payload: {packName}} as const)
+export const setResetFilter = (ResetFilter: boolean) => ({
+    type: 'PACKS/SET_RESET_FILTER',
+    payload: {ResetFilter}
+} as const)
 
 export const setCardCount = (CardCount: [number, number]) => {
     return {
@@ -83,25 +94,29 @@ export const setCardCount = (CardCount: [number, number]) => {
 
 export const getPacks = (filter?: string) => async (dispatch: Dispatch, getState: any) => {
     const {packName, sortPacks, max, min, page, pageCount} = getState().packs.queryParams
-    console.log('max, min', max, min)
     const user_id = filter === 'MY' ? getState().auth.userData._id : ''
+    dispatch(setAppStatusAC('loading'))
+
     try {
         const res = await PacksAPI.getPacks({packName, sortPacks, max, min, page, pageCount, user_id})
         const {cardPacks, cardPacksTotalCount, minCardsCount, maxCardsCount} = res.data
         dispatch(setPacks({cardPacks, cardPacksTotalCount, minCardsCount, maxCardsCount}))
+        dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
+        dispatch(setAppStatusAC('failed'))//временно тут
 
     }
+
 }
 
 export const addNewPacks = (newPack: newPackType): AppThunk => async (dispatch: AppThunkDispatch) => {
-
-
+    dispatch(setAppStatusAC('loading'))
     try {
         const res = await PacksAPI.addPacks(newPack)
         dispatch(getPacks('MY'))
+        dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
-
+        dispatch(setAppStatusAC('failed'))//временно тут
     }
 }
 
@@ -122,7 +137,7 @@ export type setPacksPageACType = ReturnType<typeof setPacksPageAC>
 export type setPageCountACType = ReturnType<typeof setPageCountAC>
 export type setPackNameType = ReturnType<typeof setPackName>
 export type setMinCardCountType = ReturnType<typeof setCardCount>
-// export type setMaxCardCountType = ReturnType<typeof setCardCount>
+export type setResetFilterType = ReturnType<typeof setResetFilter>
 
 
 export type packsReducerActionsType = setPacksType
@@ -130,4 +145,4 @@ export type packsReducerActionsType = setPacksType
     | setPageCountACType
     | setPackNameType
     | setMinCardCountType
-// | setMaxCardCountType
+    | setResetFilterType

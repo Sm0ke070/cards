@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {ColumnsType} from 'antd/es/table';
-import {Table} from 'antd';
+import {Spin, Table} from 'antd';
 import {useAppDispatch, useAppSelector} from '../../app/store';
 import {getPacks, setPacksPageAC, setPageCountAC} from './packsReducer';
 import {formatDate} from '../../common/utils/formatDate';
@@ -11,6 +11,7 @@ import {PacksSettings} from './PackSettings/PacksSettings';
 
 export const Packs = () => {
     const dispatch = useAppDispatch()
+    const isLoading = useAppSelector(state => state.app.status)
     const packs = useAppSelector(state => state.packs.cardPacks)
     const cardPacksTotalCount = useAppSelector(state => state.packs.cardPacksTotalCount)
     const page = useAppSelector(state => state.packs.queryParams.page)
@@ -71,17 +72,18 @@ export const Packs = () => {
         <PacksHead/>
         <PacksSettings/>
         <div>
-
-            <Table columns={columns} dataSource={data} scroll={{x: 1000, y: 500}} pagination={{
-                current: page,
-                pageSize: pageCount,
-                total: cardPacksTotalCount,
-                position: ['bottomLeft'],
-                onChange: (page, pageSize) => {
-                    dispatch(setPacksPageAC(page))
-                    dispatch(setPageCountAC(pageSize))
-                },
-            }}/>
+            {isLoading !== 'loading' ?
+                <Table columns={columns} dataSource={data} scroll={{x: 1000, y: 500}} pagination={{
+                    current: page,
+                    pageSize: pageCount,
+                    total: cardPacksTotalCount,
+                    position: ['bottomLeft'],
+                    onChange: (page, pageSize) => {
+                        dispatch(setPacksPageAC(page))
+                        dispatch(setPageCountAC(pageSize))
+                    },
+                }}/> : <Spin size="large"/>
+            }
 
         </div>
     </div>
