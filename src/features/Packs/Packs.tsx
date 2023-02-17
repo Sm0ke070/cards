@@ -5,8 +5,9 @@ import {useAppDispatch, useAppSelector} from '../../app/store';
 import {getPacks, setPacksPageAC, setPageCountAC} from './packsReducer';
 import {formatDate} from '../../common/utils/formatDate';
 import s from './Packs.module.css'
-import {ShowPacks} from './ShowPacks';
+import {ShowPacks} from './PackSettings/ShowPacks';
 import {PacksHead} from './PacksHead';
+import {PacksSettings} from './PackSettings/PacksSettings';
 
 export const Packs = () => {
     const dispatch = useAppDispatch()
@@ -68,7 +69,7 @@ export const Packs = () => {
 
     return <div className={s.tableWrapper}>
         <PacksHead/>
-        <ShowPacks/>
+        <PacksSettings/>
         <div>
 
             <Table columns={columns} dataSource={data} scroll={{x: 1000, y: 500}} pagination={{

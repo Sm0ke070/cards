@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Segmented} from 'antd';
-import {useAppDispatch} from '../../app/store';
-import {getPacks} from './packsReducer';
+import {useAppDispatch} from '../../../app/store';
+import {getPacks} from '../packsReducer';
 
 export const ShowPacks = () => {
 

@@ -10,7 +10,6 @@ const initialState = {
     cardPacksTotalCount: 0,
     minCardsCount: 0,
     maxCardsCount: 110,
-    resetRange: false,
     queryParams: {
         pageCount: 5,
         page: 1,
@@ -24,7 +23,7 @@ type InitialStateType = typeof initialState
 
 export const packsReducer = (state: InitialStateType = initialState, action: packsReducerActionsType): InitialStateType => {
     switch (action.type) {
-        case 'PACKS/SET_PACKS': {
+        case 'PACKS/SET_PACKS':
             return {
                 ...state,
                 cardPacks: action.payload.cardPacks,
@@ -32,23 +31,37 @@ export const packsReducer = (state: InitialStateType = initialState, action: pac
                 minCardsCount: action.payload.minCardsCount,
                 maxCardsCount: action.payload.maxCardsCount
             }
-        }
-        case 'PACKS/SET_PACKS_PAGE': {
+
+        case 'PACKS/SET_PACKS_PAGE':
             return {
                 ...state, queryParams: {
                     ...state.queryParams,
-                    page: action.payload.value
+                    page: action.payload.Page
                 }
             }
-        }
-        case 'PACKS/SET_PAGE_COUNT': {
+
+        case 'PACKS/SET_PAGE_COUNT':
             return {
                 ...state, queryParams: {
                     ...state.queryParams,
-                    pageCount: action.payload.value
+                    pageCount: action.payload.PageCount
                 }
             }
-        }
+
+        case 'PACKS/SET_PACK_NAME':
+            return {
+                ...state, queryParams: {
+                    ...state.queryParams, packName: action.payload.packName
+                }
+            }
+
+        case 'PACKS/SET_CARD_COUNT':
+            return {
+                ...state, queryParams: {
+                    ...state.queryParams, min: action.payload.CardCount[0]
+                    , max: action.payload.CardCount[1]
+                }
+            }
 
         default:
             return state
@@ -56,13 +69,21 @@ export const packsReducer = (state: InitialStateType = initialState, action: pac
 }
 
 const setPacks = (packs: setPacksPropsType) => ({type: 'PACKS/SET_PACKS', payload: packs} as const)
-export const setPacksPageAC = (value: number) => ({type: 'PACKS/SET_PACKS_PAGE', payload: {value}} as const)
-export const setPageCountAC = (value: number) => ({type: 'PACKS/SET_PAGE_COUNT', payload: {value}} as const)
+export const setPacksPageAC = (Page: number) => ({type: 'PACKS/SET_PACKS_PAGE', payload: {Page}} as const)
+export const setPageCountAC = (PageCount: number) => ({type: 'PACKS/SET_PAGE_COUNT', payload: {PageCount}} as const)
+export const setPackName = (packName: string) => ({type: 'PACKS/SET_PACK_NAME', payload: {packName}} as const)
+
+export const setCardCount = (CardCount: [number, number]) => {
+    return {
+        type: 'PACKS/SET_CARD_COUNT',
+        payload: {CardCount}
+    } as const
+}
 
 
 export const getPacks = (filter?: string) => async (dispatch: Dispatch, getState: any) => {
     const {packName, sortPacks, max, min, page, pageCount} = getState().packs.queryParams
-
+    console.log('max, min', max, min)
     const user_id = filter === 'MY' ? getState().auth.userData._id : ''
     try {
         const res = await PacksAPI.getPacks({packName, sortPacks, max, min, page, pageCount, user_id})
@@ -73,7 +94,7 @@ export const getPacks = (filter?: string) => async (dispatch: Dispatch, getState
     }
 }
 
-export const addNewPacks = (newPack: newPackType): AppThunk => async (dispatch:AppThunkDispatch) => {
+export const addNewPacks = (newPack: newPackType): AppThunk => async (dispatch: AppThunkDispatch) => {
 
 
     try {
@@ -99,6 +120,14 @@ type setPacksPropsType = {
 export type setPacksType = ReturnType<typeof setPacks>
 export type setPacksPageACType = ReturnType<typeof setPacksPageAC>
 export type setPageCountACType = ReturnType<typeof setPageCountAC>
+export type setPackNameType = ReturnType<typeof setPackName>
+export type setMinCardCountType = ReturnType<typeof setCardCount>
+// export type setMaxCardCountType = ReturnType<typeof setCardCount>
 
 
-export type packsReducerActionsType = setPacksType | setPacksPageACType | setPageCountACType
+export type packsReducerActionsType = setPacksType
+    | setPacksPageACType
+    | setPageCountACType
+    | setPackNameType
+    | setMinCardCountType
+// | setMaxCardCountType
