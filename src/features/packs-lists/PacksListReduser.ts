@@ -31,6 +31,7 @@ export const PacksListReduser = (state: ItnitialStateType = initialState, action
     }
 }
 
+
 export const getAllPacksList = (allPacksList: CarsPacksResponce) => ({type: "GET_ALL_PACKSLIST", allPacksList} as const)
 export const getMyPacksList = (myPacksList: CarsPacksResponce) => ({type: "GET_MY_PACKSLIST", myPacksList} as const)
 export const newMyPackList = (cardsPack: CardsPackType) => ({type: "NEW_MY_PACK_LIST", cardsPack } as const)
