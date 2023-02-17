@@ -1,10 +1,14 @@
 import {instance} from '../../app/base-url';
 import {sortingPacksMethods} from '../../constants/sortingMethods';
+import {newPackType} from './packsReducer';
 
 
 export const PacksAPI = {
     getPacks(params:GetParamsType){
       return  instance.get<ResponseType>('/cards/pack', {params})
+    },
+    addPacks(params:newPackType){
+        return instance.post('/cards/pack',params)
     }
 }
 export type GetParamsType = {

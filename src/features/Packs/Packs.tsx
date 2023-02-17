@@ -6,6 +6,7 @@ import {getPacks, setPacksPageAC, setPageCountAC} from './packsReducer';
 import {formatDate} from '../../common/utils/formatDate';
 import s from './Packs.module.css'
 import {ShowPacks} from './ShowPacks';
+import {PacksHead} from './PacksHead';
 
 export const Packs = () => {
     const dispatch = useAppDispatch()
@@ -20,10 +21,6 @@ export const Packs = () => {
     useEffect(() => {
         dispatch(getPacks())
     }, [page, packName, pageCount, min, max, sortPacks])
-
-
-
-
 
 
     interface DataType {
@@ -70,22 +67,20 @@ export const Packs = () => {
     })
 
     return <div className={s.tableWrapper}>
+        <PacksHead/>
         <ShowPacks/>
-        <div >
-            {packs
-                ?
-                <Table columns={columns} dataSource={data} scroll={{x: 1000, y: 500}} pagination={{
-                    current: page,
-                    pageSize: pageCount,
-                    total: cardPacksTotalCount,
-                    position: ['bottomLeft'],
-                    onChange: (page, pageSize) => {
-                        dispatch(setPacksPageAC(page))
-                        dispatch(setPageCountAC(pageSize))
-                    },
-                }}/>
-                : <span>Empty Packs</span>
-            }
+        <div>
+
+            <Table columns={columns} dataSource={data} scroll={{x: 1000, y: 500}} pagination={{
+                current: page,
+                pageSize: pageCount,
+                total: cardPacksTotalCount,
+                position: ['bottomLeft'],
+                onChange: (page, pageSize) => {
+                    dispatch(setPacksPageAC(page))
+                    dispatch(setPageCountAC(pageSize))
+                },
+            }}/>
 
         </div>
     </div>

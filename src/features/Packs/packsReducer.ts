@@ -1,5 +1,5 @@
 import {ResponseUserDataType} from '../auth/auth.api';
-import {ActionsType, AppRootStateType} from '../../app/store';
+import {ActionsType, AppRootStateType, AppThunk, AppThunkDispatch} from '../../app/store';
 import {Dispatch} from 'redux';
 import {PacksAPI, PackType} from './Packs.api';
 import {sortingPacksMethods} from '../../constants/sortingMethods';
@@ -33,15 +33,21 @@ export const packsReducer = (state: InitialStateType = initialState, action: pac
                 maxCardsCount: action.payload.maxCardsCount
             }
         }
-        case 'PACKS/SET_PACKS_PAGE':{
-            return {...state,queryParams: {...state.queryParams,
-                page: action.payload.value
-                }}
+        case 'PACKS/SET_PACKS_PAGE': {
+            return {
+                ...state, queryParams: {
+                    ...state.queryParams,
+                    page: action.payload.value
+                }
+            }
         }
-        case 'PACKS/SET_PAGE_COUNT':{
-            return {...state,queryParams: {...state.queryParams,
+        case 'PACKS/SET_PAGE_COUNT': {
+            return {
+                ...state, queryParams: {
+                    ...state.queryParams,
                     pageCount: action.payload.value
-                }}
+                }
+            }
         }
 
         default:
@@ -50,8 +56,8 @@ export const packsReducer = (state: InitialStateType = initialState, action: pac
 }
 
 const setPacks = (packs: setPacksPropsType) => ({type: 'PACKS/SET_PACKS', payload: packs} as const)
-export const setPacksPageAC = (value: number) => ({ type: 'PACKS/SET_PACKS_PAGE', payload: {value} } as const)
-export const setPageCountAC = (value: number) => ({ type: 'PACKS/SET_PAGE_COUNT', payload: {value} } as const)
+export const setPacksPageAC = (value: number) => ({type: 'PACKS/SET_PACKS_PAGE', payload: {value}} as const)
+export const setPageCountAC = (value: number) => ({type: 'PACKS/SET_PAGE_COUNT', payload: {value}} as const)
 
 
 export const getPacks = (filter?: string) => async (dispatch: Dispatch, getState: any) => {
@@ -67,7 +73,23 @@ export const getPacks = (filter?: string) => async (dispatch: Dispatch, getState
     }
 }
 
+export const addNewPacks = (newPack: newPackType): AppThunk => async (dispatch:AppThunkDispatch) => {
 
+
+    try {
+        const res = await PacksAPI.addPacks(newPack)
+        dispatch(getPacks('MY'))
+    } catch (e) {
+
+    }
+}
+
+export type newPackType = {
+    cardsPack: {
+        name: string,
+        private: boolean
+    }
+}
 type setPacksPropsType = {
     cardPacks: PackType[]
     cardPacksTotalCount: number
@@ -79,4 +101,4 @@ export type setPacksPageACType = ReturnType<typeof setPacksPageAC>
 export type setPageCountACType = ReturnType<typeof setPageCountAC>
 
 
-export type packsReducerActionsType = setPacksType|setPacksPageACType|setPageCountACType
+export type packsReducerActionsType = setPacksType | setPacksPageACType | setPageCountACType
