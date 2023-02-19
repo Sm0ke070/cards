@@ -13,7 +13,6 @@ export const NumberOfCards= () => {
     const [maxCardCount, setMaxCardCount] = useState(maxCardsCount)
     useEffect(() => {
         if (resetFilter) {
-            console.log(resetFilter)
             setMinCardCount(minCardsCount)
             setMaxCardCount(maxCardsCount)
             dispatch(setResetFilter(false))

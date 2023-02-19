@@ -10,7 +10,7 @@ import {
 } from "../features/password/forgot-password/ResetPasswordReducer";
 import {newPasswordReducer} from "../features/password/new-password/NewPasswordReducer";
 import {profileReducer} from "../features/profile/ProfileReducer";
-import {packsReducer, packsReducerActionsType} from '../features/Packs/packsReducer';
+import {packsReducer, packsReducerActionsType} from '../features/packs/packsReducer';
 
 const rootReducer = combineReducers({
     app: appReducer,

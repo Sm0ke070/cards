@@ -11,7 +11,7 @@ import Test from "../super-components/Test";
 import {AllPacksList} from "../../../features/packs-lists/all-packs-list/AllPacksList";
 import {MyPacksList} from "../../../features/packs-lists/my-packs-list/MyPacksList";
 import {routes} from "../../../constants/constants";
-import {Packs} from '../../../features/Packs/Packs';
+import {Packs} from '../../../features/packs/Packs';
 
 // all project paths
 // export enum routes {
