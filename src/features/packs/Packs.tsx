@@ -11,6 +11,7 @@ import {SortPacksUpdated} from './packs-sort/SortPacksUpdated';
 import {SortPacksCards} from './packs-sort/SortPacksCards';
 import {SortPackName} from './packs-sort/SortPackName';
 import {SortPackCreatedBy} from './packs-sort/SortPackCreatetBy';
+import {Actions} from './Actions';
 
 export const Packs = () => {
     const dispatch = useAppDispatch()
@@ -58,7 +59,7 @@ export const Packs = () => {
         {
             title: 'Action',
             width: 100,
-            render: () => <a>action</a>,
+            dataIndex: 'actions',
         },
     ];
 
@@ -68,7 +69,9 @@ export const Packs = () => {
             name: p.name,
             cardsCount: p.cardsCount,
             lastUpdated: formatDate(p.updated),
-            userName: p.user_name
+            userName: p.user_name,
+            actions: <Actions packId={p._id} packUserId={p.user_id}/>
+
         }
     })
 

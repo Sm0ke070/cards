@@ -1,14 +1,20 @@
 import {instance} from '../../app/base-url';
 import {sortingPacksMethods} from '../../constants/sortingMethods';
-import {newPackType} from './packsReducer';
+import {newPackType, UpdatePackType} from './packsReducer';
 
 
 export const PacksAPI = {
     getPacks(params:GetParamsType){
       return  instance.get<ResponseType>('/cards/pack', {params})
     },
-    addPacks(params:newPackType){
+    addPack(params:newPackType){
         return instance.post('/cards/pack',params)
+    },
+    deletePack(id:string){
+        return instance.delete(`/cards/pack/`,{params:{id}})
+},
+    updatePack(params:UpdatePackType){
+        return instance.put(`/cards/pack/`,params)
     }
 }
 export type GetParamsType = {
