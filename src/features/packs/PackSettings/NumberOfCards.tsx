@@ -33,6 +33,7 @@ export const NumberOfCards = () => {
         <SuperDoubleRange value={[minCardCount, maxCardCount]} onChangeRange={onChangeRange}
                           onAfterChangeRange={onAfterChangeRange}
                           max={maxCardsCount}
+                          min={minCardCount}
         />
     );
 };

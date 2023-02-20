@@ -50,24 +50,29 @@ export const Packs = () => {
         {
             title: <SortPackName/>,
             dataIndex: 'name',
+            width: 350,
+
         },
         {
             title: <SortPacksCards/>,
             dataIndex: 'cardsCount',
+            width: 150,
         },
 
         {
             title: <SortPacksUpdated/>,
             dataIndex: 'lastUpdated',
+            width: 150,
         },
         {
             title: <SortPackCreatedBy/>,
             dataIndex: 'userName',
+            width: 150,
         },
         {
             title: 'Action',
-            width: 100,
             dataIndex: 'actions',
+            width: 150,
         },
     ];
 

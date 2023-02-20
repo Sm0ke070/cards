@@ -5,16 +5,16 @@ import {getPacksTC, setResetFilterAC} from '../packsReducer';
 
 export const ShowPacks = () => {
     const resetFilter = useAppSelector(state => state.packs.resetFilter)
-    const [value,setValue] = useState<any>('ALL')
+    const [value, setValue] = useState<any>('ALL')
     const dispatch = useAppDispatch()
 
-    useEffect(()=>{
+    useEffect(() => {
         if (resetFilter) {
             setValue('ALL')
             dispatch(setResetFilterAC(false))
         }
-    },[resetFilter])
-    const onChangeHandler = (allOrMy:any)=>{
+    }, [resetFilter])
+    const onChangeHandler = (allOrMy: any) => {
         setValue(allOrMy)
         dispatch(getPacksTC(allOrMy))
     }
@@ -22,7 +22,7 @@ export const ShowPacks = () => {
 
     return (
         <div>
-            <Segmented options={['ALL','MY']} value={value} onChange={onChangeHandler} />
+            <Segmented options={['ALL', 'MY']} value={value} onChange={onChangeHandler}/>
         </div>
     );
 };
