@@ -20,7 +20,6 @@ const SignUp = () => {
     const errorSignUp = useAppSelector(state => state.registration.errorSignUp)
     const status = useAppSelector(state => state.app.status)
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
-    console.log(status)
 
     const dispatch = useAppDispatch()
     const {

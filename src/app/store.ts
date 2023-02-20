@@ -1,5 +1,5 @@
 import {AnyAction, applyMiddleware, combineReducers, legacy_createStore} from "redux";
-import thunkMiddleware, {ThunkDispatch} from 'redux-thunk'
+import thunkMiddleware, {ThunkAction, ThunkDispatch} from 'redux-thunk'
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import {appReducer} from "./AppReducer";
 import {AuthActionsType, singInReducer} from "../features/auth/sign-in/SingInReducer";
@@ -10,6 +10,7 @@ import {
 } from "../features/password/forgot-password/ResetPasswordReducer";
 import {newPasswordReducer} from "../features/password/new-password/NewPasswordReducer";
 import {profileReducer} from "../features/profile/ProfileReducer";
+import {packsReducer, packsReducerActionsType} from '../features/packs/packsReducer';
 
 const rootReducer = combineReducers({
     app: appReducer,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
     registration: signUpReducer,
     resPassword: resetPasswordReducer,
     newPassword: newPasswordReducer,
+    packs:packsReducer
 })
 
 export const store = legacy_createStore(rootReducer, applyMiddleware(thunkMiddleware))
@@ -27,7 +29,12 @@ export type AppThunkDispatch = ThunkDispatch<AppRootStateType, any, AnyAction>
 export const useAppDispatch = () => useDispatch<AppThunkDispatch>()
 export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector
 
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType,
+    AppRootStateType, unknown,
+    ActionsType>
+
 export type ActionsType = AuthActionsType | SignUpActionsType | resetPasswordActionsType
+    | packsReducerActionsType
 
 // @ts-ignore
 window.store = store

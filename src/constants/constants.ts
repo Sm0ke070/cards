@@ -12,6 +12,8 @@ export const enum routes {
     NOT_FOUND = '/404',
     PACKS_LIST = '/packsList',
     MY_PACKS_LIST = '/myPacksList',
+    PACKS = '/Packs',
+    CARDS = '/Cards'
 }
 
 /*

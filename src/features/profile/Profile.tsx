@@ -34,6 +34,7 @@ const Profile = () => {
         <div className={s.container}>
             <div className={s.profileGlobal}>
                 <Link to={routes.PACKS_LIST}>back to packsList</Link>
+                <Link to={routes.PACKS}>back to packsList2</Link>
                 <div className={s.profile}>
                     <Title>Personal Information</Title>
                     <div className={s.profilePhoto}>
