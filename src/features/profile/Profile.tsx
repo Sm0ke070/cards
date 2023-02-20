@@ -1,9 +1,9 @@
-import React, {useEffect} from 'react';
+import React, {useEffect,useState} from 'react';
 import s from './Profile.module.css'
 import {useAppDispatch, useAppSelector} from "../../app/store";
 import {Navigate} from "react-router";
 import {logoutTC} from "../auth/sign-in/SingInReducer";
-import {Button, Spin, Typography} from 'antd';
+import {Button, Typography} from 'antd';
 import {Link} from "react-router-dom";
 import {routes} from "../../constants/constants";
 import {changeUserNameTC, getUserNameTC} from "./ProfileReducer";
@@ -24,6 +24,7 @@ const Profile = () => {
     useEffect(() => {
         dispatch(getUserNameTC())
     }, [dispatch])
+
     const changeNameHandler = (value: string) => {
         dispatch(changeUserNameTC(value))
     }
@@ -43,8 +44,10 @@ const Profile = () => {
                                 level={1}
                                 style={{margin: 0}}>
                                 {userName}
+
                             </Typography.Title>
                         </div>
+
                         <div><span>{email}</span></div>
                         <div>
 

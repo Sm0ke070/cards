@@ -25,15 +25,12 @@ export const setNameAC = (userName: string) => ({type: 'PROFILE/SET_NAME', userN
 
 
 export const changeUserNameTC = (name: string) => async (dispatch: AppThunkDispatch) => {
-
     try {
         await profileAPI.changeName(name)
         dispatch(changeNameAC(name))
     } catch (e) {
 
-    }finally {
     }
-
 }
 export const getUserNameTC = () => async (dispatch: AppThunkDispatch) => {
 
