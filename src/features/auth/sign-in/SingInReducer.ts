@@ -16,7 +16,6 @@ export const singInReducer = (state: InitialStateType = initialState, action: Au
         case 'signIn/SET-IS-LOGGED-IN': {
             return {...state, isLoggedIn: action.value}
         }
-
         case 'signIn/SET-USER': {
             return {...state, userData: {...action.payload}}
         }

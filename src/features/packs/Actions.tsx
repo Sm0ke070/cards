@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {useAppDispatch, useAppSelector} from '../../app/store';
-import {deletePack, updatePack} from './packsReducer';
+import {deletePackTC, updatePackTC} from './packsReducer';
 import {Button} from 'antd';
 
 type ActionsPropsType = {
@@ -13,10 +13,10 @@ export const Actions: FC<ActionsPropsType> = ({packUserId, packId}) => {
     // проверка на свой-чужой. если userId в колоде и userId в сторе при логинизации равны, то disabled будет false
     const disabled = myId !== packUserId
     const onClickRemove = () => {
-        dispatch(deletePack(packId))
+        dispatch(deletePackTC(packId))
     }
     const onClickUpdate = () => {
-        dispatch(updatePack({
+        dispatch(updatePackTC({
             cardsPack: {
                 _id: packId,
                 name: 'Hard Data',

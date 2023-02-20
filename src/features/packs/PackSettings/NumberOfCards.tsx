@@ -1,9 +1,9 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import SuperDoubleRange from '../../../common/components/SuperDoubleRange';
 import {useAppDispatch, useAppSelector} from '../../../app/store';
-import {setCardCount, setPackName, setResetFilter} from '../packsReducer';
+import {setCardCountAC, setResetFilterAC} from '../packsReducer';
 
-export const NumberOfCards= () => {
+export const NumberOfCards = () => {
     const dispatch = useAppDispatch()
     const minCardsCount = useAppSelector(state => state.packs.minCardsCount)
     const maxCardsCount = useAppSelector(state => state.packs.maxCardsCount)
@@ -15,7 +15,7 @@ export const NumberOfCards= () => {
         if (resetFilter) {
             setMinCardCount(minCardsCount)
             setMaxCardCount(maxCardsCount)
-            dispatch(setResetFilter(false))
+            dispatch(setResetFilterAC(false))
         }
     }, [resetFilter])
     // меняет локальные данные
@@ -25,7 +25,7 @@ export const NumberOfCards= () => {
     }
     // отправляет данные в стейт, когда отпускается мышка
     const onAfterChangeRange = (e: [number, number]) => {
-        dispatch(setCardCount(e))
+        dispatch(setCardCountAC(e))
     }
 
 

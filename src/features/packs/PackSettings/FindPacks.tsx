@@ -1,7 +1,7 @@
-import React, {ChangeEvent, FC, useEffect, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import {useDebounce} from 'usehooks-ts';
 import {useAppDispatch, useAppSelector} from '../../../app/store';
-import {getPacks, setPackName, setResetFilter} from '../packsReducer';
+import {setPackNameAC, setResetFilterAC} from '../packsReducer';
 import {Input} from 'antd';
 
 export const FindPacks = () => {
@@ -10,23 +10,23 @@ export const FindPacks = () => {
     const dispatch = useAppDispatch()
     const debouncedValue = useDebounce<string>(value, 700)
 
-    useEffect(()=>{
+    useEffect(() => {
         if (resetFilter) {
             setValue('')
-            dispatch(setPackName(''))
-            dispatch(setResetFilter(false))
+            dispatch(setPackNameAC(''))
+            dispatch(setResetFilterAC(false))
         }
-    },[resetFilter])
+    }, [resetFilter])
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         setValue(event.target.value)
     }
 
     useEffect(() => {
-        debouncedValue && dispatch(setPackName(debouncedValue))
+        debouncedValue && dispatch(setPackNameAC(debouncedValue))
     }, [debouncedValue])
     return (
         <div>
-            <Input value={value} onChange={handleChange} style={{width:'300px'}}
+            <Input value={value} onChange={handleChange} style={{width: '300px'}}
             />
         </div>
     );

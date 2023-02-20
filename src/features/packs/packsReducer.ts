@@ -1,7 +1,5 @@
-import {ResponseUserDataType} from '../auth/auth.api';
-import {ActionsType, AppRootStateType, AppThunk, AppThunkDispatch} from '../../app/store';
-import {Dispatch} from 'redux';
-import {PacksAPI, PackType} from './Packs.api';
+import {AppRootStateType, AppThunk, AppThunkDispatch} from '../../app/store';
+import {packsAPI, PackType} from './PacksAPI';
 import {sortingPacksMethods} from '../../constants/sortingMethods';
 import {setAppStatusAC} from '../../app/AppReducer';
 
@@ -23,7 +21,7 @@ const initialState = {
 }
 type InitialStateType = typeof initialState
 
-export const packsReducer = (state: InitialStateType = initialState, action: packsReducerActionsType): InitialStateType => {
+export const packsReducer = (state: InitialStateType = initialState, action: PacksReducerActionsType): InitialStateType => {
     switch (action.type) {
         case 'PACKS/SET_PACKS':
             return {
@@ -33,82 +31,75 @@ export const packsReducer = (state: InitialStateType = initialState, action: pac
                 minCardsCount: action.payload.minCardsCount,
                 maxCardsCount: action.payload.maxCardsCount
             }
-
         case 'PACKS/SET_PACKS_PAGE':
             return {
                 ...state, queryParams: {
                     ...state.queryParams,
-                    page: action.payload.Page
+                    page: action.payload.page
                 }
             }
-
         case 'PACKS/SET_PAGE_COUNT':
             return {
                 ...state, queryParams: {
                     ...state.queryParams,
-                    pageCount: action.payload.PageCount
+                    pageCount: action.payload.pageCount
                 }
             }
-
         case 'PACKS/SET_PACK_NAME':
             return {
                 ...state, queryParams: {
                     ...state.queryParams, packName: action.payload.packName
                 }
             }
-
         case 'PACKS/SET_CARD_COUNT':
             return {
                 ...state, queryParams: {
-                    ...state.queryParams, min: action.payload.CardCount[0]
-                    , max: action.payload.CardCount[1]
+                    ...state.queryParams, min: action.payload.cardCount[0]
+                    , max: action.payload.cardCount[1]
                 }
             }
-
         case 'PACKS/SET_RESET_FILTER':
             return {
-                ...state, resetFilter: action.payload.ResetFilter
+                ...state, resetFilter: action.payload.resetFilter
             }
-
         case  'PACKS/SET_SORT_METHOD':
             return {
-                ...state, queryParams: {...state.queryParams, sortPacks: action.payload.SortMethod}
+                ...state, queryParams: {...state.queryParams, sortPacks: action.payload.sortMethod}
             }
-
         default:
             return state
     }
 }
 //Actions
-const setPacks = (packs: setPacksPropsType) => ({type: 'PACKS/SET_PACKS', payload: packs} as const)
-export const setPacksPageAC = (Page: number) => ({type: 'PACKS/SET_PACKS_PAGE', payload: {Page}} as const)
-export const setPageCountAC = (PageCount: number) => ({type: 'PACKS/SET_PAGE_COUNT', payload: {PageCount}} as const)
-export const setPackName = (packName: string) => ({type: 'PACKS/SET_PACK_NAME', payload: {packName}} as const)
-export const setResetFilter = (ResetFilter: boolean) => ({
+const setPacks = (packs: SetPacksPropsType) => ({type: 'PACKS/SET_PACKS', payload: packs} as const)
+export const setPacksPageAC = (page: number) => ({type: 'PACKS/SET_PACKS_PAGE', payload: {page}} as const)
+export const setPageCountAC = (pageCount: number) => ({type: 'PACKS/SET_PAGE_COUNT', payload: {pageCount}} as const)
+export const setPackNameAC = (packName: string) => ({type: 'PACKS/SET_PACK_NAME', payload: {packName}} as const)
+export const setResetFilterAC = (resetFilter: boolean) => ({
     type: 'PACKS/SET_RESET_FILTER',
-    payload: {ResetFilter}
+    payload: {resetFilter}
 } as const)
-export const setSortPacksMethod = (SortMethod: sortingPacksMethods) => ({
+export const setSortPacksMethodAC = (sortMethod: sortingPacksMethods) => ({
     type: 'PACKS/SET_SORT_METHOD',
-    payload: {SortMethod}
+    payload: {sortMethod}
 } as const)
 
-export const setCardCount = (CardCount: [number, number]) => {
+export const setCardCountAC = (cardCount: [number, number]) => {
     return {
         type: 'PACKS/SET_CARD_COUNT',
-        payload: {CardCount}
+        payload: {cardCount}
     } as const
 }
 
 
 // Thunks
-export const getPacks = (filter?: string) => async (dispatch: Dispatch, getState: any) => {
+export const getPacksTC = (filter?: string) => async (dispatch: AppThunkDispatch, getState: () => AppRootStateType) => {
     const {packName, sortPacks, max, min, page, pageCount} = getState().packs.queryParams
     const user_id = filter === 'MY' ? getState().auth.userData._id : ''
     dispatch(setAppStatusAC('loading'))
 
     try {
-        const res = await PacksAPI.getPacks({packName, sortPacks, max, min, page, pageCount, user_id})
+        const res = await packsAPI.getPacks({packName, sortPacks, max, min, page, pageCount, user_id})
         const {cardPacks, cardPacksTotalCount, minCardsCount, maxCardsCount} = res.data
         dispatch(setPacks({cardPacks, cardPacksTotalCount, minCardsCount, maxCardsCount}))
         dispatch(setAppStatusAC('succeeded'))
@@ -119,33 +110,33 @@ export const getPacks = (filter?: string) => async (dispatch: Dispatch, getState
 
 }
 
-export const addNewPacks = (newPack: newPackType): AppThunk => async (dispatch: AppThunkDispatch) => {
+export const addNewPacksTC = (newPack: NewPackType): AppThunk => async (dispatch: AppThunkDispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
-        const res = await PacksAPI.addPack(newPack)
-        dispatch(getPacks('MY'))
+        const res = await packsAPI.addPack(newPack)
+        dispatch(getPacksTC('MY'))
         dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
         dispatch(setAppStatusAC('failed'))//временно тут
     }
 }
 
-export const deletePack = (idPack: string): AppThunk => async (dispatch: AppThunkDispatch) => {
+export const deletePackTC = (idPack: string): AppThunk => async (dispatch: AppThunkDispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
-        const res = await PacksAPI.deletePack(idPack)
-        dispatch(getPacks('MY'))
+        const res = await packsAPI.deletePack(idPack)
+        dispatch(getPacksTC('MY'))
         dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
         dispatch(setAppStatusAC('failed'))//временно тут
     }
 }
 
-export const updatePack = (updatePackData: UpdatePackType): AppThunk => async (dispatch: AppThunkDispatch) => {
+export const updatePackTC = (updatePackData: UpdatePackType): AppThunk => async (dispatch: AppThunkDispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
-        const res = await PacksAPI.updatePack(updatePackData)
-        dispatch(getPacks('MY'))
+        const res = await packsAPI.updatePack(updatePackData)
+        dispatch(getPacksTC('MY'))
         dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
         dispatch(setAppStatusAC('failed'))//временно тут
@@ -153,7 +144,7 @@ export const updatePack = (updatePackData: UpdatePackType): AppThunk => async (d
 }
 
 // Types
-export type newPackType = {
+export type NewPackType = {
     cardsPack: {
         name: string,
         private: boolean
@@ -165,7 +156,7 @@ export type UpdatePackType = {
         name: string,
     }
 }
-type setPacksPropsType =
+type SetPacksPropsType =
     {
         cardPacks: PackType[]
         cardPacksTotalCount: number
@@ -175,13 +166,13 @@ type setPacksPropsType =
 export type setPacksType = ReturnType<typeof setPacks>
 export type setPacksPageACType = ReturnType<typeof setPacksPageAC>
 export type setPageCountACType = ReturnType<typeof setPageCountAC>
-export type setPackNameType = ReturnType<typeof setPackName>
-export type setMinCardCountType = ReturnType<typeof setCardCount>
-export type setResetFilterType = ReturnType<typeof setResetFilter>
-export type setSortMethodType = ReturnType<typeof setSortPacksMethod>
+export type setPackNameType = ReturnType<typeof setPackNameAC>
+export type setMinCardCountType = ReturnType<typeof setCardCountAC>
+export type setResetFilterType = ReturnType<typeof setResetFilterAC>
+export type setSortMethodType = ReturnType<typeof setSortPacksMethodAC>
 
 
-export type packsReducerActionsType = setPacksType
+export type PacksReducerActionsType = setPacksType
     | setPacksPageACType
     | setPageCountACType
     | setPackNameType

@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
 import {ColumnsType} from 'antd/es/table';
-import { Table} from 'antd';
+import {Table} from 'antd';
 import {useAppDispatch, useAppSelector} from '../../app/store';
-import {getPacks, setPacksPageAC, setPageCountAC} from './packsReducer';
+import {getPacksTC, setPacksPageAC, setPageCountAC} from './packsReducer';
 import {formatDate} from '../../common/utils/formatDate';
 import s from './Packs.module.css'
 import {PacksHead} from './PacksHead';
@@ -12,16 +12,16 @@ import {SortPacksCards} from './packs-sort/SortPacksCards';
 import {SortPackName} from './packs-sort/SortPackName';
 import {SortPackCreatedBy} from './packs-sort/SortPackCreatetBy';
 import {Actions} from './Actions';
-import {Navigate, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {routes} from '../../constants/constants';
 
-    interface DataType {
-        key: React.Key
-        name: string;
-        cardsCount: number;
-        lastUpdated: string
-        userName: string
-    }
+interface DataType {
+    key: React.Key
+    name: string;
+    cardsCount: number;
+    lastUpdated: string
+    userName: string
+}
 
 export const Packs = () => {
     const dispatch = useAppDispatch()
@@ -38,7 +38,7 @@ export const Packs = () => {
     const sortPacks = useAppSelector(state => state.packs.queryParams.sortPacks)
 
     useEffect(() => {
-        dispatch(getPacks())
+        dispatch(getPacksTC())
     }, [page, packName, pageCount, min, max, sortPacks])
 
 
@@ -82,7 +82,7 @@ export const Packs = () => {
 
         }
     })
-    const onClickPack = (record:DataType) => {
+    const onClickEnterToPackHandler = (record: DataType) => {
         console.log('record', record)
         navigate(routes.CARDS)
 
@@ -94,9 +94,9 @@ export const Packs = () => {
 
             {
                 <Table columns={columns} dataSource={data} scroll={{x: 1000, y: 500}} loading={isLoading === 'loading'}
-                       onRow={record=>{
+                       onRow={record => {
                            return {
-                               onClick:()=>onClickPack(record)
+                               onClick: () => onClickEnterToPackHandler(record)
                            }
                        }} pagination={{
                     current: page,
@@ -109,7 +109,6 @@ export const Packs = () => {
                     },
                 }}/>
             }
-
         </div>
     </div>
 }

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Segmented} from 'antd';
 import {useAppDispatch, useAppSelector} from '../../../app/store';
-import {getPacks, setResetFilter} from '../packsReducer';
+import {getPacksTC, setResetFilterAC} from '../packsReducer';
 
 export const ShowPacks = () => {
     const resetFilter = useAppSelector(state => state.packs.resetFilter)
@@ -11,12 +11,12 @@ export const ShowPacks = () => {
     useEffect(()=>{
         if (resetFilter) {
             setValue('ALL')
-            dispatch(setResetFilter(false))
+            dispatch(setResetFilterAC(false))
         }
     },[resetFilter])
     const onChangeHandler = (allOrMy:any)=>{
         setValue(allOrMy)
-        dispatch(getPacks(allOrMy))
+        dispatch(getPacksTC(allOrMy))
     }
 
 

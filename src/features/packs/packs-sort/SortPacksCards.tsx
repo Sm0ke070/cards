@@ -1,6 +1,6 @@
 import React from 'react';
 import {useAppDispatch, useAppSelector} from '../../../app/store';
-import {setSortPacksMethod} from '../packsReducer';
+import {setSortPacksMethodAC} from '../packsReducer';
 import {sortingPacksMethods} from '../../../constants/sortingMethods';
 import SuperSort from './SuperSort';
 
@@ -9,7 +9,7 @@ export const SortPacksCards = () => {
     const sort = useAppSelector(state => state.packs.queryParams.sortPacks)
 
     const onClickSort = (newSort: sortingPacksMethods) => {
-        dispatch(setSortPacksMethod(newSort))
+        dispatch(setSortPacksMethodAC(newSort))
     }
 
     return (

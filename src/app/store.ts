@@ -10,7 +10,7 @@ import {
 } from "../features/password/forgot-password/ResetPasswordReducer";
 import {newPasswordReducer} from "../features/password/new-password/NewPasswordReducer";
 import {profileReducer} from "../features/profile/ProfileReducer";
-import {packsReducer, packsReducerActionsType} from '../features/packs/packsReducer';
+import {packsReducer, PacksReducerActionsType} from '../features/packs/packsReducer';
 
 const rootReducer = combineReducers({
     app: appReducer,
@@ -34,7 +34,7 @@ export type AppThunk<ReturnType = void> = ThunkAction<ReturnType,
     ActionsType>
 
 export type ActionsType = AuthActionsType | SignUpActionsType | resetPasswordActionsType
-    | packsReducerActionsType
+    | PacksReducerActionsType
 
 // @ts-ignore
 window.store = store

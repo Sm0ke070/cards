@@ -1,7 +1,5 @@
 import React from 'react'
 import {Slider} from 'antd';
-import {setCardCount} from '../../features/packs/packsReducer';
-import {useAppDispatch} from '../../app/store';
 
 type SuperDoubleRangePropsType = {
     onChangeRange?: (value: [number, number]) => void
