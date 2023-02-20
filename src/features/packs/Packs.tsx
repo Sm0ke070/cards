@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {ColumnsType} from 'antd/es/table';
-import {Spin, Table} from 'antd';
+import { Table} from 'antd';
 import {useAppDispatch, useAppSelector} from '../../app/store';
 import {getPacks, setPacksPageAC, setPageCountAC} from './packsReducer';
 import {formatDate} from '../../common/utils/formatDate';
@@ -12,11 +12,23 @@ import {SortPacksCards} from './packs-sort/SortPacksCards';
 import {SortPackName} from './packs-sort/SortPackName';
 import {SortPackCreatedBy} from './packs-sort/SortPackCreatetBy';
 import {Actions} from './Actions';
+import {Navigate, useNavigate} from 'react-router-dom';
+import {routes} from '../../constants/constants';
+
+    interface DataType {
+        key: React.Key
+        name: string;
+        cardsCount: number;
+        lastUpdated: string
+        userName: string
+    }
 
 export const Packs = () => {
     const dispatch = useAppDispatch()
-    const isLoading = useAppSelector(state => state.app.status)
+    const navigate = useNavigate()
     const packs = useAppSelector(state => state.packs.cardPacks)
+    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+    const isLoading = useAppSelector(state => state.app.status)
     const cardPacksTotalCount = useAppSelector(state => state.packs.cardPacksTotalCount)
     const page = useAppSelector(state => state.packs.queryParams.page)
     const packName = useAppSelector(state => state.packs.queryParams.packName)
@@ -30,12 +42,8 @@ export const Packs = () => {
     }, [page, packName, pageCount, min, max, sortPacks])
 
 
-    interface DataType {
-        key: React.Key
-        name: string;
-        cardsCount: number;
-        lastUpdated: string
-        userName: string
+    if (!isLoggedIn) {
+        navigate(routes.SIGN_IN)
     }
 
     const columns: ColumnsType<DataType> = [
@@ -74,14 +82,23 @@ export const Packs = () => {
 
         }
     })
+    const onClickPack = (record:DataType) => {
+        console.log('record', record)
+        navigate(routes.CARDS)
 
+    }
     return <div className={s.tableWrapper}>
         <PacksHead/>
         <PacksSettings/>
         <div>
 
-            {isLoading !== 'loading' ?
-                <Table columns={columns} dataSource={data} scroll={{x: 1000, y: 500}} pagination={{
+            {
+                <Table columns={columns} dataSource={data} scroll={{x: 1000, y: 500}} loading={isLoading === 'loading'}
+                       onRow={record=>{
+                           return {
+                               onClick:()=>onClickPack(record)
+                           }
+                       }} pagination={{
                     current: page,
                     pageSize: pageCount,
                     total: cardPacksTotalCount,
@@ -90,7 +107,7 @@ export const Packs = () => {
                         dispatch(setPacksPageAC(page))
                         dispatch(setPageCountAC(pageSize))
                     },
-                }}/> : <Spin size="large"/>
+                }}/>
             }
 
         </div>

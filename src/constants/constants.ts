@@ -13,6 +13,7 @@ export const enum routes {
     PACKS_LIST = '/packsList',
     MY_PACKS_LIST = '/myPacksList',
     PACKS = '/Packs',
+    CARDS = '/Cards'
 }
 
 /*

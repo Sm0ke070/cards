@@ -142,13 +142,11 @@ export const deletePack = (idPack: string): AppThunk => async (dispatch: AppThun
 }
 
 export const updatePack = (updatePackData: UpdatePackType): AppThunk => async (dispatch: AppThunkDispatch) => {
-    debugger
     dispatch(setAppStatusAC('loading'))
     try {
         const res = await PacksAPI.updatePack(updatePackData)
         dispatch(getPacks('MY'))
         dispatch(setAppStatusAC('succeeded'))
-        debugger
     } catch (e) {
         dispatch(setAppStatusAC('failed'))//временно тут
     }
