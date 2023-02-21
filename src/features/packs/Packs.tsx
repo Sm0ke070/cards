@@ -17,8 +17,9 @@ import {routes} from '../../constants/constants';
 
 interface DataType {
     key: React.Key
-    name: string;
-    cardsCount: number;
+    packId:string
+    name: string
+    cardsCount: number
     lastUpdated: string
     userName: string
 }
@@ -79,6 +80,7 @@ export const Packs = () => {
     const data = packs.map((p) => {
         return {
             key: p._id,
+            packId:p._id,
             name: p.name,
             cardsCount: p.cardsCount,
             lastUpdated: formatDate(p.updated),
@@ -89,6 +91,7 @@ export const Packs = () => {
     })
     const onClickEnterToPackHandler = (record: DataType) => {
         console.log('record', record)
+        // dispatch(setCardsPackIdAC(record.packId))
         navigate(routes.CARDS)
 
     }
