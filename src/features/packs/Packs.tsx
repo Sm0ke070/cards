@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {ColumnsType} from 'antd/es/table';
 import {Table} from 'antd';
 import {useAppDispatch, useAppSelector} from '../../app/store';
-import {getPacksTC, setPacksPageAC, setPageCountAC} from './packsReducer';
+import {getPacksTC, setCardsPackIdAC, setPacksPageAC, setPageCountAC} from './packsReducer';
 import {formatDate} from '../../common/utils/formatDate';
 import s from './Packs.module.css'
 import {PacksHead} from './PacksHead';
@@ -17,7 +17,7 @@ import {routes} from '../../constants/constants';
 
 interface DataType {
     key: React.Key
-    packId:string
+    packId: string
     name: string
     cardsCount: number
     lastUpdated: string
@@ -80,7 +80,7 @@ export const Packs = () => {
     const data = packs.map((p) => {
         return {
             key: p._id,
-            packId:p._id,
+            packId: p._id,
             name: p.name,
             cardsCount: p.cardsCount,
             lastUpdated: formatDate(p.updated),
@@ -90,7 +90,8 @@ export const Packs = () => {
         }
     })
     const onClickEnterToPackHandler = (record: DataType) => {
-        // dispatch(setCardsPackIdAC(record.packId))
+        dispatch(setCardsPackIdAC(record.packId))
+        console.log(record.packId)
         navigate(routes.CARDS)
 
     }
@@ -107,15 +108,15 @@ export const Packs = () => {
                            }
                        }}
                        pagination={{
-                    current: page,
-                    pageSize: pageCount,
-                    total: cardPacksTotalCount,
-                    position: ['bottomLeft'],
-                    onChange: (page, pageSize) => {
-                        dispatch(setPacksPageAC(page))
-                        dispatch(setPageCountAC(pageSize))
-                    },
-                }}/>
+                           current: page,
+                           pageSize: pageCount,
+                           total: cardPacksTotalCount,
+                           position: ['bottomLeft'],
+                           onChange: (page, pageSize) => {
+                               dispatch(setPacksPageAC(page))
+                               dispatch(setPageCountAC(pageSize))
+                           },
+                       }}/>
             }
         </div>
     </div>
