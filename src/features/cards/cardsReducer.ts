@@ -1,7 +1,7 @@
 import {sortingCardsMethods} from '../../constants/sortingMethods';
 import {Dispatch} from 'redux';
 import {setAppStatusAC} from "../../app/AppReducer";
-import {AppRootStateType} from "../../app/store";
+import {AppRootStateType, AppThunk, AppThunkDispatch} from "../../app/store";
 import {cardAPI, ResponseType} from "./cardAPI";
 
 export type CardType = {
@@ -46,7 +46,7 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Car
         case 'CARDS/SET_CARDS':
             return {
                 ...state,
-                cards: [...action.payload.cards],
+                cards: action.payload.cards,
                 cardsTotalCount: action.payload.cardsTotalCount,
                 page: action.payload.page,
                 pageCount: action.payload.pageCount,
@@ -72,6 +72,10 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Car
             return state
     }
 }
+
+export const addNewCardAC = (cardName: string) => {
+    return {type: 'CARDS/ADD_NEW_CARDS', cardName}
+}
 export const setCardsPackIdAC = (currentCardsPackId: string) => ({
     type: 'CARDS/SET_CARDS_ID',
     payload: {currentCardsPackId}
@@ -86,6 +90,26 @@ export const setCardsPageCountAC = (pageCount: number) => ({
     payload: {pageCount}
 } as const)
 
+export type newCard = {
+    card: {
+        question: string
+        cardsPack_id: string
+    }
+}
+
+export const addNewCardTC = (card: newCard): AppThunk => async (dispatch: AppThunkDispatch) => {
+    dispatch(setAppStatusAC('loading'))
+    try {
+        const res = await cardAPI.addNewCard(card)
+        dispatch(getCardsTC())
+        dispatch(addNewCardAC(res.data))
+        dispatch(setAppStatusAC('succeeded'))
+    } catch (e) {
+        dispatch(setAppStatusAC('failed'))
+    } finally {
+
+    }
+}
 
 export const getCardsTC = () => async (dispatch: Dispatch, getState: () => AppRootStateType) => {
     const {cardsPack_id} = getState().cards
