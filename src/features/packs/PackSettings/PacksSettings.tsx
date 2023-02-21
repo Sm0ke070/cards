@@ -5,11 +5,11 @@ import {NumberOfCards} from './NumberOfCards';
 import {RiFilterOffLine} from 'react-icons/ri'
 import {useAppDispatch, useAppSelector} from '../../../app/store';
 import {setPacksPageAC, setPageCountAC, setResetFilterAC} from '../packsReducer';
+import s from './PacksSettings.module.css'
 
 
 export const PacksSettings = () => {
 
-    const maxCardsCount = useAppSelector(state => state.packs.maxCardsCount)
 
     const dispatch = useAppDispatch()
     const resetFilet = () => {
@@ -19,12 +19,13 @@ export const PacksSettings = () => {
 
     }
 
+
     return (
         <div style={{display: 'flex', justifyContent: 'space-around'}}>
             <FindPacks/>
             <ShowPacks/>
             <NumberOfCards/>
-            <RiFilterOffLine size={'30px'} color={'#91C9FF'} onClick={resetFilet}/>
+            <RiFilterOffLine className={s.filterIcon} size={'30px'}  onClick={resetFilet} />
         </div>
     );
 };
