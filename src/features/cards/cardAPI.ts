@@ -1,10 +1,13 @@
 import {instance} from "../../app/base-url";
 import {sortingCardsMethods} from "../../constants/sortingMethods";
-import {CardType} from "./cardsReducer";
+import {CardType, newCard} from "./cardsReducer";
 
 export const cardAPI = {
     getCard(params: GetParamsType) {
         return instance.get<ResponseType>('/cards/card', {params})
+    },
+    addNewCard(card: newCard) {
+        return instance.post('/cards/card', card)
     }
 }
 

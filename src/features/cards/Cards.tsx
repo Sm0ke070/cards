@@ -6,11 +6,12 @@ import {ColumnsType} from "antd/es/table";
 import {SortPacksUpdated} from "../packs/packs-sort/SortPacksUpdated";
 import {formatDate} from "../../common/utils/formatDate";
 import {Actions} from "../packs/Actions";
-import {getCardsTC, setCardsPageAC, setCardsPageCountAC} from "./cardsReducer";
+import {addNewCardTC, getCardsTC, setCardsPageAC, setCardsPageCountAC} from "./cardsReducer";
 import s from "../packs/Packs.module.css";
 import {PacksHead} from "../packs/PacksHead";
 import {PacksSettings} from "../packs/PackSettings/PacksSettings";
 import {Table} from "antd";
+import {CardsHead} from "./CardsHead";
 
 interface DataType {
     key: React.Key
@@ -51,15 +52,15 @@ export const Cards = () => {
 
     const columns: ColumnsType<DataType> = [
         {
+            title: 'Question',
+            dataIndex: 'question',
+            width: 150,
+        },
+        {
             title: "Answer",
             dataIndex: 'answer',
             width: 350,
 
-        },
-        {
-            title: 'Question',
-            dataIndex: 'question',
-            width: 150,
         },
         {
             title: 'Grade',
@@ -89,8 +90,9 @@ export const Cards = () => {
 
     return (
         <div className={s.tableWrapper}>
-            <PacksHead/>
-            <PacksSettings/>
+
+            <CardsHead cardsPack_id={packId}/>
+
             <div>
                 {
                     <Table columns={columns}
