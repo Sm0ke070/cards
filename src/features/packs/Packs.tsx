@@ -68,7 +68,7 @@ export const Packs = () => {
         {
             title: <SortPackCreatedBy/>,
             dataIndex: 'userName',
-            width: 150,
+            width: 170,
         },
         {
             title: 'Action',
@@ -90,7 +90,6 @@ export const Packs = () => {
         }
     })
     const onClickEnterToPackHandler = (record: DataType) => {
-        console.log('record', record)
         // dispatch(setCardsPackIdAC(record.packId))
         navigate(routes.CARDS)
 
@@ -106,7 +105,8 @@ export const Packs = () => {
                            return {
                                onClick: () => onClickEnterToPackHandler(record)
                            }
-                       }} pagination={{
+                       }}
+                       pagination={{
                     current: page,
                     pageSize: pageCount,
                     total: cardPacksTotalCount,

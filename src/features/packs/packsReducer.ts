@@ -114,18 +114,18 @@ export const addNewPacksTC = (newPack: NewPackType): AppThunk => async (dispatch
     dispatch(setAppStatusAC('loading'))
     try {
         const res = await packsAPI.addPack(newPack)
-        dispatch(getPacksTC('MY'))
+        dispatch(getPacksTC('ALL'))
         dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
         dispatch(setAppStatusAC('failed'))//временно тут
     }
 }
 
-export const deletePackTC = (idPack: string): AppThunk => async (dispatch: AppThunkDispatch) => {
+export const deletePackTC = (packId: string): AppThunk => async (dispatch: AppThunkDispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
-        const res = await packsAPI.deletePack(idPack)
-        dispatch(getPacksTC('MY'))
+        const res = await packsAPI.deletePack(packId)
+        dispatch(getPacksTC('ALL'))
         dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
         dispatch(setAppStatusAC('failed'))//временно тут
@@ -136,7 +136,7 @@ export const updatePackTC = (updatePackData: UpdatePackType): AppThunk => async 
     dispatch(setAppStatusAC('loading'))
     try {
         const res = await packsAPI.updatePack(updatePackData)
-        dispatch(getPacksTC('MY'))
+        dispatch(getPacksTC('ALL'))
         dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
         dispatch(setAppStatusAC('failed'))//временно тут
