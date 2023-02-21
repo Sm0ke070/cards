@@ -4,15 +4,11 @@
     align-items: center;
     justify-content: space-around;
     border-radius: 1%;
-    border: gray 1px solid;
     width: 413px;
+    height: 456px;
     font-family: 'Montserrat', sans-serif;
     min-height: 460px;
-
+    background-color: #FFFF;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
-.inputGroup {
-    display: flex;
-    justify-content: center;
-    padding-bottom: 5px;
-}

@@ -4,7 +4,7 @@ import {useAppDispatch, useAppSelector} from "../../../app/store";
 import {Link, Navigate} from "react-router-dom";
 import {loginTC} from "./SingInReducer";
 import {Button, Checkbox, Input} from "antd";
-import style from "../sign-up/SignUp.module.css";
+import style from "../auth-form.module.css";
 import {routes} from "../../../constants/constants";
 import {LoginParamsType} from "../auth.api";
 
@@ -33,7 +33,7 @@ const SingIn = () => {
         <>
             <form onSubmit={handleSubmit(onSubmit)} className={style.form}>
 
-                <h1>Sign In</h1>
+                <h2>Sign In</h2>
 
                 <Controller
                     control={control}

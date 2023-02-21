@@ -3,6 +3,7 @@ import './App.css';
 import {useAppDispatch, useAppSelector} from "./store";
 import {meTC} from "./AppReducer";
 import Routing from '../common/components/routes/Routes'
+import {Spin} from "antd";
 
 const App = () => {
 
@@ -12,10 +13,10 @@ const App = () => {
     useEffect(() => {
         dispatch(meTC())
     }, [dispatch])
-
+    //1
     if (!isInitialized) {
-        return <div style={{textAlign: 'center'}}>
-            <h1>Loading</h1>
+        return <div style={{marginTop:'35vh',display:'flex',justifyContent:'center'}}>
+            <Spin tip="Loading" size="large" />
         </div>
     }
 

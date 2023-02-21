@@ -1,8 +1,10 @@
-import {AppThunkDispatch} from "../../app/store";
+import {AppRootStateType, AppThunkDispatch} from "../../app/store";
 import {profileAPI} from "./Profile.api";
+import {authAPI} from "../auth/auth.api";
+import {setUserAC} from "../auth/sign-in/SingInReducer";
 
 const initialState = {
-    userName: ''
+    userName: '',
 }
 
 type InitialStateType = typeof initialState
@@ -21,13 +23,17 @@ export const changeNameAC = (userName: string) => ({type: 'PROFILE/CHANGE_NAME',
 
 export const changeUserNameTC = (name: string) => async (dispatch: AppThunkDispatch) => {
 
+    try {
         await profileAPI.changeName(name)
-        dispatch(changeNameAC(name))
+        const res = await authAPI.me()
+        dispatch(setUserAC(res.data))
+    } catch (e) {
+
+    }
 }
 
+type ActionsType = ReturnType<typeof changeNameAC>
 
-type ActionsType =
-    ReturnType<typeof changeNameAC>
 
 
 

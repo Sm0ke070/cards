@@ -2,6 +2,7 @@ import {Dispatch} from "redux";
 import axios, {AxiosError} from "axios";
 import {ActionsType} from '../../../app/store';
 import {authAPI, LoginParamsType, ResponseUserDataType} from "../auth.api";
+import {changeNameAC} from "../../profile/ProfileReducer";
 
 const initialState = {
     isLoggedIn: false,
@@ -10,12 +11,11 @@ const initialState = {
 }
 type InitialStateType = typeof initialState
 
-export const singInReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+export const singInReducer = (state: InitialStateType = initialState, action: AuthActionsType): InitialStateType => {
     switch (action.type) {
         case 'signIn/SET-IS-LOGGED-IN': {
             return {...state, isLoggedIn: action.value}
         }
-
         case 'signIn/SET-USER': {
             return {...state, userData: {...action.payload}}
         }
@@ -73,6 +73,7 @@ export const logoutTC = () => (dispatch: Dispatch<ActionsType>) => {
 }
 
 export type AuthActionsType =
-    ReturnType<typeof setUserAC> |
-    ReturnType<typeof setIsLoggedInAC> |
-    ReturnType<typeof setErrorSignInAC>
+    ReturnType<typeof setUserAC>
+    | ReturnType<typeof setIsLoggedInAC>
+    | ReturnType<typeof setErrorSignInAC>
+    | ReturnType<typeof changeNameAC>
