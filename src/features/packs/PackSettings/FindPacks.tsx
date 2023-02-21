@@ -26,7 +26,7 @@ export const FindPacks = () => {
     }, [debouncedValue])
     return (
         <div>
-            <Input value={value} onChange={handleChange} style={{width: '300px'}}
+            <Input placeholder={'Search Pack'}value={value} onChange={handleChange} style={{width: '300px'}}
             />
         </div>
     );
