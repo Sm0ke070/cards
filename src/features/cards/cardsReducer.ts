@@ -24,6 +24,7 @@ const initialState = {
     page: 0,
     pageCount: 0,
     packUserId: '',
+    currentPackId: '',
     resetFilter: false,
     queryParams: {
         pageCount: 5,
@@ -36,14 +37,17 @@ const initialState = {
 
 type InitialStateType = typeof initialState
 
-export const cardsReducer = (state: InitialStateType = initialState, action: any): InitialStateType => {
+export const cardsReducer = (state: InitialStateType = initialState, action: CardsReducerActionsType): InitialStateType => {
     switch (action.type) {
-
+        case 'PACKS/SET_CARDS_ID':
+            return {
+                ...state, currentPackId: action.payload.cardId
+            }
         default:
             return state
     }
 }
-
+export const setCardsPackIdAC = (cardId: string) => ({type: 'PACKS/SET_CARDS_ID', payload: {cardId}} as const)
 
 export const getCard = () => async (dispatch: Dispatch, getState: () => AppRootStateType) => {
     //const {_id} = getState().packs.cardPacks
@@ -57,3 +61,6 @@ export const getCard = () => async (dispatch: Dispatch, getState: () => AppRootS
 
 }
 
+export type setCardsPackIdType = ReturnType<typeof setCardsPackIdAC>
+
+export type CardsReducerActionsType = setCardsPackIdType

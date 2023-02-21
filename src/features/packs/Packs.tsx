@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {ColumnsType} from 'antd/es/table';
 import {Table} from 'antd';
 import {useAppDispatch, useAppSelector} from '../../app/store';
-import {getPacksTC, setCardsPackIdAC, setPacksPageAC, setPageCountAC} from './packsReducer';
+import {getPacksTC, setPacksPageAC, setPageCountAC} from './packsReducer';
 import {formatDate} from '../../common/utils/formatDate';
 import s from './Packs.module.css'
 import {PacksHead} from './PacksHead';
@@ -14,6 +14,7 @@ import {SortPackCreatedBy} from './packs-sort/SortPackCreatetBy';
 import {Actions} from './Actions';
 import {useNavigate} from 'react-router-dom';
 import {routes} from '../../constants/constants';
+import {setCardsPackIdAC} from "../cards/cardsReducer";
 
 interface DataType {
     key: React.Key

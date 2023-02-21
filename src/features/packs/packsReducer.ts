@@ -10,7 +10,6 @@ const initialState = {
     minCardsCount: 0,
     maxCardsCount: 110,
     resetFilter: false,
-    currentPackId: '',
     queryParams: {
         pageCount: 5,
         page: 1,
@@ -67,10 +66,6 @@ export const packsReducer = (state: InitialStateType = initialState, action: Pac
             return {
                 ...state, queryParams: {...state.queryParams, sortPacks: action.payload.sortMethod}
             }
-        case 'PACKS/SET_CARDS_ID':
-            return {
-                ...state, currentPackId: action.payload.cardId
-            }
         default:
             return state
     }
@@ -80,7 +75,6 @@ const setPacks = (packs: SetPacksPropsType) => ({type: 'PACKS/SET_PACKS', payloa
 export const setPacksPageAC = (page: number) => ({type: 'PACKS/SET_PACKS_PAGE', payload: {page}} as const)
 export const setPageCountAC = (pageCount: number) => ({type: 'PACKS/SET_PAGE_COUNT', payload: {pageCount}} as const)
 export const setPackNameAC = (packName: string) => ({type: 'PACKS/SET_PACK_NAME', payload: {packName}} as const)
-export const setCardsPackIdAC = (cardId: string) => ({type: 'PACKS/SET_CARDS_ID', payload: {cardId}} as const)
 export const setResetFilterAC = (resetFilter: boolean) => ({
     type: 'PACKS/SET_RESET_FILTER',
     payload: {resetFilter}
@@ -176,7 +170,6 @@ export type setPackNameType = ReturnType<typeof setPackNameAC>
 export type setMinCardCountType = ReturnType<typeof setCardCountAC>
 export type setResetFilterType = ReturnType<typeof setResetFilterAC>
 export type setSortMethodType = ReturnType<typeof setSortPacksMethodAC>
-export type setCardsPackIdAC = ReturnType<typeof setCardsPackIdAC>
 
 
 export type PacksReducerActionsType = setPacksType
@@ -186,4 +179,3 @@ export type PacksReducerActionsType = setPacksType
     | setMinCardCountType
     | setResetFilterType
     | setSortMethodType
-    | setCardsPackIdAC
