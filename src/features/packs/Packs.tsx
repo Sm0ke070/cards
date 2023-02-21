@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {ColumnsType} from 'antd/es/table';
 import {Table} from 'antd';
 import {useAppDispatch, useAppSelector} from '../../app/store';
-import {getPacksTC, setCardsPackIdAC, setPacksPageAC, setPageCountAC} from './packsReducer';
+import {getPacksTC, setPacksPageAC, setPageCountAC} from './packsReducer';
 import {formatDate} from '../../common/utils/formatDate';
 import s from './Packs.module.css'
 import {PacksHead} from './PacksHead';
@@ -12,8 +12,9 @@ import {SortPacksCards} from './packs-sort/SortPacksCards';
 import {SortPackName} from './packs-sort/SortPackName';
 import {SortPackCreatedBy} from './packs-sort/SortPackCreatetBy';
 import {Actions} from './Actions';
-import {useNavigate} from 'react-router-dom';
+import {Navigate, useNavigate} from 'react-router-dom';
 import {routes} from '../../constants/constants';
+import {setCardsPackIdAC} from "../cards/cardsReducer";
 
 interface DataType {
     key: React.Key
@@ -93,7 +94,6 @@ export const Packs = () => {
         dispatch(setCardsPackIdAC(record.packId))
         console.log(record.packId)
         navigate(routes.CARDS)
-
     }
     return <div className={s.tableWrapper}>
         <PacksHead/>
@@ -101,7 +101,10 @@ export const Packs = () => {
         <div>
 
             {
-                <Table columns={columns} dataSource={data} scroll={{x: 1000, y: 500}} loading={isLoading === 'loading'}
+                <Table columns={columns}
+                       dataSource={data}
+                       scroll={{x: 1000, y: 500}}
+                       loading={isLoading === 'loading'}
                        onRow={record => {
                            return {
                                onClick: () => onClickEnterToPackHandler(record)

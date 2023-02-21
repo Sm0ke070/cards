@@ -13,10 +13,10 @@ const App = () => {
     useEffect(() => {
         dispatch(meTC())
     }, [dispatch])
-    //1
+
     if (!isInitialized) {
-        return <div style={{marginTop:'35vh',display:'flex',justifyContent:'center'}}>
-            <Spin tip="Loading" size="large" />
+        return <div style={{marginTop: '35vh', display: 'flex', justifyContent: 'center'}}>
+            <Spin tip="Loading" size="large"/>
         </div>
     }
 

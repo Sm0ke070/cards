@@ -3,61 +3,67 @@ import {useNavigate} from 'react-router-dom';
 import {routes} from '../../constants/constants';
 import {useAppDispatch, useAppSelector} from "../../app/store";
 import {ColumnsType} from "antd/es/table";
-import {SortPackName} from "../packs/packs-sort/SortPackName";
-import {SortPacksCards} from "../packs/packs-sort/SortPacksCards";
 import {SortPacksUpdated} from "../packs/packs-sort/SortPacksUpdated";
-import {SortPackCreatedBy} from "../packs/packs-sort/SortPackCreatetBy";
 import {formatDate} from "../../common/utils/formatDate";
 import {Actions} from "../packs/Actions";
-import {getCard} from "./cardsReducer";
+import {getCardsTC, setCardsPageAC, setCardsPageCountAC} from "./cardsReducer";
 import s from "../packs/Packs.module.css";
 import {PacksHead} from "../packs/PacksHead";
 import {PacksSettings} from "../packs/PackSettings/PacksSettings";
 import {Table} from "antd";
-import {setPacksPageAC, setPageCountAC} from "../packs/packsReducer";
 
 interface DataType {
     key: React.Key
     question: string;
-    answer: number;
+    answer: string;
     lastUpdated: string
-    grade: string
+    grade: number
 }
 
 export const Cards = () => {
     const navigate = useNavigate()
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
-    const userId = useAppSelector(state => state.auth.userData._id)
-    const card = useAppSelector(state => state.packs.cardPacks)
+    const card = useAppSelector(state => state.cards.cards)
+    const cardId = useAppSelector(state => state.cards.cardsPack_id)
     const isLoading = useAppSelector(state => state.app.status)
-    const packName = useAppSelector(state => state.packs.queryParams.packName)
+    const packId = useAppSelector(state => state.cards.cardsPack_id)
+    const page = useAppSelector(state => state.cards.page)
+    const pageCount = useAppSelector(state => state.cards.pageCount)
+    const total = useAppSelector(state => state.cards.cardsTotalCount)
+
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        //dispatch(getCard())
-    })
+        dispatch(getCardsTC())
+    }, [])
+
     const data = card.map((c) => {
         return {
             key: c._id,
-            name: c.name,
-            cardsCount: c.cardsCount,
+            answer: c.answer,
+            question: c.question,
+            grade: c.grade,
             lastUpdated: formatDate(c.updated),
-            userName: c.user_name,
             actions: <Actions packId={c._id} packUserId={c.user_id}/>
 
         }
     })
 
-    const columns: ColumnsType<any> = [
+    const columns: ColumnsType<DataType> = [
         {
-            title: <SortPackName/>,
-            dataIndex: 'name',
+            title: "Answer",
+            dataIndex: 'answer',
             width: 350,
 
         },
         {
-            title: <SortPacksCards/>,
-            dataIndex: 'cardsCount',
+            title: 'Question',
+            dataIndex: 'question',
+            width: 150,
+        },
+        {
+            title: 'Grade',
+            dataIndex: 'grade',
             width: 150,
         },
 
@@ -67,41 +73,40 @@ export const Cards = () => {
             width: 150,
         },
         {
-            title: <SortPackCreatedBy/>,
-            dataIndex: 'userName',
-            width: 150,
-        },
-        {
             title: 'Action',
             dataIndex: 'actions',
             width: 150,
         },
-    ];
+    ]
 
     if (!isLoggedIn) {
         navigate(routes.SIGN_IN)
     }
+    if (!packId) {
+        navigate(routes.PACKS)
+    }
+
 
     return (
         <div className={s.tableWrapper}>
             <PacksHead/>
             <PacksSettings/>
             <div>
-
                 {
-                    <Table columns={columns} dataSource={data} scroll={{x: 1000, y: 500}} loading={isLoading === 'loading'}
+                    <Table columns={columns}
+                           dataSource={data}
+                           scroll={{x: 1000, y: 500}}
+                           loading={isLoading === 'loading'}
                            onRow={record => {
-                               return {
-
-                               }
+                               return {}
                            }} pagination={{
-                        current: 1,
-                        pageSize: 1,
-                        total: 1,
+                        current: page,
+                        pageSize: pageCount,
+                        total: total,
                         position: ['bottomLeft'],
                         onChange: (page, pageSize) => {
-                            dispatch(setPacksPageAC(page))
-                            dispatch(setPageCountAC(pageSize))
+                            dispatch(setCardsPageAC(page))
+                            dispatch(setCardsPageCountAC(pageSize))
                         },
                     }}/>
                 }
