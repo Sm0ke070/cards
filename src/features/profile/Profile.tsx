@@ -44,19 +44,20 @@ const Profile = () => {
                             <Typography.Title
                                 editable={{onChange: changeUserNameHandler}}
                                 level={1}
-                                style={{width: '70%'}}>
+                                style={{width: '70%', letterSpacing: '2px'}}>
                                 {name}
 
                             </Typography.Title>
                         </div>
 
-                        <div><span>{email}</span></div>
                         <div>
+                            <span>{email}</span>
+                        </div>
 
+                        <div>
                             <Button type="default" size={'large'} onClick={logOutProfileHandler}>
                                 Log out
                             </Button>
-
                         </div>
                     </div>
                 </div>

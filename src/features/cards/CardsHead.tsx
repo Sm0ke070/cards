@@ -26,7 +26,7 @@ export const CardsHead = (props: CardHeadPropsType) => {
     return (
         <div style={{display: 'flex', justifyContent: 'space-between'}}>
 
-            <Link style={{textDecoration: 'none',color:'black'}} to={routes.PACKS}>
+            <Link style={{textDecoration: 'none', color: 'black'}} to={routes.PACKS}>
                 <FaLongArrowAltLeft/> Back to Packs List
             </Link>
 

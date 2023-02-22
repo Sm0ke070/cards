@@ -6,7 +6,7 @@ import {ColumnsType} from "antd/es/table";
 import {SortPacksUpdated} from "../packs/packs-sort/SortPacksUpdated";
 import {formatDate} from "../../common/utils/formatDate";
 import {Actions} from "../packs/Actions";
-import { getCardsTC, setCardsPageAC, setCardsPageCountAC} from "./cardsReducer";
+import {getCardsTC, setCardsPageAC, setCardsPageCountAC} from "./cardsReducer";
 import s from "../packs/Packs.module.css";
 import {Table} from "antd";
 import {CardsHead} from "./CardsHead";
@@ -24,7 +24,7 @@ export const Cards = () => {
     const navigate = useNavigate()
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
     const card = useAppSelector(state => state.cards.cards)
-    const cardId = useAppSelector(state => state.cards.cardsPack_id)
+    const cardQuestion = useAppSelector(state => state.cards.queryParams.cardQuestion)
     const isLoading = useAppSelector(state => state.app.status)
     const packId = useAppSelector(state => state.cards.cardsPack_id)
     const page = useAppSelector(state => state.cards.page)
@@ -35,7 +35,7 @@ export const Cards = () => {
 
     useEffect(() => {
         dispatch(getCardsTC())
-    }, [])
+    }, [cardQuestion])
 
     const data = card.map((c) => {
         return {
@@ -86,12 +86,11 @@ export const Cards = () => {
         navigate(routes.PACKS)
     }
 
-
     return (
         <div className={s.tableWrapper}>
             <CardsHead cardsPack_id={packId}/>
             <FindCards/>
-                <div>
+            <div>
                 {
                     <Table columns={columns}
                            dataSource={data}

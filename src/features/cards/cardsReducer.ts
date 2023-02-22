@@ -29,7 +29,7 @@ const initialState = {
     queryParams: {
         pageCount: 5,
         page: 1,
-        cardName: '',
+        cardQuestion: '',
         sortCards: sortingCardsMethods.desUpdate
     },
 }
@@ -69,7 +69,7 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Car
         case 'CARDS/SET_CARD_NAME':
             return {
                 ...state, queryParams: {
-                    ...state.queryParams, cardName: action.payload.cardName
+                    ...state.queryParams, cardQuestion: action.payload.cardName
                 }
             }
         case 'CARDS/SET_RESET_FILTER':
@@ -146,14 +146,15 @@ export const addNewCardTC = (card: newCard): AppThunk => async (dispatch: AppThu
 
 export const getCardsTC = () => async (dispatch: Dispatch, getState: () => AppRootStateType) => {
     const {cardsPack_id} = getState().cards
+    const {cardQuestion} = getState().cards.queryParams
     dispatch(setAppStatusAC('loading'))
     try {
-        const res = await cardAPI.getCard({cardsPack_id})
+        const res = await cardAPI.getCard({cardsPack_id,cardQuestion})
         dispatch(setCardsAC(res.data))
         dispatch(setAppStatusAC('succeeded'))
 
     } catch (e) {
-        dispatch(setAppStatusAC('failed'))//временно тут
+        dispatch(setAppStatusAC('failed'))
 
     }
 
