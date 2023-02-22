@@ -6,10 +6,8 @@ import {ColumnsType} from "antd/es/table";
 import {SortPacksUpdated} from "../packs/packs-sort/SortPacksUpdated";
 import {formatDate} from "../../common/utils/formatDate";
 import {Actions} from "../packs/Actions";
-import {addNewCardTC, getCardsTC, setCardsPageAC, setCardsPageCountAC} from "./cardsReducer";
+import {getCardsTC, setCardsPageAC, setCardsPageCountAC} from "./cardsReducer";
 import s from "../packs/Packs.module.css";
-import {PacksHead} from "../packs/PacksHead";
-import {PacksSettings} from "../packs/PackSettings/PacksSettings";
 import {Table} from "antd";
 import {CardsHead} from "./CardsHead";
 
@@ -87,10 +85,13 @@ export const Cards = () => {
         navigate(routes.PACKS)
     }
 
+    const Question=()=>{
+        navigate(routes.CARD_QUESSION)
+    }
 
     return (
         <div className={s.tableWrapper}>
-
+            <button onClick={Question}>LEARN</button>
             <CardsHead cardsPack_id={packId}/>
 
             <div>
@@ -101,16 +102,17 @@ export const Cards = () => {
                            loading={isLoading === 'loading'}
                            onRow={record => {
                                return {}
-                           }} pagination={{
-                        current: page,
-                        pageSize: pageCount,
-                        total: total,
-                        position: ['bottomLeft'],
-                        onChange: (page, pageSize) => {
-                            dispatch(setCardsPageAC(page))
-                            dispatch(setCardsPageCountAC(pageSize))
-                        },
-                    }}/>
+                           }}
+                           pagination={{
+                               current: page,
+                               pageSize: pageCount,
+                               total: total,
+                               position: ['bottomLeft'],
+                               onChange: (page, pageSize) => {
+                                   dispatch(setCardsPageAC(page))
+                                   dispatch(setCardsPageCountAC(pageSize))
+                               },
+                           }}/>
                 }
             </div>
         </div>

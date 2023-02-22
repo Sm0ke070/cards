@@ -10,5 +10,6 @@ export const enum routes {
     PACKS_LIST = '/packsList',
     MY_PACKS_LIST = '/myPacksList',
     PACKS = '/packs',
-    CARDS = '/cards'
+    CARDS = '/cards/:cardId',
+    CARD_QUESSION='/card-quession'
 }
