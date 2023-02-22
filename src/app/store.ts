@@ -31,11 +31,12 @@ export type AppThunkDispatch = ThunkDispatch<AppRootStateType, any, AnyAction>
 export const useAppDispatch = () => useDispatch<AppThunkDispatch>()
 export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector
 
-export type AppThunk<ReturnType = void> = ThunkAction<ReturnType,
-    AppRootStateType, unknown,
-    ActionsType>
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, ActionsType>
 
-export type ActionsType = AuthActionsType | SignUpActionsType | resetPasswordActionsType
+export type ActionsType =
+    AuthActionsType
+    | SignUpActionsType
+    | resetPasswordActionsType
     | PacksReducerActionsType
 
 // @ts-ignore

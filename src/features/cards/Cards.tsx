@@ -6,12 +6,11 @@ import {ColumnsType} from "antd/es/table";
 import {SortPacksUpdated} from "../packs/packs-sort/SortPacksUpdated";
 import {formatDate} from "../../common/utils/formatDate";
 import {Actions} from "../packs/Actions";
-import {addNewCardTC, getCardsTC, setCardsPageAC, setCardsPageCountAC} from "./cardsReducer";
+import { getCardsTC, setCardsPageAC, setCardsPageCountAC} from "./cardsReducer";
 import s from "../packs/Packs.module.css";
-import {PacksHead} from "../packs/PacksHead";
-import {PacksSettings} from "../packs/PackSettings/PacksSettings";
 import {Table} from "antd";
 import {CardsHead} from "./CardsHead";
+import FindCards from "./cards-settings/FindCards";
 
 interface DataType {
     key: React.Key
@@ -90,10 +89,9 @@ export const Cards = () => {
 
     return (
         <div className={s.tableWrapper}>
-
             <CardsHead cardsPack_id={packId}/>
-
-            <div>
+            <FindCards/>
+                <div>
                 {
                     <Table columns={columns}
                            dataSource={data}

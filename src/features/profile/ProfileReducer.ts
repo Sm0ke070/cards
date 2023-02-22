@@ -1,10 +1,10 @@
-import {AppRootStateType, AppThunkDispatch} from "../../app/store";
+import {AppThunkDispatch} from "../../app/store";
 import {profileAPI} from "./Profile.api";
 import {authAPI} from "../auth/auth.api";
 import {setUserAC} from "../auth/sign-in/SingInReducer";
 
 const initialState = {
-    userName: '',
+    userName: 'user name',
 }
 
 type InitialStateType = typeof initialState
