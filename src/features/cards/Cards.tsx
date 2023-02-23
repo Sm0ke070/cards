@@ -27,9 +27,9 @@ export const Cards = () => {
     const cardQuestion = useAppSelector(state => state.cards.queryParams.cardQuestion)
     const isLoading = useAppSelector(state => state.app.status)
     const packId = useAppSelector(state => state.cards.cardsPack_id)
-    const page = useAppSelector(state => state.cards.page)
+    const page = useAppSelector(state => state.cards.queryParams.page)
     const pageCount = useAppSelector(state => state.cards.pageCount)
-    const total = useAppSelector(state => state.cards.cardsTotalCount)
+    const cardsTotalCount = useAppSelector(state => state.cards.cardsTotalCount)
     const sortCards = useAppSelector(state => state.cards.queryParams.sortCards)
 
     console.log('render')
@@ -38,7 +38,7 @@ export const Cards = () => {
 
     useEffect(() => {
         dispatch(getCardsTC())
-    }, [cardQuestion, sortCards])
+    }, [cardQuestion, sortCards, page, pageCount])
 
     const onChangeTableHandler = (page: number, pageSize: number) => {
         dispatch(setCardsPageAC(page))
@@ -53,7 +53,6 @@ export const Cards = () => {
             grade: c.grade,
             lastUpdated: formatDate(c.updated),
             actions: <ActionsCard cardsPack_id={c._id} cardUserId={c.user_id}/>
-
         }
     })
 
@@ -108,7 +107,7 @@ export const Cards = () => {
                            }} pagination={{
                         current: page,
                         pageSize: pageCount,
-                        total: total,
+                        total: cardsTotalCount,
                         position: ['bottomLeft'],
                         onChange: (page, pageSize) => {
                             onChangeTableHandler(page, pageSize)

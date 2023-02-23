@@ -15,7 +15,7 @@ export const cardAPI = {
 }
 
 export type GetParamsType = {
-    cardsPack_id: string
+    cardsPack_id?: string
     cardAnswer?: string
     cardQuestion?: string
     min?: number

@@ -28,6 +28,8 @@ const initialState = {
     queryParams: {
         pageCount: 5,
         page: 1,
+        min: 0,
+        max: 110,
         cardQuestion: '',
         sortCards: sortingCardsMethods.desUpdate
     },
@@ -155,13 +157,13 @@ export const addNewCardTC = (card: newCard) => async (dispatch: AppThunkDispatch
 }
 export const getCardsTC = () => async (dispatch: AppThunkDispatch, getState: () => AppRootStateType) => {
     const {cardsPack_id} = getState().cards
-    const {cardQuestion,sortCards} = getState().cards.queryParams
+    const {cardQuestion, sortCards, page, pageCount, min, max} = getState().cards.queryParams
     const isPacks = getState().packs.cardPacks.length
     dispatch(setAppStatusAC('loading'))
 
     try {
         if (isPacks) {
-            const res = await cardAPI.getCard({cardsPack_id, cardQuestion,sortCards})
+            const res = await cardAPI.getCard({cardsPack_id, cardQuestion, sortCards, page, pageCount, min, max})
             dispatch(setCardsAC(res.data))
             dispatch(setAppStatusAC('succeeded'))
         }
