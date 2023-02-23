@@ -10,6 +10,7 @@ const initialState = {
     minCardsCount: 0,
     maxCardsCount: 110,
     resetFilter: false,
+    allOrMy: 'ALL',
     queryParams: {
         pageCount: 5,
         page: 1,
@@ -59,13 +60,11 @@ export const packsReducer = (state: InitialStateType = initialState, action: Pac
                 }
             }
         case 'PACKS/SET_RESET_FILTER':
-            return {
-                ...state, resetFilter: action.payload.resetFilter
-            }
+            return {...state, resetFilter: action.payload.resetFilter}
         case  'PACKS/SET_SORT_METHOD':
-            return {
-                ...state, queryParams: {...state.queryParams, sortPacks: action.payload.sortMethod}
-            }
+            return {...state, queryParams: {...state.queryParams, sortPacks: action.payload.sortMethod}}
+        case 'PACKS/SET_All_OR_MY':
+            return {...state, allOrMy: action.payload.allOrMyAC}
         default:
             return state
     }
@@ -75,6 +74,7 @@ const setPacks = (packs: SetPacksPropsType) => ({type: 'PACKS/SET_PACKS', payloa
 export const setPacksPageAC = (page: number) => ({type: 'PACKS/SET_PACKS_PAGE', payload: {page}} as const)
 export const setPageCountAC = (pageCount: number) => ({type: 'PACKS/SET_PAGE_COUNT', payload: {pageCount}} as const)
 export const setPackNameAC = (packName: string) => ({type: 'PACKS/SET_PACK_NAME', payload: {packName}} as const)
+export const setAllOrMyAC = (allOrMyAC: string) => ({type: 'PACKS/SET_All_OR_MY', payload: {allOrMyAC}} as const)
 export const setResetFilterAC = (resetFilter: boolean) => ({
     type: 'PACKS/SET_RESET_FILTER',
     payload: {resetFilter}
@@ -115,6 +115,8 @@ export const addNewPacksTC = (newPack: NewPackType): AppThunk => async (dispatch
     try {
         const res = await packsAPI.addPack(newPack)
         dispatch(getPacksTC('ALL'))
+        dispatch(setAllOrMyAC('ALL'))
+
         dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
         dispatch(setAppStatusAC('failed'))//временно тут
@@ -126,6 +128,7 @@ export const deletePackTC = (packId: string): AppThunk => async (dispatch: AppTh
     try {
         const res = await packsAPI.deletePack(packId)
         dispatch(getPacksTC('ALL'))
+        dispatch(setAllOrMyAC('ALL'))
         dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
         dispatch(setAppStatusAC('failed'))//временно тут
@@ -137,6 +140,7 @@ export const updatePackTC = (updatePackData: UpdatePackType): AppThunk => async 
     try {
         const res = await packsAPI.updatePack(updatePackData)
         dispatch(getPacksTC('ALL'))
+        dispatch(setAllOrMyAC('ALL'))
         dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
         dispatch(setAppStatusAC('failed'))//временно тут
@@ -170,6 +174,7 @@ export type setPackNameType = ReturnType<typeof setPackNameAC>
 export type setMinCardCountType = ReturnType<typeof setCardCountAC>
 export type setResetFilterType = ReturnType<typeof setResetFilterAC>
 export type setSortMethodType = ReturnType<typeof setSortPacksMethodAC>
+export type setAllOrMyType = ReturnType<typeof setAllOrMyAC>
 
 
 export type PacksReducerActionsType = setPacksType
@@ -179,3 +184,4 @@ export type PacksReducerActionsType = setPacksType
     | setMinCardCountType
     | setResetFilterType
     | setSortMethodType
+    | setAllOrMyType

@@ -1,6 +1,6 @@
 import {CaretDownOutlined, CaretUpOutlined} from '@ant-design/icons';
 import React from 'react';
-import {sortingPacksMethods} from '../../../constants/sortingMethods';
+import {sortingPacksMethods} from '../../../../constants/sortingMethods';
 
 export type SuperSortPropsType = {
     sort: sortingPacksMethods

@@ -2,7 +2,7 @@ import React from 'react';
 import {useAppDispatch, useAppSelector} from '../../../app/store';
 import {setSortPacksMethodAC} from '../packsReducer';
 import {sortingPacksMethods} from '../../../constants/sortingMethods';
-import SuperSort from './SuperSort';
+import SuperSort from '../../../common/components/super-components/SuperSort/SuperSort';
 
 export const SortPackCreatedBy = () => {
     const dispatch = useAppDispatch()

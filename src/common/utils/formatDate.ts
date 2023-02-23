@@ -1,3 +1,8 @@
+/**
+ * Функция форматирования даты
+ * @param {string} date - получаем исходную дату
+ */
+
 export const formatDate = (date: string): string => {
   const fullDate = new Date(date)
 

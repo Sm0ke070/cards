@@ -1,28 +1,29 @@
 import React, {useEffect, useState} from 'react';
 import {Segmented} from 'antd';
 import {useAppDispatch, useAppSelector} from '../../../app/store';
-import {getPacksTC, setResetFilterAC} from '../packsReducer';
+import {getPacksTC, setAllOrMyAC, setResetFilterAC} from '../packsReducer';
 
 export const ShowPacks = () => {
     const resetFilter = useAppSelector(state => state.packs.resetFilter)
-    const [value, setValue] = useState<any>('ALL')
+    const allOrMy = useAppSelector(state => state.packs.allOrMy)
+    console.log(allOrMy)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
         if (resetFilter) {
-            setValue('ALL')
+            dispatch(setAllOrMyAC('ALL'))
             dispatch(setResetFilterAC(false))
         }
     }, [resetFilter])
     const onChangeHandler = (allOrMy: any) => {
-        setValue(allOrMy)
+        dispatch(setAllOrMyAC(allOrMy))
         dispatch(getPacksTC(allOrMy))
     }
 
 
     return (
         <div>
-            <Segmented options={['ALL', 'MY']} value={value} onChange={onChangeHandler}/>
+            <Segmented options={['ALL', 'MY']} value={allOrMy} onChange={onChangeHandler}/>
         </div>
     );
 };
