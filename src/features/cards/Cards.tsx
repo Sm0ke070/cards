@@ -5,13 +5,14 @@ import {useAppDispatch, useAppSelector} from "../../app/store";
 import {ColumnsType} from "antd/es/table";
 import {SortPacksUpdated} from "../packs/packs-sort/SortPacksUpdated";
 import {formatDate} from "../../common/utils/formatDate";
-import {Actions} from "../packs/Actions";
+import {ActionsPacks} from "../packs/ActionsPacks";
 import {addNewCardTC, getCardsTC, setCardsPageAC, setCardsPageCountAC} from "./cardsReducer";
 import s from "../packs/Packs.module.css";
 import {PacksHead} from "../packs/PacksHead";
 import {PacksSettings} from "../packs/PackSettings/PacksSettings";
 import {Table} from "antd";
 import {CardsHead} from "./CardsHead";
+import {ActionsCards} from './ActionsCards';
 
 interface DataType {
     key: React.Key
@@ -45,7 +46,7 @@ export const Cards = () => {
             question: c.question,
             grade: c.grade,
             lastUpdated: formatDate(c.updated),
-            actions: <Actions packId={c._id} packUserId={c.user_id}/>
+            actions: <ActionsCards packId={c._id} packUserId={c.user_id}/>
 
         }
     })

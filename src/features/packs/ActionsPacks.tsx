@@ -9,7 +9,7 @@ type ActionsPropsType = {
     packUserId: string
     packId: string
 }
-export const Actions: FC<ActionsPropsType> = ({packUserId, packId}) => {
+export const ActionsPacks: FC<ActionsPropsType> = ({packUserId, packId}) => {
     const [newName, setNewName] = useState('')
     const [showModal, setShowModal] = useState(false)
 
@@ -55,8 +55,8 @@ export const Actions: FC<ActionsPropsType> = ({packUserId, packId}) => {
                         icon={<DeleteTwoTone style={{fontSize: '18px', padding: '4px'}}/>}/>
             </Tooltip>
             <Tooltip title='Изменить'>
-                <SuperModal title={'Change name Pack'} showModal={showModal} handleOkCallback={e=>handleOk(e)}
-                            handleCancelCallback={e=>handleCancel(e)}>
+                <SuperModal title={'Change name Pack'} showModal={showModal} handleOkCallback={handleOk}
+                            handleCancelCallback={handleCancel}>
                     <Input value={newName}
                            placeholder={'name Pack'}
                            width='30px'

@@ -5,7 +5,7 @@ import {SortPacksCards} from './packs-sort/SortPacksCards';
 import {SortPacksUpdated} from './packs-sort/SortPacksUpdated';
 import {SortPackCreatedBy} from './packs-sort/SortPackCreatetBy';
 import {formatDate} from '../../common/utils/formatDate';
-import {Actions} from './Actions';
+import {ActionsPacks} from './ActionsPacks';
 import {setCardsPackIdAC} from '../cards/cardsReducer';
 import {routes} from '../../constants/constants';
 import {useAppDispatch, useAppSelector} from '../../app/store';
@@ -78,7 +78,7 @@ export  const PackList = () => {
             cardsCount: p.cardsCount,
             lastUpdated: formatDate(p.updated),
             userName: p.user_name,
-            actions: <Actions packId={p._id} packUserId={p.user_id}/>
+            actions: <ActionsPacks packId={p._id} packUserId={p.user_id}/>
 
         }
     })
