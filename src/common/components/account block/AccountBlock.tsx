@@ -21,8 +21,8 @@ const AccountBlock = () => {
         <div className={style.accountContainer}>
             {isLoggedIn
                 ?
-                <div className={style.accountBlock}>
 
+                <div className={style.accountBlock}>
                     <Link
                         style={{textDecoration: 'underline', color: 'black', letterSpacing: '2px'}}
                         to={'/'}>{name}

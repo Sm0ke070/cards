@@ -8,6 +8,7 @@ import {Link} from "react-router-dom";
 import {routes} from "../../constants/constants";
 import {changeUserNameTC} from "./ProfileReducer";
 import {FaLongArrowAltLeft} from "react-icons/fa";
+import qwe from '../../assets/image/check-email/check-email.svg'
 
 const Profile = () => {
     const dispatch = useAppDispatch()
@@ -38,7 +39,7 @@ const Profile = () => {
                     <Title>Personal Information</Title>
                     <div className={s.profilePhoto}>
 
-                        <img style={{width: '150px'}} src={avatar}/>
+                        <img style={{width: '150px'}} src={avatar} alt={'avatar photo'}/>
 
                         <div>
                             <Typography.Title

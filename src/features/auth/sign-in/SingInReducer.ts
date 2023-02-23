@@ -3,6 +3,7 @@ import axios, {AxiosError} from "axios";
 import {ActionsType} from '../../../app/store';
 import {authAPI, LoginParamsType, ResponseUserDataType} from "../auth.api";
 import {changeNameAC} from "../../profile/ProfileReducer";
+import {setAppStatusAC} from "../../../app/AppReducer";
 
 const initialState = {
     isLoggedIn: false,
@@ -40,7 +41,6 @@ export const loginTC = (data: LoginParamsType) => async (dispatch: Dispatch<Acti
         if (res.statusText === 'OK') {
             dispatch(setUserAC(res.data))
             dispatch(setIsLoggedInAC(true))
-            console.log(res.data)
         } else {
 
         }
