@@ -25,17 +25,20 @@ export const CardsHead = (props: CardHeadPropsType) => {
     }
     return (
         <div style={{display: 'flex', justifyContent: 'space-between'}}>
+            <div>
+                <Link style={{textDecoration: 'none', color: 'black'}} to={routes.PACKS}>
+                    <FaLongArrowAltLeft/> Back to Packs List
+                </Link>
 
-            <Link style={{textDecoration: 'none', color: 'black'}} to={routes.PACKS}>
-                <FaLongArrowAltLeft/> Back to Packs List
-            </Link>
-
-            <Typography.Title level={1}>
-                Cards List
-            </Typography.Title>
+                <Typography.Title level={1}>
+                    Cards List
+                </Typography.Title>
+            </div>
 
             <div style={{display: 'flex', flexDirection: 'column'}}>
-                <Button style={{width: '200px'}} type="primary" onClick={onClickHandler}>Add new card</Button>
+                <Button style={{width: '200px'}} type="primary" onClick={onClickHandler}>
+                    Add new card
+                </Button>
             </div>
         </div>
     );

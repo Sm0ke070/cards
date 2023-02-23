@@ -8,6 +8,9 @@ export const cardAPI = {
     },
     addNewCard(card: newCard) {
         return instance.post('/cards/card', card)
+    },
+    deleteCard(id: string) {
+        return instance.delete('/cards/card', {params: {id}})
     }
 }
 

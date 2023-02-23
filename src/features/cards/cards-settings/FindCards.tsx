@@ -12,19 +12,20 @@ const FindCards = () => {
     const debouncedValue = useDebounce<string>(search, 700)
 
     useEffect(() => {
-        if (filter) {
+        if (filter || !search) {
             setSearch('')
             dispatch(setCardsNameAC(''))
             dispatch(setResetFilterAC(false))
         }
-    }, [filter])
+
+    }, [search])
 
     useEffect(() => {
         debouncedValue && dispatch(setCardsNameAC(debouncedValue))
     }, [debouncedValue])
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setSearch(event.target.value)
+        setSearch(event.currentTarget.value)
     }
 
     return (

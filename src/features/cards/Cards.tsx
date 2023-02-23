@@ -1,16 +1,16 @@
 import React, {useEffect} from 'react';
-import {useNavigate} from 'react-router-dom';
+import {Navigate} from 'react-router-dom';
 import {routes} from '../../constants/constants';
 import {useAppDispatch, useAppSelector} from "../../app/store";
 import {ColumnsType} from "antd/es/table";
-import {SortPacksUpdated} from "../packs/packs-sort/SortPacksUpdated";
 import {formatDate} from "../../common/utils/formatDate";
-import {Actions} from "../packs/Actions";
 import {getCardsTC, setCardsPageAC, setCardsPageCountAC} from "./cardsReducer";
 import s from "../packs/Packs.module.css";
 import {Table} from "antd";
 import {CardsHead} from "./CardsHead";
 import FindCards from "./cards-settings/FindCards";
+import ActionsCard from "./ActionsCard";
+import SortCardsUpdated from "./cards-sort/SortCardsUpdated";
 
 interface DataType {
     key: React.Key
@@ -21,7 +21,7 @@ interface DataType {
 }
 
 export const Cards = () => {
-    const navigate = useNavigate()
+
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
     const card = useAppSelector(state => state.cards.cards)
     const cardQuestion = useAppSelector(state => state.cards.queryParams.cardQuestion)
@@ -30,12 +30,20 @@ export const Cards = () => {
     const page = useAppSelector(state => state.cards.page)
     const pageCount = useAppSelector(state => state.cards.pageCount)
     const total = useAppSelector(state => state.cards.cardsTotalCount)
+    const sortCards = useAppSelector(state => state.cards.queryParams.sortCards)
+
+    console.log('render')
 
     const dispatch = useAppDispatch()
 
     useEffect(() => {
         dispatch(getCardsTC())
-    }, [cardQuestion])
+    }, [cardQuestion, sortCards])
+
+    const onChangeTableHandler = (page: number, pageSize: number) => {
+        dispatch(setCardsPageAC(page))
+        dispatch(setCardsPageCountAC(pageSize))
+    }
 
     const data = card.map((c) => {
         return {
@@ -44,7 +52,7 @@ export const Cards = () => {
             question: c.question,
             grade: c.grade,
             lastUpdated: formatDate(c.updated),
-            actions: <Actions packId={c._id} packUserId={c.user_id}/>
+            actions: <ActionsCard cardsPack_id={c._id} cardUserId={c.user_id}/>
 
         }
     })
@@ -53,7 +61,7 @@ export const Cards = () => {
         {
             title: 'Question',
             dataIndex: 'question',
-            width: 150,
+            width: 250,
         },
         {
             title: "Answer",
@@ -62,28 +70,27 @@ export const Cards = () => {
 
         },
         {
+            title: <SortCardsUpdated/>,
+            dataIndex: 'lastUpdated',
+            width: 130,
+        },
+        {
             title: 'Grade',
             dataIndex: 'grade',
-            width: 150,
-        },
-
-        {
-            title: <SortPacksUpdated/>,
-            dataIndex: 'lastUpdated',
             width: 150,
         },
         {
             title: 'Action',
             dataIndex: 'actions',
-            width: 150,
-        },
+            width: 80,
+        }
     ]
 
     if (!isLoggedIn) {
-        navigate(routes.SIGN_IN)
+        return <Navigate to={routes.SIGN_IN}/>
     }
     if (!packId) {
-        navigate(routes.PACKS)
+        return <Navigate to={routes.PACKS}/>
     }
 
     return (
@@ -104,8 +111,7 @@ export const Cards = () => {
                         total: total,
                         position: ['bottomLeft'],
                         onChange: (page, pageSize) => {
-                            dispatch(setCardsPageAC(page))
-                            dispatch(setCardsPageCountAC(pageSize))
+                            onChangeTableHandler(page, pageSize)
                         },
                     }}/>
                 }
