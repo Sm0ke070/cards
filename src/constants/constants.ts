@@ -7,8 +7,8 @@ export const enum routes {
     CHECK_EMAIL = '/check-email',
     NEW_PASS = '/new-password/:token',
     NOT_FOUND = '/404',
-    PACKS_LIST = '/packsList',
-    MY_PACKS_LIST = '/myPacksList',
+    /*PACKS_LIST = '/packsList',
+    MY_PACKS_LIST = '/myPacksList',*/
     PACKS = '/packs',
     CARDS = '/cards/:cardId',
     CARD_QUESSION='/card-quession'
