@@ -24,7 +24,12 @@ const AccountBlock = () => {
 
                 <div className={style.accountBlock}>
                     <Link
-                        style={{textDecoration: 'underline', color: 'black', letterSpacing: '2px'}}
+                        style={{
+                            paddingRight: '10px',
+                            textDecoration: 'underline',
+                            color: 'black',
+                            letterSpacing: '2px'
+                        }}
                         to={'/'}>{name}
                     </Link>
 
