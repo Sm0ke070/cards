@@ -22,6 +22,9 @@ export const learnReducer = (state: InitialStateType = initialState, action: Act
                 grade: action.grade
             }
         }
+        default: {
+            return state
+        }
     }
 }
 
@@ -29,9 +32,17 @@ export const putGrade = (card_id:string,grade:number) => ({type: 'LEARN/PUT_GRAD
 
 export const putGradeTC = (params: PutGradeType) => async (dispatch: Dispatch) => {
     dispatch(setAppStatusAC('loading'))
-    const res = await LearnAPI.putGrade(params)
-    dispatch(putGrade(res.data.card_id,res.data.grade))
-    dispatch(setAppStatusAC('loading'))
+
+   try {
+       const res = await LearnAPI.putGrade(params)
+       dispatch(putGrade(res.data.card_id, res.data.grade))
+   } catch (e) {
+
+   } finally {
+       dispatch(setAppStatusAC('succeeded'))
+   }
+
+
 }
 
 type ActionType = ReturnType<typeof putGrade>

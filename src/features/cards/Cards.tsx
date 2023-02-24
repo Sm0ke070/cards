@@ -92,7 +92,7 @@ export const Cards = () => {
     return (
         <div className={s.tableWrapper}>
             <button onClick={Question}>LEARN</button>
-            <CardsHead cardsPack_id={packId}/>
+            <CardsHead cardsPack_id={packId ? packId : ''}/>
 
             <div>
                 {

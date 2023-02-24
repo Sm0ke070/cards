@@ -4,7 +4,7 @@ import {instance} from "../../../app/base-url";
 
 export const LearnAPI = {
     putGrade(params: PutGradeType) {
-        return instance.get<GradeResponseType>('/cards/grade', {params})
+        return instance.put<GradeResponseType>('/cards/grade', {...params})
     }
 }
 export type PutGradeType = {

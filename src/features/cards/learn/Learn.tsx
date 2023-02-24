@@ -18,7 +18,13 @@ const getCard = (cards: CardType[]) => {
     return cards[res.id + 1];
 }
 
-const grades = ['не знал', 'забыл', 'долго думал', 'перепутал', 'знал'];
+const grades = [
+    {name: 'не знал', rate: 1},
+    {name: 'забыл', rate: 2},
+    {name: 'долго думал', rate: 3},
+    {name: 'перепутал', rate: 4},
+    {name: 'знал', rate: 5}];
+// {name: 'не знал', rate: 1}
 
 export const Learn: FC = () => {
     //const cardQuestion = useAppSelector(state => state.cards.cards[1].question);
@@ -27,16 +33,17 @@ export const Learn: FC = () => {
     const [isChecked, setIsChecked] = useState<boolean>(false);
     const [first, setFirst] = useState<boolean>(true);
     // const [first, setFirst] = useState<boolean>(0);
-    const {cards} = useAppSelector((store: AppRootStateType) => store.cards);
+    const {cards} = useAppSelector((state: AppRootStateType) => state.cards);
     const {cardId} = useParams();
+    //const grade=useAppSelector(state=>state.learn.grade)
 
 
     const [card, setCard] = useState<CardType>({
-        _id: 'fake',
+        _id: '',
         cardsPack_id: '',
 
-        answer: 'answer fake',
-        question: 'question fake',
+        answer: '',
+        question: '',
         grade: 0,
         shots: 0,
 
@@ -114,7 +121,13 @@ export const Learn: FC = () => {
                     <div>{card.answer}</div>
 
                     {grades.map((g, i) => (
-                        <button key={'grade-' + i} onClick={() => {putGradeHandler}}>{g}</button>
+
+
+                        <button key={'grade-' + i}
+                                onClick={() => putGradeHandler(
+                                    {card_id: card._id, grade: g.rate})}>
+                            {g.name}
+                        </button>
                     ))}
 
                     <div>
