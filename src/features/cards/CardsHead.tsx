@@ -7,6 +7,7 @@ import Button from "antd/es/button";
 import {Link} from "react-router-dom";
 import {SuperModal} from '../../common/components/super-components/SuperModal/SuperModal';
 import {FaLongArrowAltLeft} from "react-icons/fa";
+import {routes} from "../../constants/constants";
 
 
 type CardHeadPropsType = {
