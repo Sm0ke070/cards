@@ -8,11 +8,14 @@ export const cardAPI = {
     },
     addNewCard(card: newCard) {
         return instance.post('/cards/card', card)
+    },
+    deleteCard(id: string) {
+        return instance.delete('/cards/card', {params: {id}})
     }
 }
 
 export type GetParamsType = {
-    cardsPack_id: string
+    cardsPack_id?: string
     cardAnswer?: string
     cardQuestion?: string
     min?: number

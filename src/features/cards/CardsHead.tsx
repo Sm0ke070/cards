@@ -4,8 +4,10 @@ import {addNewCardTC} from "./cardsReducer";
 import Typography from "antd/es/typography";
 import {Input} from "antd";
 import Button from "antd/es/button";
-import {addNewPacksTC} from '../packs/packsReducer';
+import {Link} from "react-router-dom";
 import {SuperModal} from '../../common/components/super-components/SuperModal/SuperModal';
+import {FaLongArrowAltLeft} from "react-icons/fa";
+
 
 type CardHeadPropsType = {
     cardsPack_id: string
@@ -37,6 +39,10 @@ export const CardsHead = (props: CardHeadPropsType) => {
     }
     return (
         <div style={{display: 'flex', justifyContent: 'space-between'}}>
+
+            <Link style={{textDecoration: 'none', color: 'black'}} to={routes.PACKS}>
+                <FaLongArrowAltLeft/> Back to Packs List
+            </Link>
 
             <Typography.Title level={1}>
                 Cards List

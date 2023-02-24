@@ -3,6 +3,7 @@ import {useNavigate} from "react-router-dom";
 import style from '../../auth/auth-form.module.css'
 import {routes} from "../../../constants/constants";
 import {Button} from "antd";
+import letter from '../../../assets/image/check-email/check-email.svg'
 
 const CheckEmail = () => {
     const navigate = useNavigate()
@@ -13,6 +14,7 @@ const CheckEmail = () => {
     return (
         <div className={style.form}>
             <h2>Check Email</h2>
+            <img style={{width:'130px'}} src={letter} alt="letter"/>
             <span style={{
                 width: '70%',
                 textAlign: 'center'

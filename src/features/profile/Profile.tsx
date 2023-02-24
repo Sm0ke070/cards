@@ -7,6 +7,8 @@ import {Button, Typography} from 'antd';
 import {Link} from "react-router-dom";
 import {routes} from "../../constants/constants";
 import {changeUserNameTC} from "./ProfileReducer";
+import {FaLongArrowAltLeft} from "react-icons/fa";
+import qwe from '../../assets/image/check-email/check-email.svg'
 
 const Profile = () => {
     const dispatch = useAppDispatch()
@@ -30,30 +32,33 @@ const Profile = () => {
     return (
         <div className={s.form}>
             <div className={s.profileGlobal}>
-                <Link to={routes.PACKS}>back to packsList</Link>
+                <Link to={routes.PACKS} style={{textDecoration: 'none', color: 'black'}}>
+                    <FaLongArrowAltLeft/> Back to Packs List
+                </Link>
                 <div className={s.profile}>
                     <Title>Personal Information</Title>
                     <div className={s.profilePhoto}>
 
-                        <img style={{width:'150px'}} src={avatar}/>
+                        <img style={{width: '150px'}} src={avatar} alt={'avatar photo'}/>
 
                         <div>
                             <Typography.Title
                                 editable={{onChange: changeUserNameHandler}}
                                 level={1}
-                                style={{width: '70%'}}>
+                                style={{width: '70%', letterSpacing: '2px'}}>
                                 {name}
 
                             </Typography.Title>
                         </div>
 
-                        <div><span>{email}</span></div>
                         <div>
+                            <span>{email}</span>
+                        </div>
 
-                            <Button type="default" size={'small'} onClick={logOutProfileHandler} shape={"round"}>
+                        <div>
+                            <Button type="default" size={'large'} onClick={logOutProfileHandler}>
                                 Log out
                             </Button>
-
                         </div>
                     </div>
                 </div>
