@@ -9,6 +9,7 @@ import {routes} from "../../constants/constants";
 import {changeUserNameTC} from "./ProfileReducer";
 import {FaLongArrowAltLeft} from "react-icons/fa";
 import defaultUserAvatar from "../../assets/image/user-avatar/defaultUserAvatar.png";
+import {BsCameraFill} from 'react-icons/bs'
 
 const Profile = () => {
     const dispatch = useAppDispatch()
@@ -27,6 +28,9 @@ const Profile = () => {
         dispatch(changeUserNameTC(value))
 
     }
+    const onChangeAvatarHandler = () => {
+        alert('test')
+    }
 
     if (!isLoggedIn) return <Navigate to={routes.SIGN_IN}/>
 
@@ -40,21 +44,26 @@ const Profile = () => {
 
                 <Title>Personal Information</Title>
 
-                <img style={{width: '150px'}} src={avatar ? avatar : defaultUserAvatar} alt={'avatar photo'}/>
-
-                    <Typography.Title
-                        editable={{onChange: changeUserNameHandler}}
-                        level={2}
-                        style={{width: '70%', letterSpacing: '2px'}}>
-                        {name}
-                    </Typography.Title>
-
-                    <span>{email}</span>
-
-
-                    <Button type="default" size={'large'} onClick={logOutProfileHandler}>
-                        Log out
+                <div>
+                    <img style={{width: '150px'}} src={avatar ? avatar : defaultUserAvatar} alt={'avatar photo'}/>
+                    <Button onClick={onChangeAvatarHandler} size={'large'} shape="circle">
+                        <BsCameraFill/>
                     </Button>
+                </div>
+
+                <Typography.Title
+                    editable={{onChange: changeUserNameHandler}}
+                    level={2}
+                    style={{width: '70%', letterSpacing: '2px'}}>
+                    {name}
+                </Typography.Title>
+
+                <span>{email}</span>
+
+
+                <Button type="default" size={'large'} onClick={logOutProfileHandler}>
+                    Log out
+                </Button>
 
             </div>
         </div>
