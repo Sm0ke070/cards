@@ -60,33 +60,18 @@ const ResetPassword = () => {
                                     }}/>
                                 {errors && <div style={{color: 'red'}}>{errors.email?.message}</div>}
                                 {requestError && <div style={{color: 'red'}}>{requestError}</div>}
-
                             </>}
-
                         />
                         <div style={{width: '70%'}}>Enter your email address and we will send you further
                             instructions.
                         </div>
-
-
-                        {/*<input {...register("email", {*/}
-                        {/*    required: 'enter email!',*/}
-                        {/*    pattern: {*/}
-                        {/*        value: /^((([0-9A-Za-z]{1}[-0-9A-z\.]{1,}[0-9A-Za-z]{1})|([0-9А-Яа-я]{1}[-0-9А-я\.]{1,}[0-9А-Яа-я]{1}))@([-A-Za-z]{1,}\.){1,2}[-A-Za-z]{2,})$/u,*/}
-                        {/*        message: 'Please enter valid email!'*/}
-                        {/*    }*/}
-                        {/*})} placeholder={'email'} type="text"/>*/}
-
                         <div style={{width: '70%'}}>
                             <Button type="primary" htmlType="submit" disabled={!isValid} block>
                                 Send Instructions
                             </Button>
                         </div>
 
-                        {/*<div>*/}
-                        {/*    <button>Send Instructions</button>*/}
-                        {/*</div>*/}
-                        <Link to={'/sign-in'}>Try logging in</Link>
+                        <Link style={{color: 'black'}} to={'/sign-in'}>Try logging in</Link>
                     </form>
                 </div>}
         </>

@@ -32,7 +32,6 @@ const NewPassword = () => {
             <div>
                 {isSend && <Navigate to={'/sign-in'}/>}
 
-
                 <form onSubmit={handleSubmit(onSubmit)} className={style.form}>
                     <h2 style={{width: '70%'}}>Create new password</h2>
 
@@ -55,9 +54,7 @@ const NewPassword = () => {
                                     onChange(e.currentTarget.value)
                                 }}/>
                             {errors && <div style={{color: 'red'}}>{errors.password?.message}</div>}
-
                         </>}
-
                     />
                     <div style={{width: '70%'}}>
                         Create new password and we will send you further instructions to email.
@@ -69,23 +66,6 @@ const NewPassword = () => {
                         </Button>
                     </div>
                 </form>
-
-                {/*<form onSubmit={handleSubmit(onSubmit)} action="">*/}
-                {/*    <h1>Create new password</h1>*/}
-                {/*    <input {...register("password", {*/}
-                {/*        required: 'enter password!',*/}
-                {/*        pattern: {*/}
-                {/*            //3 символа, буквы или цифры*/}
-                {/*            value: /(?=.*[a-z,0-9])[0-9a-zA-Z!@#$%^&*]{8,}/g,*/}
-                {/*            message: 'Must be more than 7 characters!'*/}
-                {/*        }*/}
-                {/*    })} placeholder={'password'} type="text"/>*/}
-                {/*    {errors.password && <div>{errors.password.message}</div>}*/}
-                {/*    <p>Create new password and we will send you further instructions to email.</p>*/}
-                {/*    <div>*/}
-                {/*        <button>Create new password</button>*/}
-                {/*    </div>*/}
-                {/*</form>*/}
             </div>
         )
     }

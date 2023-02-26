@@ -88,7 +88,7 @@ const SingIn = () => {
                                 rememberMe
                             </Checkbox>
                         </>}/>
-                <Link to={routes.RESET_PASS}>Forgot Password?</Link>
+                <Link style={{color: 'black'}} to={routes.RESET_PASS}>Forgot Password?</Link>
 
                 <div style={{width: '70%'}}>
                     <Button type="primary" htmlType="submit" disabled={!isValid} block>
@@ -98,7 +98,7 @@ const SingIn = () => {
 
                 <div>Already have an account?</div>
                 <div>
-                    <Link to="/sign-up">sign-up</Link>
+                    <Link style={{color: 'black'}} to="/sign-up">sign-up</Link>
                 </div>
             </form>
         </>

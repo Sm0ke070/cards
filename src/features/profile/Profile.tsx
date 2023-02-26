@@ -24,7 +24,7 @@ const Profile = () => {
         dispatch(logoutTC())
     }
 
-    const changeUserNameHandler = (value: string) => {
+    const onChangeUserNameHandler = (value: string) => {
         dispatch(changeUserNameTC(value))
 
     }
@@ -52,19 +52,17 @@ const Profile = () => {
                 </div>
 
                 <Typography.Title
-                    editable={{onChange: changeUserNameHandler}}
+                    editable={{onChange: onChangeUserNameHandler}}
                     level={2}
-                    style={{width: '70%', letterSpacing: '2px'}}>
+                    style={{letterSpacing: '2px', margin: 0}}>
                     {name}
                 </Typography.Title>
 
                 <span>{email}</span>
 
-
                 <Button type="default" size={'large'} onClick={logOutProfileHandler}>
                     Log out
                 </Button>
-
             </div>
         </div>
     );

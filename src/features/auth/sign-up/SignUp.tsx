@@ -129,9 +129,8 @@ const SignUp = () => {
                 {status !== 'loading' && <><br/><br/> </>}
 
                 <h5>Already have an account?</h5>
-                <Button type="link" block>
-                    <Link to={'/sign-in'}>Sign in</Link>
-                </Button>
+
+                <Link style={{color: 'black'}} to={'/sign-in'}>Sign in</Link>
             </form>
 
         </>
