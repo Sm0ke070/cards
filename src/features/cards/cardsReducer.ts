@@ -25,6 +25,7 @@ const initialState = {
     packUserId: '',
     cardsPack_id: '',
     resetFilter: false,
+    currentCardName: '',
     queryParams: {
         pageCount: 5,
         page: 1,
@@ -81,11 +82,20 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Car
             return {
                 ...state, queryParams: {...state.queryParams, sortCards: action.payload.sortMethod}
             }
+        case 'CARDS/SET_CURRENT_CARD_NAME':
+            return {
+                ...state, currentCardName: action.payload.cardName
+            }
         default:
             return state
     }
 }
-
+export const setCurrentCardNameAC = (cardName: string) => {
+    return {
+        type: 'CARDS/SET_CURRENT_CARD_NAME',
+        payload: {cardName}
+    } as const
+}
 export const setCardsNameAC = (cardName: string) => {
     return {
         type: 'CARDS/SET_CARD_NAME',
@@ -155,6 +165,17 @@ export const addNewCardTC = (card: newCard) => async (dispatch: AppThunkDispatch
 
     }
 }
+
+export const changeCardNameTC = (id: string, name: string) => async (dispatch: AppThunkDispatch) => {
+    dispatch(setAppStatusAC('loading'))
+    try {
+        await cardAPI.changeCardName(id, name)
+        await dispatch(getCardsTC())
+        dispatch(setAppStatusAC('succeeded'))
+    } catch (e) {
+
+    }
+}
 export const getCardsTC = () => async (dispatch: AppThunkDispatch, getState: () => AppRootStateType) => {
     const {cardsPack_id} = getState().cards
     const {cardQuestion, sortCards, page, pageCount, min, max} = getState().cards.queryParams
@@ -191,6 +212,7 @@ export type setCardsPageCountType = ReturnType<typeof setCardsPageCountAC>
 export type setCardsNameType = ReturnType<typeof setCardsNameAC>
 export type setResetFilterType = ReturnType<typeof setResetFilterAC>
 export type setSortCardsMethodType = ReturnType<typeof setSortCardsMethodAC>
+export type setCurrentCardNameType = ReturnType<typeof setCurrentCardNameAC>
 
 export type CardsReducerActionsType =
     | setCardsPackIdType
@@ -200,4 +222,5 @@ export type CardsReducerActionsType =
     | setCardsNameType
     | setResetFilterType
     | setSortCardsMethodType
+    | setCurrentCardNameType
 

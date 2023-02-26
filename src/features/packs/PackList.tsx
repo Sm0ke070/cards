@@ -6,7 +6,7 @@ import {SortPacksUpdated} from './packs-sort/SortPacksUpdated';
 import {SortPackCreatedBy} from './packs-sort/SortPackCreatetBy';
 import {formatDate} from '../../common/utils/formatDate';
 import {ActionsPacks} from './ActionsPacks';
-import {setCardsPackIdAC} from '../cards/cardsReducer';
+import {setCardsPackIdAC, setCurrentCardNameAC} from '../cards/cardsReducer';
 import {routes} from '../../constants/constants';
 import {useAppDispatch, useAppSelector} from '../../app/store';
 import {Table} from 'antd';
@@ -22,7 +22,7 @@ interface DataType {
     userName: string
 }
 
-export  const PackList = () => {
+export const PackList = () => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
 
@@ -84,6 +84,7 @@ export  const PackList = () => {
     })
     const onClickEnterToPackHandler = (record: DataType) => {
         dispatch(setCardsPackIdAC(record.packId))
+        dispatch(setCurrentCardNameAC(record.name))
         navigate(routes.CARDS)
     }
     return (

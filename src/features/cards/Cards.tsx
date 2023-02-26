@@ -11,13 +11,15 @@ import {CardsHead} from "./CardsHead";
 import FindCards from "./cards-settings/FindCards";
 import ActionsCard from "./ActionsCard";
 import SortCardsUpdated from "./cards-sort/SortCardsUpdated";
+import RatingOfCards from "./rating-of-cards/ratingOfCards";
 
 interface DataType {
     key: React.Key
     question: string;
     answer: string;
     lastUpdated: string
-    grade: number
+    grade: JSX.Element
+    actions: JSX.Element
 }
 
 export const Cards = () => {
@@ -50,7 +52,7 @@ export const Cards = () => {
             key: c._id,
             answer: c.answer,
             question: c.question,
-            grade: c.grade,
+            grade: <RatingOfCards value={c.grade}/>,
             lastUpdated: formatDate(c.updated),
             actions: <ActionsCard cardsPack_id={c._id} cardUserId={c.user_id}/>
         }

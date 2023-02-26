@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {useAppDispatch} from "../../app/store";
+import {useAppDispatch, useAppSelector} from "../../app/store";
 import {addNewCardTC} from "./cardsReducer";
 import Typography from "antd/es/typography";
 import {Input} from "antd";
@@ -16,10 +16,13 @@ type CardHeadPropsType = {
 export const CardsHead = (props: CardHeadPropsType) => {
     const {cardsPack_id} = props
 
+    const dispatch = useAppDispatch()
+    const currentCardName = useAppSelector(state => state.cards.currentCardName)
+
+
     const [name, setName] = useState('')
     const [showModal, setShowModal] = useState(false)
 
-    const dispatch = useAppDispatch()
 
     const showModalHandle = () => {
         setShowModal(true)
@@ -41,19 +44,26 @@ export const CardsHead = (props: CardHeadPropsType) => {
     return (
         <div style={{display: 'flex', justifyContent: 'space-between'}}>
 
-            <Link style={{textDecoration: 'none', color: 'black'}} to={routes.PACKS}>
-                <FaLongArrowAltLeft/> Back to Packs List
-            </Link>
+            <div>
+                <Link style={{textDecoration: 'none', color: 'black'}} to={routes.PACKS}>
+                    <FaLongArrowAltLeft/> Back to Packs List
+                </Link>
 
-            <Typography.Title level={1}>
-                Cards List
-            </Typography.Title>
-            <SuperModal title={'Add new Card'} showModal={showModal} handleOkCallback={handleOk}
+                <Typography.Title level={1}>
+                    {currentCardName}
+                </Typography.Title>
+            </div>
+
+            <SuperModal title={'Add new Card'}
+                        showModal={showModal}
+                        handleOkCallback={handleOk}
                         handleCancelCallback={handleCancel}>
+
                 <Input value={name}
-                       placeholder={'name Card'}
+                       placeholder={'Card\'s name '}
                        onChange={(e) => setName(e.currentTarget.value)}/>
             </SuperModal>
+
             <Button type="primary" onClick={showModalHandle}>Add Card</Button>
 
         </div>

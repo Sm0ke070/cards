@@ -11,6 +11,9 @@ export const cardAPI = {
     },
     deleteCard(id: string) {
         return instance.delete('/cards/card', {params: {id}})
+    },
+    changeCardName(_id: string, question: string) {
+        return instance.put('/cards/card', {card: {_id, question}})
     }
 }
 

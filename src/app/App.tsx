@@ -15,9 +15,10 @@ const App = () => {
     }, [dispatch])
 
     if (!isInitialized) {
-        return <div style={{marginTop: '35vh', display: 'flex', justifyContent: 'center'}}>
-            <Spin tip="Loading" size="large"/>
-        </div>
+        return (
+            <div style={{marginTop: '35vh', display: 'flex', justifyContent: 'center'}}>
+                <Spin tip="Loading" size="large"/>
+            </div>)
     }
 
     return (
