@@ -4,7 +4,7 @@ import {Link, useNavigate} from "react-router-dom";
 import style from './accountBlock.module.css'
 import {Button} from "antd";
 import {routes} from "../../../constants/constants";
-
+import defaultUserAvatar from '../../../assets/image/user-avatar/defaultUserAvatar.png'
 
 const AccountBlock = () => {
     const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
@@ -34,7 +34,7 @@ const AccountBlock = () => {
                     </Link>
 
                     <img style={{maxWidth: '45px'}}
-                         src={avatar} alt="-avatar"/>
+                         src={avatar ? avatar : defaultUserAvatar} alt="-avatar"/>
                 </div>
                 :
                 <Button type="primary" onClick={signInHandler}>
