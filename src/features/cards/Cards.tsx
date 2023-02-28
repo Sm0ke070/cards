@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Navigate} from 'react-router-dom';
+import {Navigate, useNavigate} from 'react-router-dom';
 import {routes} from '../../constants/constants';
 import {useAppDispatch, useAppSelector} from "../../app/store";
 import {ColumnsType} from "antd/es/table";
@@ -33,6 +33,7 @@ export const Cards = () => {
     const pageCount = useAppSelector(state => state.cards.pageCount)
     const cardsTotalCount = useAppSelector(state => state.cards.cardsTotalCount)
     const sortCards = useAppSelector(state => state.cards.queryParams.sortCards)
+    const navigate = useNavigate()
 
     console.log('render')
 
@@ -94,8 +95,9 @@ export const Cards = () => {
         return <Navigate to={routes.PACKS}/>
     }
 
+
     const question = () => {
-        return <Navigate to={routes.CARD_QUESSION}/>
+        navigate(routes.CARD_QUESTION)
     }
 
     return (
