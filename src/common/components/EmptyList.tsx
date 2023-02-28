@@ -1,10 +1,12 @@
 import React from 'react';
+import s from './emptyList.module.css'
 
 export const EmptyList = () => {
     return (
-        <span>
-            Колоды с введенным название не найдены. Измените параметры запроса
-        </span>
+        <div className={s.emptyList}><h3>
+            Колоды с введенным названием не найдены. Измените параметры запроса
+        </h3>
+        </div>
     );
 };
 

@@ -1,5 +1,6 @@
 .tableWrapper {
     display: flex;
     flex-direction: column;
+    margin-top: 50px;
     padding: 36px 136px;
 }

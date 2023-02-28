@@ -36,8 +36,10 @@ export const Packs = () => {
 
 
     return <div className={s.tableWrapper}>
-        <PacksHead/>
-        <PacksSettings/>
+        {isLoading === 'succeeded'&&<>
+            <PacksHead/>
+            <PacksSettings/>
+        </>}
         {packs.length ? <PackList/> : isLoading === 'succeeded' && <EmptyList/>}
     </div>
 }

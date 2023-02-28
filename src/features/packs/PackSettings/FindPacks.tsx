@@ -6,9 +6,12 @@ import {Input} from 'antd';
 
 export const FindPacks = () => {
     const resetFilter = useAppSelector(state => state.packs.resetFilter)
-    const [value, setValue] = useState<string>('')
+    const packName = useAppSelector(state => state.packs.queryParams.packName)
+
+    const [value, setValue] = useState<string>(packName)
     const dispatch = useAppDispatch()
     const debouncedValue = useDebounce<string>(value, 700)
+    console.log(debouncedValue)
 
     useEffect(() => {
         if (resetFilter) {
