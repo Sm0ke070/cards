@@ -94,7 +94,7 @@ export const Cards = () => {
         return <Navigate to={routes.PACKS}/>
     }
 
-    const Question=()=>{
+    const question = () => {
         return <Navigate to={routes.CARD_QUESSION}/>
     }
 
@@ -102,8 +102,8 @@ export const Cards = () => {
         <div className={s.tableWrapper}>
             <CardsHead cardsPack_id={packId}/>
             <FindCards/>
-            <button onClick={Question}>LEARN</button>
-            {/*<CardsHead cardsPack_id={packId ? packId : ''}/>*/}
+
+            <button onClick={question}>LEARN</button>
 
             <div>
                 {
