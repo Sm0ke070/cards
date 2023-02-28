@@ -94,10 +94,17 @@ export const Cards = () => {
         return <Navigate to={routes.PACKS}/>
     }
 
+    const Question=()=>{
+        return <Navigate to={routes.CARD_QUESSION}/>
+    }
+
     return (
         <div className={s.tableWrapper}>
             <CardsHead cardsPack_id={packId}/>
             <FindCards/>
+            <button onClick={Question}>LEARN</button>
+            {/*<CardsHead cardsPack_id={packId ? packId : ''}/>*/}
+
             <div>
                 {
                     <Table columns={columns}

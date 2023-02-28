@@ -12,6 +12,7 @@ import {newPasswordReducer} from "../features/password/new-password/NewPasswordR
 import {profileReducer} from "../features/profile/ProfileReducer";
 import {packsReducer, PacksReducerActionsType} from '../features/packs/packsReducer';
 import {cardsReducer} from "../features/cards/cardsReducer";
+import {learnReducer} from "../features/cards/learn/learn-reducer";
 
 const rootReducer = combineReducers({
     app: appReducer,
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
     newPassword: newPasswordReducer,
     packs: packsReducer,
     cards: cardsReducer,
+    learn:learnReducer,
 })
 
 export const store = legacy_createStore(rootReducer, applyMiddleware(thunkMiddleware))
