@@ -31,14 +31,7 @@ export const PackList = () => {
     const cardPacksTotalCount = useAppSelector(state => state.packs.cardPacksTotalCount)
     const page = useAppSelector(state => state.packs.queryParams.page)
     const pageCount = useAppSelector(state => state.packs.queryParams.pageCount)
-    const packName = useAppSelector(state => state.packs.queryParams.packName)
-    const min = useAppSelector(state => state.packs.queryParams.min)
-    const max = useAppSelector(state => state.packs.queryParams.max)
-    const sortPacks = useAppSelector(state => state.packs.queryParams.sortPacks)
 
-    useEffect(() => {
-        dispatch(getPacksTC())
-    }, [page, packName, pageCount, min, max, sortPacks])
 
 
     const columns: ColumnsType<DataType> = [
@@ -78,7 +71,7 @@ export const PackList = () => {
             cardsCount: p.cardsCount,
             lastUpdated: formatDate(p.updated),
             userName: p.user_name,
-            actions: <ActionsPacks packId={p._id} packUserId={p.user_id}/>
+            actions: <ActionsPacks packId={p._id} packUserId={p.user_id} name={p.name}/>
 
         }
     })
