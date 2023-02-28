@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {ColumnsType} from 'antd/es/table';
 import {SortPackName} from './packs-sort/SortPackName';
 import {SortPacksCards} from './packs-sort/SortPacksCards';
@@ -10,7 +10,7 @@ import {setCardsPackIdAC, setCurrentCardNameAC} from '../cards/cardsReducer';
 import {routes} from '../../constants/constants';
 import {useAppDispatch, useAppSelector} from '../../app/store';
 import {Table} from 'antd';
-import {getPacksTC, setPacksPageAC, setPageCountAC} from './packsReducer';
+import {setPacksPageAC, setPageCountAC} from './packsReducer';
 import {useNavigate} from 'react-router-dom';
 
 interface DataType {
@@ -31,7 +31,6 @@ export const PackList = () => {
     const cardPacksTotalCount = useAppSelector(state => state.packs.cardPacksTotalCount)
     const page = useAppSelector(state => state.packs.queryParams.page)
     const pageCount = useAppSelector(state => state.packs.queryParams.pageCount)
-
 
 
     const columns: ColumnsType<DataType> = [
@@ -71,7 +70,7 @@ export const PackList = () => {
             cardsCount: p.cardsCount,
             lastUpdated: formatDate(p.updated),
             userName: p.user_name,
-            actions: <ActionsPacks packId={p._id} packUserId={p.user_id} name={p.name}/>
+            actions: <ActionsPacks packId={p._id} packUserId={p.user_id} name={p.name} cardsCount={p.cardsCount}/>
 
         }
     })
