@@ -19,7 +19,7 @@ interface DataType {
     answer: string;
     lastUpdated: string
     grade: JSX.Element
-    actions: JSX.Element
+    actions: JSX.Element | null
 }
 
 export const Cards = () => {
@@ -33,8 +33,11 @@ export const Cards = () => {
     const pageCount = useAppSelector(state => state.cards.pageCount)
     const cardsTotalCount = useAppSelector(state => state.cards.cardsTotalCount)
     const sortCards = useAppSelector(state => state.cards.queryParams.sortCards)
+    const myId = useAppSelector(state => state.auth.userData._id)
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
+
+    const showEdit = false
 
     useEffect(() => {
         dispatch(getCardsTC())
@@ -52,7 +55,10 @@ export const Cards = () => {
             question: c.question,
             grade: <RatingOfCards value={c.grade}/>,
             lastUpdated: formatDate(c.updated),
-            actions: <ActionsCard question={c.question} cardsPack_id={c._id} cardUserId={c.user_id}/>
+            actions: <ActionsCard packUserId={c.user_id}
+                                  question={c.question}
+                                  cardsPack_id={c._id}
+                                  cardUserId={c.user_id}/>
         }
     })
 

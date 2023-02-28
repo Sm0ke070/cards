@@ -1,77 +1,96 @@
-import React, {SyntheticEvent, useEffect, useRef, useState} from 'react';
+import React, {SyntheticEvent, useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from "../../app/store";
 import {Button, Input, Tooltip} from "antd";
 import {DeleteTwoTone, EditTwoTone} from "@ant-design/icons";
 import {changeCardNameTC, removeCardsTC} from "./cardsReducer";
 import {SuperModal} from "../../common/components/super-components/SuperModal/SuperModal";
-import {updatePackTC} from "../packs/packsReducer";
 
 type ActionsCardPropsType = {
     cardUserId: string
     cardsPack_id: string
     question: string
+    packUserId: string
 }
 const ActionsCard = (props: ActionsCardPropsType) => {
-    const {cardsPack_id, question} = props
+    const {cardsPack_id, question, packUserId} = props
 
     const dispatch = useAppDispatch()
-    const cardId = useAppSelector(state => state.cards.cardsPack_id)
+    const myId = useAppSelector(state => state.auth.userData._id)
+    const showEdit = myId === packUserId
 
     useEffect(() => {
         setNewName(question)
     }, [question])
 
     const [newName, setNewName] = useState('')
-    const [showModal, setShowModal] = useState(false)
+    const [showModalChange, setShowModalChange] = useState(false)
+    const [showModalRemove, setShowModalRemove] = useState(false)
 
     //const disabled = myId !== packUserId
 
-    const onClickRemove = (e: SyntheticEvent) => {
+    const onRemoveCardsHandler = (e: SyntheticEvent) => {
         console.log(cardsPack_id)
         e.stopPropagation()
+        //dispatch(removeCardsTC(cardsPack_id))
+        setShowModalRemove(true)
+    }
+    const handleOkRemove = (e: SyntheticEvent) => {
+        e.stopPropagation()
         dispatch(removeCardsTC(cardsPack_id))
+        setShowModalChange(false)
+    }
+    const handleCancelRemove = (e: SyntheticEvent) => {
+        e.stopPropagation()
+        setShowModalRemove(false)
     }
 
     const onClickUpdate = (e: SyntheticEvent) => {
         e.stopPropagation()
         e.nativeEvent.stopImmediatePropagation()
-        setShowModal(true)
+        setShowModalChange(true)
     }
-    const handleOk = (e: SyntheticEvent) => {
+    const handleOkChanges = (e: SyntheticEvent) => {
         e.stopPropagation()
         dispatch(changeCardNameTC(cardsPack_id, newName))
-        setShowModal(false)
+        setShowModalChange(false)
     }
-    const handleCancel = (e: SyntheticEvent) => {
+    const handleCancelChanges = (e: SyntheticEvent) => {
         e.stopPropagation()
-        setShowModal(false)
+        setShowModalChange(false)
     }
 
     return (
         <div>
-            <Tooltip title='Удалить'>
-                <Button onClick={e => onClickRemove(e)}
-                    // disabled={disabled}
-                        icon={<DeleteTwoTone style={{fontSize: '18px', padding: '4px'}}/>}/>
-            </Tooltip>
-            <Tooltip title='Изменить'>
-                <SuperModal title={'Change name Card'}
-                            showModal={showModal}
-                            handleOkCallback={handleOk}
-                            handleCancelCallback={handleCancel}>
+            {showEdit && <>
+                <Tooltip title='Удалить'>
+                    <SuperModal title={`Remove Card-${question}`}
+                                showModal={showModalRemove}
+                                handleOkCallback={handleOkRemove}
+                                handleCancelCallback={handleCancelRemove}>
 
-                    <Input value={newName}
-                           placeholder={'Card\'s name'}
-                           width='30px'
-                           onChange={(e) => setNewName(e.currentTarget.value)}
-                    />
+                    </SuperModal>
+                    <Button onClick={e => onRemoveCardsHandler(e)}
+                        // disabled={disabled}
+                            icon={<DeleteTwoTone style={{fontSize: '18px', padding: '4px'}}/>}/>
+                </Tooltip>
+                <Tooltip title='Изменить'>
+                    <SuperModal title={'Change name Card'}
+                                showModal={showModalChange}
+                                handleOkCallback={handleOkChanges}
+                                handleCancelCallback={handleCancelChanges}>
 
-                </SuperModal>
-                <Button onClick={e => onClickUpdate(e)}
-                    // disabled={disabled}
-                        icon={<EditTwoTone style={{fontSize: '18px', padding: '4px'}}/>}/>
-            </Tooltip>
+                        <Input value={newName}
+                               placeholder={'Card\'s name'}
+                               width='30px'
+                               onChange={(e) => setNewName(e.currentTarget.value)}/>
 
+                    </SuperModal>
+                    <Button onClick={e => onClickUpdate(e)}
+                        // disabled={disabled}
+                            icon={<EditTwoTone style={{fontSize: '18px', padding: '4px'}}/>}/>
+                </Tooltip>
+            </>
+            }
         </div>
     );
 };
