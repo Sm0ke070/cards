@@ -11,7 +11,6 @@ export const FindPacks = () => {
     const [value, setValue] = useState<string>(packName)
     const dispatch = useAppDispatch()
     const debouncedValue = useDebounce<string>(value, 700)
-    console.log(debouncedValue)
 
     useEffect(() => {
         if (resetFilter) {
@@ -25,7 +24,7 @@ export const FindPacks = () => {
     }
 
     useEffect(() => {
-        debouncedValue && dispatch(setPackNameAC(debouncedValue))
+         dispatch(setPackNameAC(debouncedValue))
     }, [debouncedValue])
     return (
         <div>

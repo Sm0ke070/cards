@@ -5,12 +5,14 @@ import {setCardCountAC, setResetFilterAC} from '../packsReducer';
 
 export const NumberOfCards = () => {
     const dispatch = useAppDispatch()
-    const minCardsCount = useAppSelector(state => state.packs.minCardsCount)
-    const maxCardsCount = useAppSelector(state => state.packs.maxCardsCount)
+    const minCardsCount = useAppSelector(state => state.packs.queryParams.min)
+    const maxCardsCount = useAppSelector(state => state.packs.queryParams.max)
+    const totalMaxCardsCount = useAppSelector(state => state.packs.maxCardsCount)
     const resetFilter = useAppSelector(state => state.packs.resetFilter)
 
     const [minCardCount, setMinCardCount] = useState(minCardsCount)
     const [maxCardCount, setMaxCardCount] = useState(maxCardsCount)
+
     useEffect(() => {
         if (resetFilter) {
             setMinCardCount(minCardsCount)
@@ -32,8 +34,7 @@ export const NumberOfCards = () => {
     return (
         <SuperDoubleRange value={[minCardCount, maxCardCount]} onChangeRange={onChangeRange}
                           onAfterChangeRange={onAfterChangeRange}
-                          max={maxCardsCount}
-                          min={minCardCount}
+                          max={totalMaxCardsCount}
         />
     );
 };

@@ -12,7 +12,7 @@ type SuperDoubleRangePropsType = {
 
 const SuperDoubleRange: React.FC<SuperDoubleRangePropsType> = (
     {
-        onChangeRange, onAfterChangeRange, value, max, min
+        onChangeRange, onAfterChangeRange, value, max
     }
 ) => {
     const onChangeCallback = (e: [number, number]) => {
@@ -22,7 +22,7 @@ const SuperDoubleRange: React.FC<SuperDoubleRangePropsType> = (
 
     return (
         <div style={{minWidth: 200, marginLeft: 10, marginRight: 10}}>
-            <Slider range defaultValue={[10, 55]} onAfterChange={onAfterChangeRange}
+            <Slider range onAfterChange={onAfterChangeRange}
                     onChange={onChangeCallback}
                     value={value}
                     max={max}

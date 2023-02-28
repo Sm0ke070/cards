@@ -28,7 +28,7 @@ export const PacksHead = () => {
         setShowModal(false)
     }
     return (
-        <div style={{display: 'flex', justifyContent: 'space-between', border:'red 1px solid'}}>
+        <div style={{display: 'flex', justifyContent: 'space-between'}}>
             <Typography.Title level={1}>
                 Packs List
             </Typography.Title>

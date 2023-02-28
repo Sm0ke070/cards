@@ -8,6 +8,7 @@ import {Link} from "react-router-dom";
 import {SuperModal} from '../../common/components/super-components/SuperModal/SuperModal';
 import {FaLongArrowAltLeft} from "react-icons/fa";
 import {routes} from "../../constants/constants";
+import {setResetFilterAC} from '../packs/packsReducer';
 
 
 type CardHeadPropsType = {
@@ -45,7 +46,7 @@ export const CardsHead = (props: CardHeadPropsType) => {
         <div style={{display: 'flex', justifyContent: 'space-between'}}>
 
             <div>
-                <Link style={{textDecoration: 'none', color: 'black'}} to={routes.PACKS}>
+                <Link style={{textDecoration: 'none', color: 'black'}} to={routes.PACKS} onClick={()=>dispatch(setResetFilterAC(true))}>
                     <FaLongArrowAltLeft/> Back to Packs List
                 </Link>
 

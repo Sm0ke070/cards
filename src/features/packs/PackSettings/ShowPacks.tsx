@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {Segmented} from 'antd';
 import {useAppDispatch, useAppSelector} from '../../../app/store';
 import {getPacksTC, setAllOrMyAC, setResetFilterAC} from '../packsReducer';
@@ -6,7 +6,7 @@ import {getPacksTC, setAllOrMyAC, setResetFilterAC} from '../packsReducer';
 export const ShowPacks = () => {
     const resetFilter = useAppSelector(state => state.packs.resetFilter)
     const allOrMy = useAppSelector(state => state.packs.allOrMy)
-    console.log(allOrMy)
+
     const dispatch = useAppDispatch()
 
     useEffect(() => {
