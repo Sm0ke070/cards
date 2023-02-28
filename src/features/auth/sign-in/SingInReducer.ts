@@ -35,12 +35,13 @@ export const setErrorSignInAC = (errorSignIn: string) =>
     ({type: 'signIn/SET-IS-ERROR-SIGN-IN', errorSignIn} as const)
 
 export const loginTC = (data: LoginParamsType) => async (dispatch: Dispatch<ActionsType>) => {
-
+    dispatch(setAppStatusAC('loading'))
     try {
         const res = await authAPI.login(data)
         if (res.statusText === 'OK') {
             dispatch(setUserAC(res.data))
             dispatch(setIsLoggedInAC(true))
+            dispatch(setAppStatusAC('succeeded'))
         } else {
 
         }
@@ -57,12 +58,12 @@ export const loginTC = (data: LoginParamsType) => async (dispatch: Dispatch<Acti
     }
 }
 export const logoutTC = () => (dispatch: Dispatch<ActionsType>) => {
-    //dispatch(setAppStatusAC('loading'))
+    dispatch(setAppStatusAC('loading'))
     authAPI.logout()
         .then(res => {
             if (res) {
                 dispatch(setIsLoggedInAC(false))
-                //dispatch(setAppStatusAC('succeeded'))
+                dispatch(setAppStatusAC('succeeded'))
             } else {
                 //handleServerAppError(res.data, dispatch)
             }

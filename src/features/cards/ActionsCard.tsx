@@ -1,4 +1,4 @@
-import React, {SyntheticEvent, useRef, useState} from 'react';
+import React, {SyntheticEvent, useEffect, useRef, useState} from 'react';
 import {useAppDispatch, useAppSelector} from "../../app/store";
 import {Button, Input, Tooltip} from "antd";
 import {DeleteTwoTone, EditTwoTone} from "@ant-design/icons";
@@ -9,12 +9,17 @@ import {updatePackTC} from "../packs/packsReducer";
 type ActionsCardPropsType = {
     cardUserId: string
     cardsPack_id: string
+    question: string
 }
 const ActionsCard = (props: ActionsCardPropsType) => {
-    const {cardsPack_id} = props
+    const {cardsPack_id, question} = props
 
     const dispatch = useAppDispatch()
     const cardId = useAppSelector(state => state.cards.cardsPack_id)
+
+    useEffect(() => {
+        setNewName(question)
+    }, [question])
 
     const [newName, setNewName] = useState('')
     const [showModal, setShowModal] = useState(false)

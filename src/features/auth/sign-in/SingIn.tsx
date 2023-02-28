@@ -13,6 +13,7 @@ const SingIn = () => {
     const dispatch = useAppDispatch()
     const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
     const errorSignIn = useAppSelector(state => state.auth.errorSignIn)
+    const isLoading = useAppSelector(state => state.app.status)
 
     const {
         control,
@@ -91,7 +92,8 @@ const SingIn = () => {
                 <Link style={{color: 'black'}} to={routes.RESET_PASS}>Forgot Password?</Link>
 
                 <div style={{width: '70%'}}>
-                    <Button type="primary" htmlType="submit" disabled={!isValid} block>
+                    <Button loading={isLoading === 'loading'} type="primary" htmlType="submit" disabled={!isValid}
+                            block>
                         Login
                     </Button>
                 </div>

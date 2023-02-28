@@ -34,9 +34,6 @@ export const Cards = () => {
     const cardsTotalCount = useAppSelector(state => state.cards.cardsTotalCount)
     const sortCards = useAppSelector(state => state.cards.queryParams.sortCards)
     const navigate = useNavigate()
-
-    console.log('render')
-
     const dispatch = useAppDispatch()
 
     useEffect(() => {
@@ -55,7 +52,7 @@ export const Cards = () => {
             question: c.question,
             grade: <RatingOfCards value={c.grade}/>,
             lastUpdated: formatDate(c.updated),
-            actions: <ActionsCard cardsPack_id={c._id} cardUserId={c.user_id}/>
+            actions: <ActionsCard question={c.question} cardsPack_id={c._id} cardUserId={c.user_id}/>
         }
     })
 

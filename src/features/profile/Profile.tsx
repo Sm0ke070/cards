@@ -17,6 +17,7 @@ const Profile = () => {
     const name = useAppSelector((state) => state.auth.userData.name)
     const email = useAppSelector((state) => state.auth.userData.email)
     const avatar = useAppSelector((state) => state.auth.userData.avatar)
+    const isLoading = useAppSelector(state => state.app.status)
     const {Title} = Typography
 
 
@@ -60,7 +61,7 @@ const Profile = () => {
 
                 <span>{email}</span>
 
-                <Button type="default" size={'large'} onClick={logOutProfileHandler}>
+                <Button loading={isLoading === 'loading'} type="default" size={'large'} onClick={logOutProfileHandler}>
                     Log out
                 </Button>
             </div>
