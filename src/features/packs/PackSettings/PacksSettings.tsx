@@ -25,7 +25,7 @@ export const PacksSettings = () => {
             <FindPacks/>
             <ShowPacks/>
             <NumberOfCards/>
-            <RiFilterOffLine className={s.filterIcon} size={'30px'}  onClick={resetFilet} />
+            <RiFilterOffLine className={s.filterIcon} size={'30px'} onClick={resetFilet}/>
         </div>
     );
 };
