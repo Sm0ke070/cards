@@ -1,9 +1,10 @@
 import {AppRootStateType, useAppDispatch, useAppSelector} from "../../../app/store";
-import {FC, useEffect, useState} from "react";
+import React, {FC, useEffect, useState} from "react";
 import {CardType, getCardsTC} from "../cardsReducer";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {putGradeTC} from "./learn-reducer";
 import {PutGradeType} from "./learnAPI";
+import {routes} from "../../../constants/constants";
 
 const getCard = (cards: CardType[]) => {
     const sum = cards.reduce((acc, card) => acc + (6 - card.grade) * (6 - card.grade), 0);
@@ -110,6 +111,10 @@ export const Learn: FC = () => {
     return (
         <div>
             LearnPage
+            <div>
+                <Link to={routes.CARDS}>back to packsList</Link>
+            </div>
+
 
             <div>{card.question}</div>
             <div>
@@ -121,7 +126,6 @@ export const Learn: FC = () => {
                     <div>{card.answer}</div>
 
                     {grades.map((g, i) => (
-
 
                         <button key={'grade-' + i}
                                 onClick={() => putGradeHandler(
