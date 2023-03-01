@@ -27,7 +27,7 @@ const initialState = {
     resetFilter: false,
     currentCardName: '',
     queryParams: {
-        pageCount: 5,
+        pageCount: 110,
         page: 1,
         min: 0,
         max: 110,

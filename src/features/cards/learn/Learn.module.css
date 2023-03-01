@@ -1,0 +1,18 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 1%;
+    width: 513px;
+    font-family: 'Montserrat', sans-serif;
+    min-height: 560px;
+    background-color: #FFFF;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.link {
+    align-self: flex-start;
+    text-decoration: none;
+    color: black
+}

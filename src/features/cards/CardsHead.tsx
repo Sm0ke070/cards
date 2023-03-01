@@ -2,24 +2,48 @@ import React, {useState} from 'react';
 import {useAppDispatch, useAppSelector} from "../../app/store";
 import {addNewCardTC} from "./cardsReducer";
 import Typography from "antd/es/typography";
-import {Input} from "antd";
+import {Dropdown, Input, MenuProps, Space} from "antd";
 import Button from "antd/es/button";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {SuperModal} from '../../common/components/super-components/SuperModal/SuperModal';
 import {FaLongArrowAltLeft} from "react-icons/fa";
 import {routes} from "../../constants/constants";
 import {setResetFilterAC} from '../packs/packsReducer';
+import {EllipsisOutlined} from '@ant-design/icons';
 
 
 type CardHeadPropsType = {
     cardsPack_id: string
+    packUserId: string
 }
+const items: MenuProps['items'] = [
+    {
+        label: (
+            <Link to={routes.CARD_QUESTION}>
+                Учить
+            </Link>
+        ),
+        key: '0',
+    },
+    {
+        label: 'Изменить (тут появляется модалка)',
+        key: '1',
+    },
+    {
+        label: 'Удалить',
+        key: '2',
+    },
+];
+
 export const CardsHead = (props: CardHeadPropsType) => {
-    const {cardsPack_id} = props
+    const {cardsPack_id, packUserId} = props
 
     const dispatch = useAppDispatch()
+    const navigate = useNavigate()
     const currentCardName = useAppSelector(state => state.cards.currentCardName)
 
+    const myId = useAppSelector(state => state.auth.userData._id)
+    const MyCardMode = myId === packUserId
 
     const [name, setName] = useState('')
     const [showModal, setShowModal] = useState(false)
@@ -42,17 +66,36 @@ export const CardsHead = (props: CardHeadPropsType) => {
     const handleCancel = () => {
         setShowModal(false)
     }
+
+    const learnHandler = () => {
+        navigate(routes.CARD_QUESTION)
+    }
     return (
-        <div style={{display: 'flex', justifyContent: 'space-between'}}>
+        <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
 
             <div>
-                <Link style={{textDecoration: 'none', color: 'black'}} to={routes.PACKS} onClick={()=>dispatch(setResetFilterAC(true))}>
+                <Link style={{textDecoration: 'none', color: 'black'}} to={routes.PACKS}
+                      onClick={() => dispatch(setResetFilterAC(true))}>
                     <FaLongArrowAltLeft/> Back to Packs List
                 </Link>
 
-                <Typography.Title level={1}>
-                    {currentCardName}
-                </Typography.Title>
+                <div style={{display:'flex',justifyContent:'space-between'}}>
+                    <div style={{display: 'flex'}}>
+                        <Typography.Title level={1}>
+                            {currentCardName}
+                        </Typography.Title>
+                        {MyCardMode && <Dropdown menu={{items}} placement="bottomLeft">
+                            <a onClick={(e) => e.preventDefault()}>
+                                <Space>
+                                    <EllipsisOutlined
+                                        style={{fontSize: '30px', margin: '15px 0px 0px 10px', color: '#1677FF'}}/>
+                                </Space>
+                            </a>
+                        </Dropdown>}
+                    </div>
+                    {!MyCardMode && <Button type="primary" onClick={learnHandler}>Learn</Button>}
+                    {MyCardMode && <Button type="primary" onClick={showModalHandle}>Add Card</Button>}
+                </div>
             </div>
 
             <SuperModal title={'Add new Card'}
@@ -65,7 +108,6 @@ export const CardsHead = (props: CardHeadPropsType) => {
                        onChange={(e) => setName(e.currentTarget.value)}/>
             </SuperModal>
 
-            <Button type="primary" onClick={showModalHandle}>Add Card</Button>
 
         </div>
     );

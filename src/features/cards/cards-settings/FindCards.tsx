@@ -29,7 +29,7 @@ const FindCards = () => {
     }
 
     return (
-        <div>
+        <div style={{marginTop:'15px'}}>
             <Input placeholder={'Search Cards'} value={search} onChange={handleChange} style={{width: '300px'}}/>
         </div>
     );

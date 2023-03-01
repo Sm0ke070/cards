@@ -29,6 +29,7 @@ export const Cards = () => {
     const cardQuestion = useAppSelector(state => state.cards.queryParams.cardQuestion)
     const isLoading = useAppSelector(state => state.app.status)
     const packId = useAppSelector(state => state.cards.cardsPack_id)
+    const packUserId = useAppSelector(state => state.cards.packUserId)
     const page = useAppSelector(state => state.cards.queryParams.page)
     const pageCount = useAppSelector(state => state.cards.pageCount)
     const cardsTotalCount = useAppSelector(state => state.cards.cardsTotalCount)
@@ -99,16 +100,14 @@ export const Cards = () => {
     }
 
 
-    const question = () => {
-        navigate(routes.CARD_QUESTION)
-    }
+
 
     return (
         <div className={s.tableWrapper}>
-            <CardsHead cardsPack_id={packId}/>
+            <CardsHead cardsPack_id={packId} packUserId={packUserId}/>
             <FindCards/>
 
-            <button onClick={question}>LEARN</button>
+
 
             <div>
                 {
@@ -118,15 +117,18 @@ export const Cards = () => {
                            loading={isLoading === 'loading'}
                            onRow={record => {
                                return {}
-                           }} pagination={{
-                        current: page,
-                        pageSize: pageCount,
-                        total: cardsTotalCount,
-                        position: ['bottomLeft'],
-                        onChange: (page, pageSize) => {
-                            onChangeTableHandler(page, pageSize)
-                        },
-                    }}/>
+                           }}
+                           pagination={false}
+                        //    pagination={{
+                        // current: page,
+                        // pageSize: pageCount,
+                        // total: cardsTotalCount,
+                        //
+                        // position: ['bottomLeft'],
+                        // onChange: (page, pageSize) => {
+                        //     onChangeTableHandler(page, pageSize)
+                        // }}}
+            />
                 }
             </div>
         </div>

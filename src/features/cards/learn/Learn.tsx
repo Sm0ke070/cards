@@ -5,6 +5,12 @@ import {Link, useParams} from "react-router-dom";
 import {putGradeTC} from "./learn-reducer";
 import {PutGradeType} from "./learnAPI";
 import {routes} from "../../../constants/constants";
+import Typography from 'antd/es/typography';
+import {Button, Radio, Rate} from "antd";
+import s from './Learn.module.css'
+import {FaLongArrowAltLeft} from 'react-icons/fa';
+import {FrownOutlined, MehOutlined, SmileOutlined} from '@ant-design/icons';
+import {setResetFilterAC} from '../../packs/packsReducer';
 
 const getCard = (cards: CardType[]) => {
     const sum = cards.reduce((acc, card) => acc + (6 - card.grade) * (6 - card.grade), 0);
@@ -35,9 +41,9 @@ export const Learn: FC = () => {
     const [first, setFirst] = useState<boolean>(true);
     // const [first, setFirst] = useState<boolean>(0);
     const {cards} = useAppSelector((state: AppRootStateType) => state.cards);
+    const currentCardName = useAppSelector(state => state.cards.currentCardName)
     const {cardId} = useParams();
     //const grade=useAppSelector(state=>state.learn.grade)
-
 
     const [card, setCard] = useState<CardType>({
         _id: '',
@@ -64,6 +70,10 @@ export const Learn: FC = () => {
         +updated: string
         +_id: string*/
     });
+    console.log('card',card)
+    console.log('cards',cards)
+
+
 
     const dispatch = useAppDispatch();
     useEffect(() => {
@@ -108,34 +118,42 @@ export const Learn: FC = () => {
     }
 
     //DEV_VERSION && console.log('render LearnPage');
+
+
+
     return (
-        <div>
-            LearnPage
-            <div>
-                <Link to={routes.CARDS}>back to packsList</Link>
-            </div>
+        <div className={s.wrapper} >
+            <Link to={routes.CARDS} className={s.link}><FaLongArrowAltLeft/>back to CardList</Link>
+
+            <Typography.Title level={1}>
+                LearnPack '{currentCardName}'
+            </Typography.Title>
+
+            <Typography.Title level={3}>Question: {card.question}</Typography.Title>
+            <Button type="default" onClick={() => setIsChecked(true)}>check</Button>
 
 
-            <div>{card.question}</div>
-            <div>
-                <button onClick={() => setIsChecked(true)}>check</button>
-            </div>
 
             {isChecked && (
                 <>
-                    <div>{card.answer}</div>
+                    <Typography.Title level={3}>Answer: {card.answer}</Typography.Title>
+                    <Typography.Title level={5}>Rate yourself:</Typography.Title>
 
-                    {grades.map((g, i) => (
+                    <div style={{display:'flex', justifyContent:'space-between'}}>
+                        <Radio.Group  defaultValue={'grade-' + 0}>
 
-                        <button key={'grade-' + i}
-                                onClick={() => putGradeHandler(
-                                    {card_id: card._id, grade: g.rate})}>
-                            {g.name}
-                        </button>
-                    ))}
+                        {grades.map((g, i) => (
+                            <Radio.Button key={'grade-' + i} value={'grade-' + i}
+                                    onChange={() => putGradeHandler(
+                                        {card_id: card._id, grade: g.rate})}>
+                                {g.name}
+                            </Radio.Button>
+                        )
+                    )}</Radio.Group>
+                        </div>
 
-                    <div>
-                        <button onClick={onNext}>next</button>
+                    <div style={{marginTop:'15px'}}>
+                        <Button type={'primary'} onClick={onNext}>Next</Button>
                     </div>
                 </>
             )}

@@ -4,6 +4,9 @@ import {deletePackTC, updatePackTC} from './packsReducer';
 import {Button, Input, Tooltip} from 'antd';
 import {BookTwoTone, DeleteTwoTone, EditTwoTone} from '@ant-design/icons';
 import {SuperModal} from '../../common/components/super-components/SuperModal/SuperModal';
+import {routes} from '../../constants/constants';
+import {useNavigate} from 'react-router-dom';
+import {setCardsPackIdAC} from '../cards/cardsReducer';
 
 type ActionsPropsType = {
     packUserId: string
@@ -16,6 +19,7 @@ export const ActionsPacks: FC<ActionsPropsType> = ({packUserId, packId, name,car
     const [showModal, setShowModal] = useState(false)
 
     const dispatch = useAppDispatch()
+    const navigate = useNavigate()
     const myId = useAppSelector(state => state.auth.userData._id)
     // проверка на свой-чужой. если userId в колоде и userId в сторе при логинизации равны, то disabled будет false
     const showEdit = myId === packUserId
@@ -24,7 +28,6 @@ export const ActionsPacks: FC<ActionsPropsType> = ({packUserId, packId, name,car
     const onClickRemove = (e: SyntheticEvent) => {
         // у нас конфликт событий. два onClick на строке таблицы и на кнопке. при клике по кнопке мы вызываем stopPropagation который не позволяет событию всплывать дальше и выполнятся другим обработчикам
         e.stopPropagation()
-
         dispatch(deletePackTC(packId))
     }
 
@@ -34,7 +37,8 @@ export const ActionsPacks: FC<ActionsPropsType> = ({packUserId, packId, name,car
     }
     const onClickLearn = (e: SyntheticEvent) => {
         e.stopPropagation()
-        alert('Тут будет переход на страницу обучения')
+        dispatch(setCardsPackIdAC(packId))
+        navigate(routes.CARD_QUESTION)
     }
     const handleOk = (e: SyntheticEvent) => {
         e.stopPropagation()
@@ -51,6 +55,17 @@ export const ActionsPacks: FC<ActionsPropsType> = ({packUserId, packId, name,car
         e.stopPropagation()
         setShowModal(false)
     }
+    // с поддержки комментарий- флоу работы с данными для изменений
+    //const activeCardId = useAppSelector()
+    // useEffect(() => {
+    //     if (activeCardId) {
+    //         //api.  .....(activeCardId)
+    //     }
+    //
+    //     return () => {
+    //         dispatch(.......(''))
+    //     }
+    // },[activeCardId])
     return (
         <div>
             <Tooltip title='Учить'>
