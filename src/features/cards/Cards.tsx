@@ -19,7 +19,6 @@ interface DataType {
     answer: string;
     lastUpdated: string
     grade: JSX.Element
-    actions: JSX.Element | null
 }
 
 export const Cards = () => {
@@ -35,10 +34,10 @@ export const Cards = () => {
     const cardsTotalCount = useAppSelector(state => state.cards.cardsTotalCount)
     const sortCards = useAppSelector(state => state.cards.queryParams.sortCards)
     const myId = useAppSelector(state => state.auth.userData._id)
-    const navigate = useNavigate()
+
     const dispatch = useAppDispatch()
 
-    const showEdit = false
+    const isMy = myId === packUserId
 
     useEffect(() => {
         dispatch(getCardsTC())
@@ -54,12 +53,14 @@ export const Cards = () => {
             key: c._id,
             answer: c.answer,
             question: c.question,
-            grade: <RatingOfCards value={c.grade}/>,
+            grade: <><RatingOfCards isMy={isMy}
+                                    packUserId={c.user_id}
+                                    question={c.question}
+                                    cardsPack_id={c._id}
+                                    cardUserId={c.user_id}
+                                    value={c.grade}/></>,
             lastUpdated: formatDate(c.updated),
-            actions: <ActionsCard packUserId={c.user_id}
-                                  question={c.question}
-                                  cardsPack_id={c._id}
-                                  cardUserId={c.user_id}/>
+
         }
     })
 
@@ -84,11 +85,6 @@ export const Cards = () => {
             title: 'Grade',
             dataIndex: 'grade',
             width: 150,
-        },
-        {
-            title: 'Action',
-            dataIndex: 'actions',
-            width: 80,
         }
     ]
 
@@ -100,13 +96,10 @@ export const Cards = () => {
     }
 
 
-
-
     return (
         <div className={s.tableWrapper}>
             <CardsHead cardsPack_id={packId} packUserId={packUserId}/>
             <FindCards/>
-
 
 
             <div>
@@ -128,7 +121,7 @@ export const Cards = () => {
                         // onChange: (page, pageSize) => {
                         //     onChangeTableHandler(page, pageSize)
                         // }}}
-            />
+                    />
                 }
             </div>
         </div>

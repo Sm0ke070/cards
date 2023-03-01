@@ -79,7 +79,7 @@ export const CardsHead = (props: CardHeadPropsType) => {
                     <FaLongArrowAltLeft/> Back to Packs List
                 </Link>
 
-                <div style={{display:'flex',justifyContent:'space-between'}}>
+                <div style={{display: 'flex', justifyContent: 'space-between'}}>
                     <div style={{display: 'flex'}}>
                         <Typography.Title level={1}>
                             {currentCardName}
@@ -88,7 +88,7 @@ export const CardsHead = (props: CardHeadPropsType) => {
                             <a onClick={(e) => e.preventDefault()}>
                                 <Space>
                                     <EllipsisOutlined
-                                        style={{fontSize: '30px', margin: '15px 0px 0px 10px', color: '#1677FF'}}/>
+                                        style={{fontSize: '30px', margin: '15px 0px 0px 10px'}}/>
                                 </Space>
                             </a>
                         </Dropdown>}

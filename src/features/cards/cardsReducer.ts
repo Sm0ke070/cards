@@ -198,7 +198,7 @@ export const removeCardsTC = (cardsPack_id: string) => async (dispatch: AppThunk
     dispatch(setAppStatusAC('loading'))
     try {
         await cardAPI.deleteCard(cardsPack_id)
-        dispatch(getCardsTC())
+        await dispatch(getCardsTC())
         dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
         dispatch(setAppStatusAC('failed'))

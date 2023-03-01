@@ -1,6 +1,6 @@
 import React, {SyntheticEvent, useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from "../../app/store";
-import {Button, Input, Tooltip} from "antd";
+import {Button, Input, Popconfirm, Tooltip} from "antd";
 import {DeleteTwoTone, EditTwoTone} from "@ant-design/icons";
 import {changeCardNameTC, removeCardsTC} from "./cardsReducer";
 import {SuperModal} from "../../common/components/super-components/SuperModal/SuperModal";
@@ -34,14 +34,14 @@ const ActionsCard = (props: ActionsCardPropsType) => {
         //dispatch(removeCardsTC(cardsPack_id))
         setShowModalRemove(true)
     }
-    const handleOkRemove = (e: SyntheticEvent) => {
+    const handleOkRemove = (e: React.MouseEvent<HTMLElement>) => {
         e.stopPropagation()
         dispatch(removeCardsTC(cardsPack_id))
-        setShowModalChange(false)
+        // setShowModalChange(false)
     }
-    const handleCancelRemove = (e: SyntheticEvent) => {
+    const handleCancelRemove = (e: React.MouseEvent<HTMLElement>) => {
         e.stopPropagation()
-        setShowModalRemove(false)
+        //setShowModalRemove(false)
     }
 
     const onClickUpdate = (e: SyntheticEvent) => {
@@ -62,18 +62,25 @@ const ActionsCard = (props: ActionsCardPropsType) => {
     return (
         <div>
             {showEdit && <>
-                <Tooltip title='Удалить'>
-                    <SuperModal title={`Remove Card-${question}`}
-                                showModal={showModalRemove}
-                                handleOkCallback={handleOkRemove}
-                                handleCancelCallback={handleCancelRemove}>
 
-                    </SuperModal>
+                {/*<SuperModal title={`Remove Card-${question}`}*/}
+                {/*            showModal={showModalRemove}*/}
+                {/*            handleOkCallback={handleOkRemove}*/}
+                {/*            handleCancelCallback={handleCancelRemove}>*/}
+
+                {/*</SuperModal>*/}
+
+                <Popconfirm title={'Delete question?'}
+                            onConfirm={(e) => e && handleOkRemove(e)}
+                            onCancel={(e) => e && handleCancelRemove(e)}>
+
                     <Button onClick={e => onRemoveCardsHandler(e)}
                         // disabled={disabled}
                             icon={<DeleteTwoTone style={{fontSize: '18px', padding: '4px'}}/>}/>
-                </Tooltip>
-                <Tooltip title='Изменить'>
+
+                </Popconfirm>
+
+                <Tooltip title='Change name Card'>
                     <SuperModal title={'Change name Card'}
                                 showModal={showModalChange}
                                 handleOkCallback={handleOkChanges}
