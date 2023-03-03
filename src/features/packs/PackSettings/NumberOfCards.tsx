@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import SuperDoubleRange from '../../../common/components/SuperDoubleRange';
 import {useAppDispatch, useAppSelector} from '../../../app/store';
-import {setCardCountAC, setResetFilterAC} from '../packsReducer';
+import {setCardCountAC, setResetFilterAC} from '../packsSettingsReducer';
 
 export const NumberOfCards = () => {
     const dispatch = useAppDispatch()
-    const minCardsCount = useAppSelector(state => state.packs.queryParams.min)
-    const maxCardsCount = useAppSelector(state => state.packs.queryParams.max)
     const totalMaxCardsCount = useAppSelector(state => state.packs.maxCardsCount)
-    const resetFilter = useAppSelector(state => state.packs.resetFilter)
+    const minCardsCount = useAppSelector(state => state.packsSettings.queryParams.min)
+    const maxCardsCount = useAppSelector(state => state.packsSettings.queryParams.max)
+    const resetFilter = useAppSelector(state => state.packsSettings.resetFilter)
 
     const [minCardCount, setMinCardCount] = useState(minCardsCount)
     const [maxCardCount, setMaxCardCount] = useState(maxCardsCount)
@@ -17,9 +17,12 @@ export const NumberOfCards = () => {
         if (resetFilter) {
             setMinCardCount(minCardsCount)
             setMaxCardCount(maxCardsCount)
+        }
+        return ()=>{
             dispatch(setResetFilterAC(false))
         }
     }, [resetFilter])
+
     // меняет локальные данные
     const onChangeRange = (e: [number, number]) => {
         setMinCardCount(e[0])

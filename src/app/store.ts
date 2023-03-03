@@ -13,6 +13,7 @@ import {profileReducer} from "../features/profile/ProfileReducer";
 import {packsReducer, PacksReducerActionsType} from '../features/packs/packsReducer';
 import {cardsReducer} from "../features/cards/cardsReducer";
 import {learnReducer} from "../features/cards/learn/learn-reducer";
+import {packsSettingsReducer} from '../features/packs/packsSettingsReducer';
 
 const rootReducer = combineReducers({
     app: appReducer,
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
     resPassword: resetPasswordReducer,
     newPassword: newPasswordReducer,
     packs: packsReducer,
+    packsSettings:packsSettingsReducer,
     cards: cardsReducer,
     learn:learnReducer,
 })

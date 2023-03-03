@@ -1,6 +1,6 @@
 import {instance} from '../../app/base-url';
 import {sortingPacksMethods} from '../../constants/sortingMethods';
-import {NewPackType, UpdatePackType} from './packsReducer';
+import {NewPackType, UpdatePackType} from './packsSettingsReducer';
 
 
 export const packsAPI = {
@@ -29,6 +29,7 @@ export type GetParamsType = {
 
 export type PackType = {
     _id: string;
+    deckCover?: string
     user_id: string;
     user_name: string;
     name: string;

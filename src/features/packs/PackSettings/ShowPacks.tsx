@@ -1,17 +1,20 @@
 import React, {useEffect} from 'react';
 import {Segmented} from 'antd';
 import {useAppDispatch, useAppSelector} from '../../../app/store';
-import {getPacksTC, setAllOrMyAC, setResetFilterAC} from '../packsReducer';
+import {setAllOrMyAC, setResetFilterAC} from '../packsSettingsReducer';
+import {getPacksTC} from '../packsReducer';
 
 export const ShowPacks = () => {
-    const resetFilter = useAppSelector(state => state.packs.resetFilter)
-    const allOrMy = useAppSelector(state => state.packs.allOrMy)
+    const resetFilter = useAppSelector(state => state.packsSettings.resetFilter)
+    const allOrMy = useAppSelector(state => state.packsSettings.allOrMy)
 
     const dispatch = useAppDispatch()
 
     useEffect(() => {
         if (resetFilter) {
             dispatch(setAllOrMyAC('ALL'))
+        }
+        return ()=>{
             dispatch(setResetFilterAC(false))
         }
     }, [resetFilter])

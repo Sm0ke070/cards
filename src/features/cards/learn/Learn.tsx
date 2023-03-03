@@ -10,7 +10,6 @@ import {Button, Radio, Rate} from "antd";
 import s from './Learn.module.css'
 import {FaLongArrowAltLeft} from 'react-icons/fa';
 import {FrownOutlined, MehOutlined, SmileOutlined} from '@ant-design/icons';
-import {setResetFilterAC} from '../../packs/packsReducer';
 
 const getCard = (cards: CardType[]) => {
     const sum = cards.reduce((acc, card) => acc + (6 - card.grade) * (6 - card.grade), 0);

@@ -1,12 +1,12 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import {useDebounce} from 'usehooks-ts';
 import {useAppDispatch, useAppSelector} from '../../../app/store';
-import {setPackNameAC, setResetFilterAC} from '../packsReducer';
 import {Input} from 'antd';
+import {setPackNameAC, setResetFilterAC} from '../packsSettingsReducer';
 
 export const FindPacks = () => {
-    const resetFilter = useAppSelector(state => state.packs.resetFilter)
-    const packName = useAppSelector(state => state.packs.queryParams.packName)
+    const resetFilter = useAppSelector(state => state.packsSettings.resetFilter)
+    const packName = useAppSelector(state => state.packsSettings.queryParams.packName)
 
     const [value, setValue] = useState<string>(packName)
     const dispatch = useAppDispatch()
@@ -16,6 +16,8 @@ export const FindPacks = () => {
         if (resetFilter) {
             setValue('')
             dispatch(setPackNameAC(''))
+        }
+        return () => {
             dispatch(setResetFilterAC(false))
         }
     }, [resetFilter])
@@ -24,7 +26,7 @@ export const FindPacks = () => {
     }
 
     useEffect(() => {
-         dispatch(setPackNameAC(debouncedValue))
+        dispatch(setPackNameAC(debouncedValue))
     }, [debouncedValue])
     return (
         <div>

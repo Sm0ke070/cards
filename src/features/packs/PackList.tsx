@@ -10,11 +10,13 @@ import {setCardsPackIdAC, setCurrentCardNameAC} from '../cards/cardsReducer';
 import {routes} from '../../constants/constants';
 import {useAppDispatch, useAppSelector} from '../../app/store';
 import {Table} from 'antd';
-import {setPacksPageAC, setPageCountAC} from './packsReducer';
 import {useNavigate} from 'react-router-dom';
+import {setPacksPageAC, setPageCountAC} from './packsSettingsReducer';
+import {defaultCover} from '../../common/components/image-loader/emptyCoverImage';
 
 interface DataType {
     key: React.Key
+    deckCover?: string
     packId: string
     name: string
     cardsCount: number
@@ -29,11 +31,17 @@ export const PackList = () => {
     const packs = useAppSelector(state => state.packs.cardPacks)
     const isLoading = useAppSelector(state => state.app.status)
     const cardPacksTotalCount = useAppSelector(state => state.packs.cardPacksTotalCount)
-    const page = useAppSelector(state => state.packs.queryParams.page)
-    const pageCount = useAppSelector(state => state.packs.queryParams.pageCount)
+    const page = useAppSelector(state => state.packsSettings.queryParams.page)
+    const pageCount = useAppSelector(state => state.packsSettings.queryParams.pageCount)
 
 
     const columns: ColumnsType<DataType> = [
+        {
+            title: 'Cover',
+            dataIndex: 'deckCover',
+            width: 350,
+            render: (deckCover) => <img src={deckCover ? deckCover : defaultCover} width={150}/>,
+        },
         {
             title: <SortPackName/>,
             dataIndex: 'name',
@@ -63,8 +71,10 @@ export const PackList = () => {
     ];
 
     const data = packs.map((p) => {
+
         return {
             key: p._id,
+            deckCover: p.deckCover,
             packId: p._id,
             name: p.name,
             cardsCount: p.cardsCount,
@@ -107,3 +117,6 @@ export const PackList = () => {
         </div>
     );
 };
+
+
+

@@ -1,20 +1,20 @@
 import React, {FC, SyntheticEvent, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../app/store';
-import {deletePackTC, updatePackTC} from './packsReducer';
 import {Button, Input, Tooltip} from 'antd';
 import {BookTwoTone, DeleteTwoTone, EditTwoTone} from '@ant-design/icons';
 import {SuperModal} from '../../common/components/super-components/SuperModal/SuperModal';
 import {routes} from '../../constants/constants';
 import {useNavigate} from 'react-router-dom';
 import {setCardsPackIdAC} from '../cards/cardsReducer';
+import {deletePackTC, updatePackTC} from './packsSettingsReducer';
 
 type ActionsPropsType = {
     packUserId: string
     packId: string
     name: string
-    cardsCount:number
+    cardsCount: number
 }
-export const ActionsPacks: FC<ActionsPropsType> = ({packUserId, packId, name,cardsCount}) => {
+export const ActionsPacks: FC<ActionsPropsType> = ({packUserId, packId, name, cardsCount}) => {
     const [newName, setNewName] = useState(name)
     const [showModal, setShowModal] = useState(false)
 
@@ -55,17 +55,7 @@ export const ActionsPacks: FC<ActionsPropsType> = ({packUserId, packId, name,car
         e.stopPropagation()
         setShowModal(false)
     }
-    // с поддержки комментарий- флоу работы с данными для изменений
-    //const activeCardId = useAppSelector()
-    // useEffect(() => {
-    //     if (activeCardId) {
-    //         //api.  .....(activeCardId)
-    //     }
-    //
-    //     return () => {
-    //         dispatch(.......(''))
-    //     }
-    // },[activeCardId])
+
     return (
         <div>
             <Tooltip title='Учить'>
@@ -85,7 +75,6 @@ export const ActionsPacks: FC<ActionsPropsType> = ({packUserId, packId, name,car
                                width='30px'
                                onChange={(e) => setNewName(e.currentTarget.value)}
                         />
-
                     </SuperModal>
                     <Button onClick={e => onClickUpdate(e)}
                             icon={<EditTwoTone style={{fontSize: '18px', padding: '4px'}}/>}/>

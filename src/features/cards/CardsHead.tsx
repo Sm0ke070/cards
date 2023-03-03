@@ -8,8 +8,8 @@ import {Link, useNavigate} from "react-router-dom";
 import {SuperModal} from '../../common/components/super-components/SuperModal/SuperModal';
 import {FaLongArrowAltLeft} from "react-icons/fa";
 import {routes} from "../../constants/constants";
-import {setResetFilterAC} from '../packs/packsReducer';
 import {EllipsisOutlined} from '@ant-design/icons';
+import {setResetFilterAC} from '../packs/packsSettingsReducer';
 
 
 type CardHeadPropsType = {

@@ -17,12 +17,12 @@ export const Packs = () => {
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
     const isLoading = useAppSelector(state => state.app.status)
     const packs = useAppSelector(state => state.packs.cardPacks)
-    const packName = useAppSelector(state => state.packs.queryParams.packName)
-    const min = useAppSelector(state => state.packs.queryParams.min)
-    const max = useAppSelector(state => state.packs.queryParams.max)
-    const sortPacks = useAppSelector(state => state.packs.queryParams.sortPacks)
-    const page = useAppSelector(state => state.packs.queryParams.page)
-    const pageCount = useAppSelector(state => state.packs.queryParams.pageCount)
+    const packName = useAppSelector(state => state.packsSettings.queryParams.packName)
+    const min = useAppSelector(state => state.packsSettings.queryParams.min)
+    const max = useAppSelector(state => state.packsSettings.queryParams.max)
+    const sortPacks = useAppSelector(state => state.packsSettings.queryParams.sortPacks)
+    const page = useAppSelector(state => state.packsSettings.queryParams.page)
+    const pageCount = useAppSelector(state => state.packsSettings.queryParams.pageCount)
 
 
     useEffect(() => {

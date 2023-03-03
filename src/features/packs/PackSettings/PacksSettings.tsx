@@ -4,8 +4,8 @@ import {ShowPacks} from './ShowPacks';
 import {NumberOfCards} from './NumberOfCards';
 import {RiFilterOffLine} from 'react-icons/ri'
 import {useAppDispatch, useAppSelector} from '../../../app/store';
-import {setPacksPageAC, setPageCountAC, setResetFilterAC} from '../packsReducer';
 import s from './PacksSettings.module.css'
+import {setPacksPageAC, setPageCountAC, setResetFilterAC} from '../packsSettingsReducer';
 
 
 export const PacksSettings = () => {
