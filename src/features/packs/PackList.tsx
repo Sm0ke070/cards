@@ -39,13 +39,13 @@ export const PackList = () => {
         {
             title: 'Cover',
             dataIndex: 'deckCover',
-            width: 350,
+            width: 200,
             render: (deckCover) => <img src={deckCover ? deckCover : defaultCover} width={150}/>,
         },
         {
             title: <SortPackName/>,
             dataIndex: 'name',
-            width: 350,
+            width: 200,
         },
         {
             title: <SortPacksCards/>,
@@ -80,7 +80,7 @@ export const PackList = () => {
             cardsCount: p.cardsCount,
             lastUpdated: formatDate(p.updated),
             userName: p.user_name,
-            actions: <ActionsPacks packId={p._id} packUserId={p.user_id} name={p.name} cardsCount={p.cardsCount}/>
+            actions: <ActionsPacks packId={p._id} packUserId={p.user_id} name={p.name} cardsCount={p.cardsCount} deckCover={p.deckCover}/>
 
         }
     })

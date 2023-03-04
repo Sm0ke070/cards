@@ -1,22 +1,26 @@
 import React, {FC, SyntheticEvent, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../app/store';
-import {Button, Input, Tooltip} from 'antd';
+import {Button, Input, message, Popconfirm, Tooltip} from 'antd';
 import {BookTwoTone, DeleteTwoTone, EditTwoTone} from '@ant-design/icons';
 import {SuperModal} from '../../common/components/super-components/SuperModal/SuperModal';
 import {routes} from '../../constants/constants';
 import {useNavigate} from 'react-router-dom';
 import {setCardsPackIdAC} from '../cards/cardsReducer';
 import {deletePackTC, updatePackTC} from './packsSettingsReducer';
+import {defaultCover} from '../../common/components/image-loader/emptyCoverImage';
+import {InputTypeFile} from '../../common/components/image-loader/InputTypeFile';
 
 type ActionsPropsType = {
     packUserId: string
     packId: string
     name: string
     cardsCount: number
+    deckCover?: string
 }
-export const ActionsPacks: FC<ActionsPropsType> = ({packUserId, packId, name, cardsCount}) => {
+export const ActionsPacks: FC<ActionsPropsType> = ({packUserId, packId, name, cardsCount, deckCover}) => {
     const [newName, setNewName] = useState(name)
     const [showModal, setShowModal] = useState(false)
+    const [deckCoverImage, setDeckCoverImage] = useState('')
 
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
@@ -25,11 +29,11 @@ export const ActionsPacks: FC<ActionsPropsType> = ({packUserId, packId, name, ca
     const showEdit = myId === packUserId
 
 
-    const onClickRemove = (e: SyntheticEvent) => {
-        // у нас конфликт событий. два onClick на строке таблицы и на кнопке. при клике по кнопке мы вызываем stopPropagation который не позволяет событию всплывать дальше и выполнятся другим обработчикам
-        e.stopPropagation()
-        dispatch(deletePackTC(packId))
-    }
+    // const onClickRemove = (e: SyntheticEvent) => {
+    //     // у нас конфликт событий. два onClick на строке таблицы и на кнопке. при клике по кнопке мы вызываем stopPropagation который не позволяет событию всплывать дальше и выполнятся другим обработчикам
+    //     e.stopPropagation()
+    //     dispatch(deletePackTC(packId))
+    // }
 
     const onClickUpdate = (e: SyntheticEvent) => {
         e.stopPropagation()
@@ -40,21 +44,32 @@ export const ActionsPacks: FC<ActionsPropsType> = ({packUserId, packId, name, ca
         dispatch(setCardsPackIdAC(packId))
         navigate(routes.CARD_QUESTION)
     }
+
     const handleOk = (e: SyntheticEvent) => {
         e.stopPropagation()
 
         dispatch(updatePackTC({
             cardsPack: {
                 _id: packId,
+                deckCover: deckCoverImage,
                 name: newName,
             }
         }))
         setShowModal(false)
+        message.success('Колода изменена');
     }
     const handleCancel = (e: SyntheticEvent) => {
         e.stopPropagation()
         setShowModal(false)
     }
+    const onLoadImage = (image: string) => {
+        setDeckCoverImage(image)
+    }
+    const confirmRemove = (e: React.MouseEvent<HTMLElement, MouseEvent> | undefined) => {
+         e?.stopPropagation()
+        dispatch(deletePackTC(packId))
+        message.success('Колода удалена');
+    };
 
     return (
         <div>
@@ -63,10 +78,20 @@ export const ActionsPacks: FC<ActionsPropsType> = ({packUserId, packId, name, ca
                         disabled={!cardsCount}
                         icon={<BookTwoTone style={{fontSize: '18px', padding: '4px'}}/>}/>
             </Tooltip>
-            {showEdit && <><Tooltip title='Удалить'>
-                <Button onClick={e => onClickRemove(e)}
-                        icon={<DeleteTwoTone style={{fontSize: '18px', padding: '4px'}}/>}/>
-            </Tooltip>
+            {showEdit && <>
+
+                <Popconfirm
+                    title="Удалить"
+                    description="Вы уверены, что хотите удалить колоду?"
+                    onConfirm={confirmRemove}
+                    okText="Да"
+                    cancelText="Нет"
+                >
+                    <Tooltip title='Удалить'>
+                        <Button
+                                icon={<DeleteTwoTone style={{fontSize: '18px', padding: '4px'}}/>}/>
+                    </Tooltip>
+                </Popconfirm>
                 <Tooltip title='Изменить'>
                     <SuperModal title={'Change name Pack'} showModal={showModal} handleOkCallback={handleOk}
                                 handleCancelCallback={handleCancel}>
@@ -75,6 +100,8 @@ export const ActionsPacks: FC<ActionsPropsType> = ({packUserId, packId, name, ca
                                width='30px'
                                onChange={(e) => setNewName(e.currentTarget.value)}
                         />
+                        <InputTypeFile onLoad={onLoadImage} defaultImage={deckCover}/>
+                        {/*<img src={deckCover ? deckCover : defaultCover} alt="Картинка" width={150}/>*/}
                     </SuperModal>
                     <Button onClick={e => onClickUpdate(e)}
                             icon={<EditTwoTone style={{fontSize: '18px', padding: '4px'}}/>}/>
@@ -83,4 +110,5 @@ export const ActionsPacks: FC<ActionsPropsType> = ({packUserId, packId, name, ca
         </div>
     );
 };
+
 

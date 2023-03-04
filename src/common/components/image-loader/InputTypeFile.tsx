@@ -7,9 +7,13 @@ import {RcFile, UploadChangeParam} from 'antd/es/upload';
 import type {UploadFile} from 'antd/es/upload/interface';
 import {fileSizeCut} from '../../utils/fileSizeCut';
 
+type InputTypeFile = {
+    onLoad: (image: string) => void
+    defaultImage?: string
+}
 
-export const InputTypeFile: FC<{ onLoad: (image: string) => void }> = ({onLoad}) => {
-    const [previewImage, setPreviewImage] = useState(baseImage)
+export const InputTypeFile = ({onLoad, defaultImage}: InputTypeFile) => {
+    const [previewImage, setPreviewImage] = useState(defaultImage ? defaultImage : baseImage)
     const [fileList, setFileList] = useState<UploadFile[]>([])
     const [isAvaBroken, setIsAvaBroken] = useState(false)
     const [fileSize, setFileSize] = useState(0)
@@ -34,11 +38,9 @@ export const InputTypeFile: FC<{ onLoad: (image: string) => void }> = ({onLoad})
             convertFileToBase64(file.originFileObj as RcFile, (file64: string) => {
                 setPreviewImage(file64)
             })
-        } else if(file){
+        } else if (file) {
             setIsAvaBroken(true)
-
             console.error('Error: ', 'Файл слишком большого размера')
-
         }
     }
 
@@ -47,17 +49,15 @@ export const InputTypeFile: FC<{ onLoad: (image: string) => void }> = ({onLoad})
         const newFileList = fileList.slice();
         newFileList.splice(index, 1);
         setFileList(newFileList);
-        setPreviewImage(baseImage)
+        setPreviewImage(defaultImage ? defaultImage : baseImage)
         setIsAvaBroken(false)
-
     }
-
     return (
         <div style={{display: 'flex', alignItems: 'flex-end',}}>
             <div style={{display: 'flex', flexDirection: 'column'}}><span>Cover Image</span>
 
                 <img
-                    src={isAvaBroken ? baseImage : previewImage}
+                    src={isAvaBroken ?(defaultImage?defaultImage: baseImage) : previewImage}
                     style={{width: '130px'}}
                     onError={errorHandler}
                     alt="ava"
@@ -71,7 +71,8 @@ export const InputTypeFile: FC<{ onLoad: (image: string) => void }> = ({onLoad})
                     onChange={handleUpload}
 
             >
-                {isAvaBroken && <span style={{color: 'red'}}>Файл, не должен превышать 100кб. Ваш файл весит: {fileSize}кб</span>}
+                {isAvaBroken &&
+                    <span style={{color: 'red'}}>Файл, не должен превышать 100кб. Ваш файл весит: {fileSize}кб</span>}
                 {!fileList.length && <Button style={{margin: '5px'}} icon={<UploadOutlined/>}/>}
             </Upload>
 

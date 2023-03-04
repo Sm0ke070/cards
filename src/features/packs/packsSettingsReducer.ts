@@ -128,6 +128,7 @@ export type NewPackType = {
 export type UpdatePackType = {
     cardsPack: {
         _id: string
+        deckCover?:string
         name: string,
     }
 }
