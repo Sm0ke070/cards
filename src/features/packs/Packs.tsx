@@ -3,7 +3,7 @@ import {useAppDispatch, useAppSelector} from '../../app/store';
 import s from './Packs.module.css'
 import {PacksHead} from './PacksHead';
 import {PacksSettings} from './PackSettings/PacksSettings';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import {routes} from '../../constants/constants';
 import {PackList} from './PackList';
 import {getPacksTC} from './packsReducer';
@@ -23,6 +23,8 @@ export const Packs = () => {
     const sortPacks = useAppSelector(state => state.packsSettings.queryParams.sortPacks)
     const page = useAppSelector(state => state.packsSettings.queryParams.page)
     const pageCount = useAppSelector(state => state.packsSettings.queryParams.pageCount)
+
+
 
 
     useEffect(() => {

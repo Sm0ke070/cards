@@ -5,7 +5,7 @@ import {BookTwoTone, DeleteTwoTone, EditTwoTone} from '@ant-design/icons';
 import {SuperModal} from '../../common/components/super-components/SuperModal/SuperModal';
 import {routes} from '../../constants/constants';
 import {useNavigate} from 'react-router-dom';
-import {setCardsPackIdAC} from '../cards/cardsReducer';
+import {setCardsPackIdAC, setCurrentCardNameAC} from '../cards/cardsReducer';
 import {deletePackTC, updatePackTC} from './packsSettingsReducer';
 import {defaultCover} from '../../common/components/image-loader/emptyCoverImage';
 import {InputTypeFile} from '../../common/components/image-loader/InputTypeFile';
@@ -42,6 +42,7 @@ export const ActionsPacks: FC<ActionsPropsType> = ({packUserId, packId, name, ca
     const onClickLearn = (e: SyntheticEvent) => {
         e.stopPropagation()
         dispatch(setCardsPackIdAC(packId))
+        dispatch(setCurrentCardNameAC(name))
         navigate(routes.CARD_QUESTION)
     }
 

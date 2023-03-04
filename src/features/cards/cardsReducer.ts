@@ -41,6 +41,7 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Car
     switch (action.type) {
         case 'CARDS/SET_CARDS_ID':
             return {
+
                 ...state, cardsPack_id: action.payload.currentCardsPackId
             }
         case 'CARDS/SET_CARDS':

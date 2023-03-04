@@ -1,6 +1,6 @@
 import {AppRootStateType, useAppDispatch, useAppSelector} from "../../../app/store";
 import React, {FC, useEffect, useState} from "react";
-import {CardType, getCardsTC} from "../cardsReducer";
+import {CardType, getCardsTC, setCardsPackIdAC} from "../cardsReducer";
 import {Link, useParams} from "react-router-dom";
 import {putGradeTC} from "./learn-reducer";
 import {PutGradeType} from "./learnAPI";
@@ -19,7 +19,6 @@ const getCard = (cards: CardType[]) => {
             return {sum: newSum, id: newSum < rand ? i : acc.id}
         }
         , {sum: 0, id: -1});
-    console.log('test: ', sum, rand, res)
 
     return cards[res.id + 1];
 }
@@ -30,10 +29,10 @@ const grades = [
     {name: 'долго думал', rate: 3},
     {name: 'перепутал', rate: 4},
     {name: 'знал', rate: 5}];
-// {name: 'не знал', rate: 1}
 
 export const Learn: FC = () => {
     //const cardQuestion = useAppSelector(state => state.cards.cards[1].question);
+    const dispatch = useAppDispatch();
 
 
     const [isChecked, setIsChecked] = useState<boolean>(false);
@@ -41,24 +40,21 @@ export const Learn: FC = () => {
     // const [first, setFirst] = useState<boolean>(0);
     const {cards} = useAppSelector((state: AppRootStateType) => state.cards);
     const currentCardName = useAppSelector(state => state.cards.currentCardName)
-    const {cardId} = useParams();
-    //const grade=useAppSelector(state=>state.learn.grade)
+    const cardsPack_id = useAppSelector(state => state.cards.cardsPack_id)
+    // когда сделаем добавление параметров в урл, можно будет брать из урла данные, а не из редакса
+    // const {cardId} = useParams();
+
 
     const [card, setCard] = useState<CardType>({
         _id: '',
         cardsPack_id: '',
-
         answer: '',
         question: '',
         grade: 0,
         shots: 0,
-
-
         user_id: '',
-
         created: '',
         updated: '',
-
         /*+answer: string
         +question: string
         +cardsPack_id: string
@@ -69,14 +65,11 @@ export const Learn: FC = () => {
         +updated: string
         +_id: string*/
     });
-    console.log('card',card)
-    console.log('cards',cards)
 
 
 
-    const dispatch = useAppDispatch();
     useEffect(() => {
-        console.log('LearnContainer useEffect');
+        // console.log('LearnContainer useEffect');
 
         if (first) {
             dispatch(getCardsTC());
@@ -89,9 +82,9 @@ export const Learn: FC = () => {
         //if (cards.length > 0) setCard(getCard(cards));
 
         return () => {
-            console.log('LearnContainer useEffect off');
+            // console.log('LearnContainer useEffect off');
         }
-    }, [dispatch, cardId, cards, first]);
+    }, [dispatch, cardsPack_id, cards, first]);
 
     const onNext = () => {
         setIsChecked(false);

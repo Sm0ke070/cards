@@ -4,7 +4,7 @@ import {routes} from '../../constants/constants';
 import {useAppDispatch, useAppSelector} from "../../app/store";
 import {ColumnsType} from "antd/es/table";
 import {formatDate} from "../../common/utils/formatDate";
-import {getCardsTC, setCardsPageAC, setCardsPageCountAC} from "./cardsReducer";
+import {getCardsTC, setCardsPackIdAC, setCardsPageAC, setCardsPageCountAC} from "./cardsReducer";
 import s from "../packs/Packs.module.css";
 import {Table} from "antd";
 import {CardsHead} from "./CardsHead";
@@ -42,11 +42,15 @@ export const Cards = () => {
     useEffect(() => {
         dispatch(getCardsTC())
     }, [cardQuestion, sortCards, page, pageCount])
-
-    const onChangeTableHandler = (page: number, pageSize: number) => {
-        dispatch(setCardsPageAC(page))
-        dispatch(setCardsPageCountAC(pageSize))
-    }
+    useEffect(() => {
+        // return ()=>{
+        //     dispatch(setCardsPackIdAC(''))
+        // }
+    }, [])
+    // const onChangeTableHandler = (page: number, pageSize: number) => {
+    //     dispatch(setCardsPageAC(page))
+    //     dispatch(setCardsPageCountAC(pageSize))
+    // }
 
     const data = card.map((c) => {
         return {

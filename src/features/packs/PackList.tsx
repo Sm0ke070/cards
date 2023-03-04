@@ -80,7 +80,7 @@ export const PackList = () => {
             cardsCount: p.cardsCount,
             lastUpdated: formatDate(p.updated),
             userName: p.user_name,
-            actions: <ActionsPacks packId={p._id} packUserId={p.user_id} name={p.name} cardsCount={p.cardsCount} deckCover={p.deckCover}/>
+            actions: <ActionsPacks packId={p._id}  packUserId={p.user_id} name={p.name} cardsCount={p.cardsCount} deckCover={p.deckCover}/>
 
         }
     })
