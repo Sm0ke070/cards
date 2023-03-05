@@ -42,6 +42,7 @@ export const Cards = () => {
     useEffect(() => {
         dispatch(getCardsTC())
     }, [cardQuestion, sortCards, page, pageCount])
+
     useEffect(() => {
         // return ()=>{
         //     dispatch(setCardsPackIdAC(''))

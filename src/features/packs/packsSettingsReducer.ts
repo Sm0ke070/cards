@@ -44,8 +44,8 @@ export const packsSettingsReducer = (state: InitialStateType = initialState, act
         case 'PACKS/SET_CARD_COUNT':
             return {
                 ...state, queryParams: {
-                    ...state.queryParams, min: action.payload.cardCount[0]
-                    , max: action.payload.cardCount[1]
+                    ...state.queryParams, min: action.payload.minCount
+                    , max: action.payload.maxCount
                 }
             }
         case 'PACKS/SET_RESET_FILTER':
@@ -72,10 +72,10 @@ export const setSortPacksMethodAC = (sortMethod: sortingPacksMethods) => ({
     payload: {sortMethod}
 } as const)
 
-export const setCardCountAC = (cardCount: [number, number]) => {
+export const setCardCountAC = (minCount: number, maxCount: number) => {
     return {
         type: 'PACKS/SET_CARD_COUNT',
-        payload: {cardCount}
+        payload: {minCount, maxCount}
     } as const
 }
 
@@ -128,7 +128,7 @@ export type NewPackType = {
 export type UpdatePackType = {
     cardsPack: {
         _id: string
-        deckCover?:string
+        deckCover?: string
         name: string,
     }
 }

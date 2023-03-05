@@ -61,42 +61,35 @@ const ActionsCard = (props: ActionsCardPropsType) => {
 
     return (
         <div>
-            {showEdit && <>
+            {showEdit &&
+                <>
+                    <Popconfirm title={'Delete question?'}
+                                onConfirm={(e) => e && handleOkRemove(e)}
+                                onCancel={(e) => e && handleCancelRemove(e)}>
 
-                {/*<SuperModal title={`Remove Card-${question}`}*/}
-                {/*            showModal={showModalRemove}*/}
-                {/*            handleOkCallback={handleOkRemove}*/}
-                {/*            handleCancelCallback={handleCancelRemove}>*/}
+                        <Button onClick={e => onRemoveCardsHandler(e)}
+                            // disabled={disabled}
+                                icon={<DeleteTwoTone style={{fontSize: '18px', padding: '4px'}}/>}/>
 
-                {/*</SuperModal>*/}
+                    </Popconfirm>
 
-                <Popconfirm title={'Delete question?'}
-                            onConfirm={(e) => e && handleOkRemove(e)}
-                            onCancel={(e) => e && handleCancelRemove(e)}>
+                    <Tooltip title='Change name Card'>
+                        <SuperModal title={'Change name Card'}
+                                    showModal={showModalChange}
+                                    handleOkCallback={handleOkChanges}
+                                    handleCancelCallback={handleCancelChanges}>
 
-                    <Button onClick={e => onRemoveCardsHandler(e)}
-                        // disabled={disabled}
-                            icon={<DeleteTwoTone style={{fontSize: '18px', padding: '4px'}}/>}/>
+                            <Input value={newName}
+                                   placeholder={'Card\'s name'}
+                                   width='30px'
+                                   onChange={(e) => setNewName(e.currentTarget.value)}/>
 
-                </Popconfirm>
-
-                <Tooltip title='Change name Card'>
-                    <SuperModal title={'Change name Card'}
-                                showModal={showModalChange}
-                                handleOkCallback={handleOkChanges}
-                                handleCancelCallback={handleCancelChanges}>
-
-                        <Input value={newName}
-                               placeholder={'Card\'s name'}
-                               width='30px'
-                               onChange={(e) => setNewName(e.currentTarget.value)}/>
-
-                    </SuperModal>
-                    <Button onClick={e => onClickUpdate(e)}
-                        // disabled={disabled}
-                            icon={<EditTwoTone style={{fontSize: '18px', padding: '4px'}}/>}/>
-                </Tooltip>
-            </>
+                        </SuperModal>
+                        <Button onClick={e => onClickUpdate(e)}
+                            // disabled={disabled}
+                                icon={<EditTwoTone style={{fontSize: '18px', padding: '4px'}}/>}/>
+                    </Tooltip>
+                </>
             }
         </div>
     );

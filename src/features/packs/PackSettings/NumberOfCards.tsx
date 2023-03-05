@@ -3,6 +3,7 @@ import SuperDoubleRange from '../../../common/components/SuperDoubleRange';
 import {useAppDispatch, useAppSelector} from '../../../app/store';
 import {setCardCountAC, setResetFilterAC} from '../packsSettingsReducer';
 import {Input, Space} from "antd";
+import {useDebounce} from "usehooks-ts";
 
 export const NumberOfCards = () => {
     const dispatch = useAppDispatch()
@@ -11,52 +12,58 @@ export const NumberOfCards = () => {
     const maxCardsCount = useAppSelector(state => state.packsSettings.queryParams.max)
     const resetFilter = useAppSelector(state => state.packsSettings.resetFilter)
 
-    const [minCardCount, setMinCardCount] = useState(minCardsCount)
-    const [maxCardCount, setMaxCardCount] = useState(maxCardsCount)
+    const [minCount, setMinCount] = useState(minCardsCount)
+    const [maxCount, setMaxCount] = useState(maxCardsCount)
+
+    const debouncedMinCount = useDebounce<number>(minCount, 1000)
+    const debouncedMaxCount = useDebounce<number>(maxCount, 1000)
+
 
     useEffect(() => {
-        if (resetFilter) {
-            setMinCardCount(minCardsCount)
-            setMaxCardCount(maxCardsCount)
+        if (debouncedMaxCount >= debouncedMinCount) {
+            dispatch(setCardCountAC(minCount, maxCount))
         }
-        return ()=>{
-            dispatch(setResetFilterAC(false))
-        }
-    }, [resetFilter])
+
+    }, [resetFilter, debouncedMinCount, debouncedMaxCount])
 
     // меняет локальные данные
     const onChangeRange = (e: [number, number]) => {
-        setMinCardCount(e[0])
-        setMaxCardCount(e[1])
+        setMinCount(e[0])
+        setMaxCount(e[1])
     }
     // отправляет данные в стейт, когда отпускается мышка
     const onAfterChangeRange = (e: [number, number]) => {
-        dispatch(setCardCountAC(e))
+        dispatch(setCardCountAC(e[0], e[1]))
     }
-    const onChangeInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
 
-        setMaxCardCount(+e.currentTarget.value)
+    const onChangeInputHandlerMAX = (e: ChangeEvent<HTMLInputElement>) => {
+        if (+e.currentTarget.value <= totalMaxCardsCount) {
+            setMaxCount(+e.currentTarget.value)
+        }
+
     }
     const onChangeInputHandlerMIN = (e: ChangeEvent<HTMLInputElement>) => {
-
-        setMinCardCount(+e.currentTarget.value)
+        if (+e.currentTarget.value < maxCount) {
+            setMinCount(+e.target.value)
+        }
     }
 
     return (
         <Space>
             <Input style={{width: '40px', textAlign: 'center'}}
                    size={'small'}
-                   value={minCardCount}
-                   onChange={e => onChangeInputHandlerMIN(e)}
+                   value={minCount}
+                   onChange={onChangeInputHandlerMIN}
+
             />
-            <SuperDoubleRange value={[minCardCount, maxCardCount]} onChangeRange={onChangeRange}
+            <SuperDoubleRange value={[minCount, maxCount]} onChangeRange={onChangeRange}
                               onAfterChangeRange={onAfterChangeRange}
                               max={totalMaxCardsCount}
             />
             <Input style={{width: '40px', textAlign: 'center'}}
                    size={'small'}
-                   value={maxCardCount}
-                   onChange={e => onChangeInputHandler(e)}
+                   value={maxCount}
+                   onChange={onChangeInputHandlerMAX}
             />
         </Space>
 
