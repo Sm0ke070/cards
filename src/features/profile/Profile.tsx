@@ -10,6 +10,8 @@ import {changeUserNameTC} from "./ProfileReducer";
 import {FaLongArrowAltLeft} from "react-icons/fa";
 import defaultUserAvatar from "../../assets/image/user-avatar/defaultUserAvatar.png";
 import {BsCameraFill} from 'react-icons/bs'
+import {Avatar} from "./ava";
+
 
 const Profile = () => {
     const dispatch = useAppDispatch()
@@ -30,7 +32,7 @@ const Profile = () => {
 
     }
     const onChangeAvatarHandler = () => {
-        alert('test')
+        return <input type="file"/>
     }
 
     if (!isLoggedIn) return <Navigate to={routes.SIGN_IN}/>
@@ -46,11 +48,13 @@ const Profile = () => {
                 <Title>Personal Information</Title>
 
                 <div>
-                    <img style={{width: '150px'}} src={avatar ? avatar : defaultUserAvatar} alt={'avatar photo'}/>
-                    <Button onClick={onChangeAvatarHandler} size={'large'} shape="circle">
+                    {/*<img style={{width: '150px'}} src={avatar ? avatar : defaultUserAvatar} alt={'avatar photo'}/>*/}
+                    {/*<Button onClick={()=>{}} size={'large'} shape="circle">
                         <BsCameraFill/>
-                    </Button>
+                    </Button>*/}
+                    <Avatar/>
                 </div>
+
 
                 <Typography.Title
                     editable={{onChange: onChangeUserNameHandler}}

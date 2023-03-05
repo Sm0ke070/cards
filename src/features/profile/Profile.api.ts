@@ -7,5 +7,8 @@ export const profileAPI = {
     },
     getUserName() {
         return instance.post<ResponseUserDataType>('auth/me');
+    },
+    updateAva(){
+        return instance.post<ResponseUserDataType>('auth/me')
     }
 }
