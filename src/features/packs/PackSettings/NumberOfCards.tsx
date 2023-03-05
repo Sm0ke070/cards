@@ -1,7 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import SuperDoubleRange from '../../../common/components/SuperDoubleRange';
 import {useAppDispatch, useAppSelector} from '../../../app/store';
 import {setCardCountAC, setResetFilterAC} from '../packsSettingsReducer';
+import {Input, Space} from "antd";
 
 export const NumberOfCards = () => {
     const dispatch = useAppDispatch()
@@ -32,13 +33,33 @@ export const NumberOfCards = () => {
     const onAfterChangeRange = (e: [number, number]) => {
         dispatch(setCardCountAC(e))
     }
+    const onChangeInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
 
+        setMaxCardCount(+e.currentTarget.value)
+    }
+    const onChangeInputHandlerMIN = (e: ChangeEvent<HTMLInputElement>) => {
+
+        setMinCardCount(+e.currentTarget.value)
+    }
 
     return (
-        <SuperDoubleRange value={[minCardCount, maxCardCount]} onChangeRange={onChangeRange}
-                          onAfterChangeRange={onAfterChangeRange}
-                          max={totalMaxCardsCount}
-        />
+        <Space>
+            <Input style={{width: '40px', textAlign: 'center'}}
+                   size={'small'}
+                   value={minCardCount}
+                   onChange={e => onChangeInputHandlerMIN(e)}
+            />
+            <SuperDoubleRange value={[minCardCount, maxCardCount]} onChangeRange={onChangeRange}
+                              onAfterChangeRange={onAfterChangeRange}
+                              max={totalMaxCardsCount}
+            />
+            <Input style={{width: '40px', textAlign: 'center'}}
+                   size={'small'}
+                   value={maxCardCount}
+                   onChange={e => onChangeInputHandler(e)}
+            />
+        </Space>
+
     );
 };
 

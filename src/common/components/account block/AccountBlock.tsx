@@ -35,6 +35,7 @@ const AccountBlock = () => {
 
                     <img style={{maxWidth: '45px'}}
                          src={avatar ? avatar : defaultUserAvatar} alt="-avatar"/>
+
                 </div>
                 :
                 <Button type="primary" onClick={signInHandler}>
