@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import SuperDoubleRange from '../../../common/components/SuperDoubleRange';
 import {useAppDispatch, useAppSelector} from '../../../app/store';
-import {setCardCountAC, setResetFilterAC} from '../packsSettingsReducer';
+import {setCardCountAC} from '../packsSettingsReducer';
 import {Input, Space} from "antd";
 import {useDebounce} from "usehooks-ts";
 
@@ -24,7 +24,7 @@ export const NumberOfCards = () => {
             dispatch(setCardCountAC(minCount, maxCount))
         }
 
-    }, [resetFilter, debouncedMinCount, debouncedMaxCount])
+    }, [dispatch, resetFilter, debouncedMinCount, debouncedMaxCount])
 
     // меняет локальные данные
     const onChangeRange = (e: [number, number]) => {
@@ -36,13 +36,13 @@ export const NumberOfCards = () => {
         dispatch(setCardCountAC(e[0], e[1]))
     }
 
-    const onChangeInputHandlerMAX = (e: ChangeEvent<HTMLInputElement>) => {
+    const onChangeMaxCountHandler = (e: ChangeEvent<HTMLInputElement>) => {
         if (+e.currentTarget.value <= totalMaxCardsCount) {
             setMaxCount(+e.currentTarget.value)
         }
 
     }
-    const onChangeInputHandlerMIN = (e: ChangeEvent<HTMLInputElement>) => {
+    const onChangeMinCountHandler = (e: ChangeEvent<HTMLInputElement>) => {
         if (+e.currentTarget.value < maxCount) {
             setMinCount(+e.target.value)
         }
@@ -53,7 +53,7 @@ export const NumberOfCards = () => {
             <Input style={{width: '40px', textAlign: 'center'}}
                    size={'small'}
                    value={minCount}
-                   onChange={onChangeInputHandlerMIN}
+                   onChange={onChangeMinCountHandler}
 
             />
             <SuperDoubleRange value={[minCount, maxCount]} onChangeRange={onChangeRange}
@@ -63,7 +63,7 @@ export const NumberOfCards = () => {
             <Input style={{width: '40px', textAlign: 'center'}}
                    size={'small'}
                    value={maxCount}
-                   onChange={onChangeInputHandlerMAX}
+                   onChange={onChangeMaxCountHandler}
             />
         </Space>
 
