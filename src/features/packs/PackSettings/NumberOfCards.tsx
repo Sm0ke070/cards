@@ -1,11 +1,12 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import SuperDoubleRange from '../../../common/components/SuperDoubleRange';
 import {useAppDispatch, useAppSelector} from '../../../app/store';
-import {setCardCountAC} from '../packsSettingsReducer';
+import {setCardCountAC, setResetFilterAC} from '../packsSettingsReducer';
 import {Input, Space} from "antd";
 import {useDebounce} from "usehooks-ts";
 
 export const NumberOfCards = () => {
+
     const dispatch = useAppDispatch()
     const totalMaxCardsCount = useAppSelector(state => state.packs.maxCardsCount)
     const minCardsCount = useAppSelector(state => state.packsSettings.queryParams.min)
@@ -22,6 +23,9 @@ export const NumberOfCards = () => {
     useEffect(() => {
         if (debouncedMaxCount >= debouncedMinCount) {
             dispatch(setCardCountAC(minCount, maxCount))
+        }
+        return () => {
+            dispatch(setResetFilterAC(true))
         }
 
     }, [dispatch, resetFilter, debouncedMinCount, debouncedMaxCount])
@@ -43,7 +47,7 @@ export const NumberOfCards = () => {
 
     }
     const onChangeMinCountHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        if (+e.currentTarget.value < maxCount) {
+        if (+e.currentTarget.value <= maxCount) {
             setMinCount(+e.target.value)
         }
     }

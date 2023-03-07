@@ -1,5 +1,5 @@
 import React from 'react';
-import {Rate} from "antd";
+import {Rate, Space} from "antd";
 import ActionsCard from "../ActionsCard";
 
 type RatingOfCardsPropsType = {
@@ -18,8 +18,7 @@ const RatingOfCards = (props: RatingOfCardsPropsType) => {
     }
 
     return (
-        <div style={{display: 'flex'}}>
-
+        <Space style={{display: 'flex'}}>
             <Rate onChange={(defaultValue) => onChangeRateHandler(defaultValue)} disabled defaultValue={value}/>
 
             {isMy && <ActionsCard packUserId={packUserId}
@@ -27,7 +26,7 @@ const RatingOfCards = (props: RatingOfCardsPropsType) => {
                                   cardsPack_id={cardsPack_id}
                                   cardUserId={cardUserId}/>}
 
-        </div>
+        </Space>
     );
 };
 
