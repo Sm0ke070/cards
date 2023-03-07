@@ -3,7 +3,7 @@ import {PlusOutlined} from '@ant-design/icons';
 import {Modal, Upload} from 'antd';
 import type {RcFile, UploadProps} from 'antd/es/upload';
 import type {UploadFile} from 'antd/es/upload/interface';
-import {useAppSelector} from "../../app/store";
+import {AppThunkDispatch, useAppSelector} from "../../app/store";
 import defaultUserAvatar from "../../assets/image/user-avatar/defaultUserAvatar.png";
 
 const getBase64 = (file: RcFile): Promise<string> =>
@@ -17,6 +17,7 @@ const getBase64 = (file: RcFile): Promise<string> =>
 export const Avatar: React.FC = () => {
 
     const avatar = useAppSelector((state) => state.auth.userData.avatar)
+
 
     const [previewOpen, setPreviewOpen] = useState(false);
     const [previewImage, setPreviewImage] = useState('');
@@ -55,13 +56,15 @@ export const Avatar: React.FC = () => {
         setPreviewTitle(file.name || file.url!.substring(file.url!.lastIndexOf('/') + 1));
     };
 
-    const handleChange: UploadProps['onChange'] = ({fileList: newFileList}) =>
+    const handleChange: UploadProps['onChange'] = ({fileList: newFileList}) => {
         setFileList(newFileList);
+
+    }
 
     const uploadButton = (
         <div>
-            <PlusOutlined/>
-            <div style={{marginTop: 8}}>Upload</div>
+            <PlusOutlined />
+            <div style={{marginTop: 1}}>Upload</div>
         </div>
     );
     return (

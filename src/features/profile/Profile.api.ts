@@ -10,5 +10,8 @@ export const profileAPI = {
     },
     updateAva(){
         return instance.post<ResponseUserDataType>('auth/me')
+    },
+    changeAva(ava:string){
+        return instance.put<ResponseUserDataType>('auth/me',{ava})
     }
 }
