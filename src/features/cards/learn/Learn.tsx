@@ -67,7 +67,6 @@ export const Learn: FC = () => {
     });
 
 
-
     useEffect(() => {
         // console.log('LearnContainer useEffect');
 
@@ -112,18 +111,23 @@ export const Learn: FC = () => {
     //DEV_VERSION && console.log('render LearnPage');
 
 
-
     return (
-        <div className={s.wrapper} >
-            <Link to={routes.CARDS} className={s.link}><FaLongArrowAltLeft/>back to CardList</Link>
+        <div className={s.wrapper}>
+            <Link to={routes.CARDS} className={s.link}>
+                <FaLongArrowAltLeft/>back to CardList
+            </Link>
 
             <Typography.Title level={1}>
                 LearnPack '{currentCardName}'
             </Typography.Title>
 
-            <Typography.Title level={3}>Question: {card.question}</Typography.Title>
-            <Button type="default" onClick={() => setIsChecked(true)}>check</Button>
+            <Typography.Title level={3}>
+                Question: {card.question}
+            </Typography.Title>
 
+            <Button type="default" onClick={() => setIsChecked(true)}>
+                check
+            </Button>
 
 
             {isChecked && (
@@ -131,20 +135,20 @@ export const Learn: FC = () => {
                     <Typography.Title level={3}>Answer: {card.answer}</Typography.Title>
                     <Typography.Title level={5}>Rate yourself:</Typography.Title>
 
-                    <div style={{display:'flex', justifyContent:'space-between'}}>
-                        <Radio.Group  defaultValue={'grade-' + 0}>
+                    <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                        <Radio.Group defaultValue={'grade-' + 0}>
 
-                        {grades.map((g, i) => (
-                            <Radio.Button key={'grade-' + i} value={'grade-' + i}
-                                    onChange={() => putGradeHandler(
-                                        {card_id: card._id, grade: g.rate})}>
-                                {g.name}
-                            </Radio.Button>
-                        )
-                    )}</Radio.Group>
-                        </div>
+                            {grades.map((g, i) => (
+                                    <Radio.Button key={'grade-' + i} value={'grade-' + i}
+                                                  onChange={() => putGradeHandler(
+                                                      {card_id: card._id, grade: g.rate})}>
+                                        {g.name}
+                                    </Radio.Button>
+                                )
+                            )}</Radio.Group>
+                    </div>
 
-                    <div style={{marginTop:'15px'}}>
+                    <div style={{marginTop: '15px'}}>
                         <Button type={'primary'} onClick={onNext}>Next</Button>
                     </div>
                 </>

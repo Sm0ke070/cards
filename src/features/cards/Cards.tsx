@@ -43,11 +43,11 @@ export const Cards = () => {
         dispatch(getCardsTC())
     }, [cardQuestion, sortCards, page, pageCount])
 
-    useEffect(() => {
-        // return ()=>{
-        //     dispatch(setCardsPackIdAC(''))
-        // }
-    }, [])
+    // useEffect(() => {
+    //     return () => {
+    //         dispatch(setCardsPackIdAC(''))
+    //     }
+    // }, [])
     // const onChangeTableHandler = (page: number, pageSize: number) => {
     //     dispatch(setCardsPageAC(page))
     //     dispatch(setCardsPageCountAC(pageSize))
@@ -113,19 +113,7 @@ export const Cards = () => {
                            dataSource={data}
                            scroll={{x: 1000, y: 500}}
                            loading={isLoading === 'loading'}
-                           onRow={record => {
-                               return {}
-                           }}
                            pagination={false}
-                        //    pagination={{
-                        // current: page,
-                        // pageSize: pageCount,
-                        // total: cardsTotalCount,
-                        //
-                        // position: ['bottomLeft'],
-                        // onChange: (page, pageSize) => {
-                        //     onChangeTableHandler(page, pageSize)
-                        // }}}
                     />
                 }
             </div>

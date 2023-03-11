@@ -1,6 +1,6 @@
 import {instance} from '../../app/base-url';
 import {sortingPacksMethods} from '../../constants/sortingMethods';
-import {NewPackType, UpdatePackType} from './packsSettingsReducer';
+import {NewPackType, UpdatePackType} from './PackSettings/packsSettingsReducer';
 
 
 export const packsAPI = {

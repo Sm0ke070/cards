@@ -8,6 +8,7 @@ import {routes} from '../../constants/constants';
 import {PackList} from './PackList';
 import {getPacksTC} from './packsReducer';
 import {EmptyList} from '../../common/components/EmptyList';
+import {Space} from "antd";
 
 
 export const Packs = () => {
@@ -23,12 +24,12 @@ export const Packs = () => {
     const sortPacks = useAppSelector(state => state.packsSettings.queryParams.sortPacks)
     const page = useAppSelector(state => state.packsSettings.queryParams.page)
     const pageCount = useAppSelector(state => state.packsSettings.queryParams.pageCount)
-
-
+    const userId = useAppSelector(state => state.auth.userData._id)
+    const allOrMy = useAppSelector(state => state.packsSettings.allOrMy)
 
 
     useEffect(() => {
-        dispatch(getPacksTC())
+        dispatch(getPacksTC(allOrMy))
     }, [page, packName, pageCount, min, max, sortPacks])
 
 
@@ -37,11 +38,17 @@ export const Packs = () => {
     }
 
 
-    return <div className={s.tableWrapper}>
-        {isLoading === 'succeeded'&&<>
+    return (
+        <div className={s.tableWrapper}>
             <PacksHead/>
             <PacksSettings/>
-        </>}
-        {packs.length ? <PackList/> : isLoading === 'succeeded' && <EmptyList/>}
-    </div>
+            <PackList/>
+        </div>
+    )
 }
+
+// {isLoading === 'succeeded' && <>
+//     <PacksHead/>
+//     <PacksSettings/>
+// </>}
+// {packs.length ? <PackList/> : isLoading === 'succeeded' && <EmptyList/>}

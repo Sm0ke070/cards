@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {Segmented} from 'antd';
 import {useAppDispatch, useAppSelector} from '../../../app/store';
-import {setAllOrMyAC, setResetFilterAC} from '../packsSettingsReducer';
+import {setAllOrMyAC, setResetFilterAC} from './packsSettingsReducer';
 import {getPacksTC} from '../packsReducer';
 
 export const ShowPacks = () => {
@@ -12,9 +12,9 @@ export const ShowPacks = () => {
 
     useEffect(() => {
         if (resetFilter) {
-            dispatch(setAllOrMyAC('ALL'))
+            dispatch(setAllOrMyAC(allOrMy))
         }
-        return ()=>{
+        return () => {
             dispatch(setResetFilterAC(false))
         }
     }, [resetFilter])
@@ -26,7 +26,10 @@ export const ShowPacks = () => {
 
     return (
         <div>
-            <Segmented options={['ALL', 'MY']} value={allOrMy} onChange={onChangeHandler}/>
+            <Segmented style={{backgroundColor: '#91C9FF'}}
+                       options={['ALL', 'MY']}
+                       value={allOrMy}
+                       onChange={onChangeHandler}/>
         </div>
     );
 };

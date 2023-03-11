@@ -11,8 +11,9 @@ import {routes} from '../../constants/constants';
 import {useAppDispatch, useAppSelector} from '../../app/store';
 import {Table} from 'antd';
 import {useNavigate} from 'react-router-dom';
-import {setPacksPageAC, setPageCountAC} from './packsSettingsReducer';
+import {setPacksPageAC, setPageCountAC} from './PackSettings/packsSettingsReducer';
 import {defaultCover} from '../../common/components/image-loader/emptyCoverImage';
+import {EmptyList} from "../../common/components/EmptyList";
 
 interface DataType {
     key: React.Key
@@ -80,7 +81,8 @@ export const PackList = () => {
             cardsCount: p.cardsCount,
             lastUpdated: formatDate(p.updated),
             userName: p.user_name,
-            actions: <ActionsPacks packId={p._id}  packUserId={p.user_id} name={p.name} cardsCount={p.cardsCount} deckCover={p.deckCover}/>
+            actions: <ActionsPacks packId={p._id} packUserId={p.user_id} name={p.name} cardsCount={p.cardsCount}
+                                   deckCover={p.deckCover}/>
 
         }
     })
@@ -90,31 +92,33 @@ export const PackList = () => {
         navigate(routes.CARDS)
     }
     return (
-        <div>
+        <>
+            {isLoading ? <Table columns={columns}
+                                dataSource={data}
+                                scroll={{x: 1000, y: 500}}
+                                loading={isLoading === 'loading'}
 
-            {
-                <Table columns={columns}
-                       dataSource={data}
-                       scroll={{x: 1000, y: 500}}
-                       loading={isLoading === 'loading'}
-
-                       onRow={record => {
-                           return {
-                               onDoubleClick: () => onClickEnterToPackHandler(record)
-                           }
-                       }}
-                       pagination={{
-                           current: page,
-                           pageSize: pageCount,
-                           total: cardPacksTotalCount,
-                           position: ['bottomLeft'],
-                           onChange: (page, pageSize) => {
-                               dispatch(setPacksPageAC(page))
-                               dispatch(setPageCountAC(pageSize))
-                           },
-                       }}/>
+                                onRow={record => {
+                                    return {
+                                        onDoubleClick: () => onClickEnterToPackHandler(record)
+                                    }
+                                }}
+                                pagination={{
+                                    current: page,
+                                    pageSize: pageCount,
+                                    total: cardPacksTotalCount,
+                                    position: ['bottomLeft'],
+                                    onChange: (page, pageSize) => {
+                                        dispatch(setPacksPageAC(page))
+                                        dispatch(setPageCountAC(pageSize))
+                                    },
+                                }}/>
+                :
+                <EmptyList/>
             }
-        </div>
+
+
+        </>
     );
 };
 

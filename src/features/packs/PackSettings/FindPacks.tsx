@@ -2,7 +2,7 @@ import React, {ChangeEvent, useEffect, useState} from 'react';
 import {useDebounce} from 'usehooks-ts';
 import {useAppDispatch, useAppSelector} from '../../../app/store';
 import {Input} from 'antd';
-import {setPackNameAC, setResetFilterAC} from '../packsSettingsReducer';
+import {setPackNameAC, setResetFilterAC} from './packsSettingsReducer';
 
 export const FindPacks = () => {
     const resetFilter = useAppSelector(state => state.packsSettings.resetFilter)
@@ -30,8 +30,7 @@ export const FindPacks = () => {
     }, [debouncedValue])
     return (
         <div>
-            <Input placeholder={'Search Pack'} value={value} onChange={handleChange} style={{width: '300px'}}
-            />
+            <Input placeholder={'Search Pack'} value={value} onChange={handleChange} style={{width: '300px'}}/>
         </div>
     );
 };

@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import SuperDoubleRange from '../../../common/components/SuperDoubleRange';
 import {useAppDispatch, useAppSelector} from '../../../app/store';
-import {setCardCountAC, setResetFilterAC} from '../packsSettingsReducer';
+import {setCardCountAC, setResetFilterAC} from './packsSettingsReducer';
 import {Input, Space} from "antd";
 import {useDebounce} from "usehooks-ts";
 
@@ -13,15 +13,21 @@ export const NumberOfCards = () => {
     const maxCardsCount = useAppSelector(state => state.packsSettings.queryParams.max)
     const resetFilter = useAppSelector(state => state.packsSettings.resetFilter)
 
+
     const [minCount, setMinCount] = useState(minCardsCount)
     const [maxCount, setMaxCount] = useState(maxCardsCount)
 
     const debouncedMinCount = useDebounce<number>(minCount, 1000)
     const debouncedMaxCount = useDebounce<number>(maxCount, 1000)
 
+    useEffect(() => {
+        setMinCount(minCardsCount)
+        setMaxCount(maxCardsCount)
+    }, [minCardsCount, maxCardsCount])
 
     useEffect(() => {
         if (debouncedMaxCount >= debouncedMinCount) {
+            console.log(minCount, maxCount)
             dispatch(setCardCountAC(minCount, maxCount))
         }
         return () => {
@@ -30,14 +36,15 @@ export const NumberOfCards = () => {
 
     }, [dispatch, resetFilter, debouncedMinCount, debouncedMaxCount])
 
-    // меняет локальные данные
+
     const onChangeRange = (e: [number, number]) => {
         setMinCount(e[0])
         setMaxCount(e[1])
     }
-    // отправляет данные в стейт, когда отпускается мышка
+
     const onAfterChangeRange = (e: [number, number]) => {
-        dispatch(setCardCountAC(e[0], e[1]))
+        setMinCount(e[0])
+        setMaxCount(e[1])
     }
 
     const onChangeMaxCountHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -58,12 +65,14 @@ export const NumberOfCards = () => {
                    size={'small'}
                    value={minCount}
                    onChange={onChangeMinCountHandler}
-
             />
-            <SuperDoubleRange value={[minCount, maxCount]} onChangeRange={onChangeRange}
+
+            <SuperDoubleRange value={[minCount, maxCount]}
+                              onChangeRange={onChangeRange}
                               onAfterChangeRange={onAfterChangeRange}
                               max={totalMaxCardsCount}
             />
+
             <Input style={{width: '40px', textAlign: 'center'}}
                    size={'small'}
                    value={maxCount}

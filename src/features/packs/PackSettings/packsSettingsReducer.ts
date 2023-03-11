@@ -1,8 +1,8 @@
-import {sortingPacksMethods} from '../../constants/sortingMethods';
-import {AppThunk, AppThunkDispatch} from '../../app/store';
-import {setAppStatusAC} from '../../app/AppReducer';
-import {packsAPI} from './PacksAPI';
-import {getPacksTC} from './packsReducer';
+import {sortingPacksMethods} from '../../../constants/sortingMethods';
+import {AppThunk, AppThunkDispatch} from '../../../app/store';
+import {setAppStatusAC} from '../../../app/AppReducer';
+import {packsAPI} from '../PacksAPI';
+import {getPacksTC} from '../packsReducer';
 
 
 const initialState = {
@@ -44,8 +44,7 @@ export const packsSettingsReducer = (state: InitialStateType = initialState, act
         case 'PACKS/SET_CARD_COUNT':
             return {
                 ...state, queryParams: {
-                    ...state.queryParams, min: action.payload.minCount
-                    , max: action.payload.maxCount
+                    ...state.queryParams, min: action.payload.minCount, max: action.payload.maxCount
                 }
             }
         case 'PACKS/SET_RESET_FILTER':

@@ -9,7 +9,7 @@ import {SuperModal} from '../../common/components/super-components/SuperModal/Su
 import {FaLongArrowAltLeft} from "react-icons/fa";
 import {routes} from "../../constants/constants";
 import {EllipsisOutlined} from '@ant-design/icons';
-import {setResetFilterAC} from '../packs/packsSettingsReducer';
+import {setAllOrMyAC, setResetFilterAC} from '../packs/PackSettings/packsSettingsReducer';
 
 
 type CardHeadPropsType = {
@@ -20,7 +20,7 @@ const items: MenuProps['items'] = [
     {
         label: (
             <Link to={routes.CARD_QUESTION}>
-                Учить
+                Learn
             </Link>
         ),
         key: '0',
@@ -41,6 +41,7 @@ export const CardsHead = (props: CardHeadPropsType) => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
     const currentCardName = useAppSelector(state => state.cards.currentCardName)
+    const allOrMy = useAppSelector(state => state.packsSettings.allOrMy)
 
     const myId = useAppSelector(state => state.auth.userData._id)
     const MyCardMode = myId === packUserId
@@ -70,12 +71,16 @@ export const CardsHead = (props: CardHeadPropsType) => {
     const learnHandler = () => {
         navigate(routes.CARD_QUESTION)
     }
+    const backToPacksHandler = () => {
+        dispatch(setAllOrMyAC(allOrMy))
+        //dispatch(setResetFilterAC(true))
+    }
     return (
         <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
 
             <div>
                 <Link style={{textDecoration: 'none', color: 'black'}} to={routes.PACKS}
-                      onClick={() => dispatch(setResetFilterAC(true))}>
+                      onClick={backToPacksHandler}>
                     <FaLongArrowAltLeft/> Back to Packs List
                 </Link>
 
@@ -84,14 +89,15 @@ export const CardsHead = (props: CardHeadPropsType) => {
                         <Typography.Title level={1}>
                             {currentCardName}
                         </Typography.Title>
-                        {MyCardMode && <Dropdown menu={{items}} placement="bottomLeft">
-                            <a onClick={(e) => e.preventDefault()}>
-                                <Space>
-                                    <EllipsisOutlined
-                                        style={{fontSize: '30px', margin: '15px 0px 0px 10px'}}/>
-                                </Space>
-                            </a>
-                        </Dropdown>}
+                        {MyCardMode &&
+                            <Dropdown menu={{items}} placement="bottomLeft">
+                                <a onClick={(e) => e.preventDefault()}>
+                                    <Space>
+                                        <EllipsisOutlined
+                                            style={{fontSize: '30px', margin: '15px 0px 0px 10px'}}/>
+                                    </Space>
+                                </a>
+                            </Dropdown>}
                     </div>
                     {!MyCardMode && <Button type="primary" onClick={learnHandler}>Learn</Button>}
                     {MyCardMode && <Button type="primary" onClick={showModalHandle}>Add Card</Button>}

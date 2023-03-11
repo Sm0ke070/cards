@@ -34,6 +34,7 @@ const setPacks = (packs: SetPacksPropsType) => ({type: 'PACKS/SET_PACKS', payloa
 export const getPacksTC = (filter?: string) => async (dispatch: AppThunkDispatch, getState: () => AppRootStateType) => {
     const {packName, sortPacks, max, min, page, pageCount} = getState().packsSettings.queryParams
     const user_id = filter === 'MY' ? getState().auth.userData._id : ''
+    //const user_id =
     dispatch(setAppStatusAC('loading'))
 
     try {
