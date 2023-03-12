@@ -1,6 +1,6 @@
 import React, {FC, SyntheticEvent, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../app/store';
-import {Button, Input, message, Popconfirm, Tooltip} from 'antd';
+import {Button, Input, message, Popconfirm, Space, Tooltip} from 'antd';
 import {BookTwoTone, DeleteTwoTone, EditTwoTone} from '@ant-design/icons';
 import {SuperModal} from '../../common/components/super-components/SuperModal/SuperModal';
 import {routes} from '../../constants/constants';
@@ -57,7 +57,7 @@ export const ActionsPacks: FC<ActionsPropsType> = ({packUserId, packId, name, ca
             }
         }))
         setShowModal(false)
-        message.success('Колода изменена');
+        message.success('Deck changed');
     }
     const handleCancel = (e: SyntheticEvent) => {
         e.stopPropagation()
@@ -67,14 +67,14 @@ export const ActionsPacks: FC<ActionsPropsType> = ({packUserId, packId, name, ca
         setDeckCoverImage(image)
     }
     const confirmRemove = (e: React.MouseEvent<HTMLElement, MouseEvent> | undefined) => {
-         e?.stopPropagation()
+        e?.stopPropagation()
         dispatch(deletePackTC(packId))
-        message.success('Колода удалена');
+        message.success('Deck removed');
     };
 
     return (
-        <div>
-            <Tooltip title='Учить'>
+        <Space>
+            <Tooltip title='Learn'>
                 <Button onClick={e => onClickLearn(e)}
                         disabled={!cardsCount}
                         icon={<BookTwoTone style={{fontSize: '18px', padding: '4px'}}/>}/>
@@ -82,18 +82,18 @@ export const ActionsPacks: FC<ActionsPropsType> = ({packUserId, packId, name, ca
             {showEdit && <>
 
                 <Popconfirm
-                    title="Удалить"
-                    description="Вы уверены, что хотите удалить колоду?"
+                    title="Delete"
+                    description="Are you sure you want to delete the deck?"
                     onConfirm={confirmRemove}
-                    okText="Да"
-                    cancelText="Нет"
+                    okText="Yes"
+                    cancelText="No"
                 >
-                    <Tooltip title='Удалить'>
+                    <Tooltip title='Delete'>
                         <Button
-                                icon={<DeleteTwoTone style={{fontSize: '18px', padding: '4px'}}/>}/>
+                            icon={<DeleteTwoTone style={{fontSize: '18px', padding: '4px'}}/>}/>
                     </Tooltip>
                 </Popconfirm>
-                <Tooltip title='Изменить'>
+                <Tooltip title='Change'>
                     <SuperModal title={'Change name Pack'} showModal={showModal} handleOkCallback={handleOk}
                                 handleCancelCallback={handleCancel}>
                         <Input value={newName}
@@ -108,7 +108,7 @@ export const ActionsPacks: FC<ActionsPropsType> = ({packUserId, packId, name, ca
                             icon={<EditTwoTone style={{fontSize: '18px', padding: '4px'}}/>}/>
                 </Tooltip></>}
 
-        </div>
+        </Space>
     );
 };
 

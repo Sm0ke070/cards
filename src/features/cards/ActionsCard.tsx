@@ -1,6 +1,6 @@
 import React, {SyntheticEvent, useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from "../../app/store";
-import {Button, Input, Popconfirm, Tooltip} from "antd";
+import {Button, Input, Popconfirm, Space, Tooltip} from "antd";
 import {DeleteTwoTone, EditTwoTone} from "@ant-design/icons";
 import {changeCardNameTC, removeCardsTC} from "./cardsReducer";
 import {SuperModal} from "../../common/components/super-components/SuperModal/SuperModal";
@@ -62,7 +62,7 @@ const ActionsCard = (props: ActionsCardPropsType) => {
     return (
         <div>
             {showEdit &&
-                <>
+                <Space>
                     <Popconfirm title={'Delete question?'}
                                 onConfirm={(e) => e && handleOkRemove(e)}
                                 onCancel={(e) => e && handleCancelRemove(e)}>
@@ -89,7 +89,7 @@ const ActionsCard = (props: ActionsCardPropsType) => {
                             // disabled={disabled}
                                 icon={<EditTwoTone style={{fontSize: '18px', padding: '4px'}}/>}/>
                     </Tooltip>
-                </>
+                </Space>
             }
         </div>
     );
